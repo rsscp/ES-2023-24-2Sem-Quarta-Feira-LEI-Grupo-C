@@ -17,12 +17,11 @@ public class ISCTE {
     /**
      *This funcion tries to read data from file specified and consequently making objects
      * of the class Lecture from this data.
-     * @param filePath Specifies the file location from where are data readet
+     * @param fileName Specifies the file location from where are data readet
      * @throws IOException Exception in case of reading file
      */
-    public void readLeactures(String filePath) throws IOException {
-        URL url = this.getClass().getClassLoader().getResource(filePath);
-        File f = new File(url.getFile());
+    public void readLeactures(String fileName) throws IOException {
+        File f = new File(fileName);
         Scanner sc = new Scanner(f);
 
         sc.nextLine();
