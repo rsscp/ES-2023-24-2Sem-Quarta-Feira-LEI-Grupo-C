@@ -37,7 +37,7 @@ public class ISCTE {
     }
 
     /**
-     * This funcion write down all af the lectures.
+     * This funcion writes down all the lectures.
      */
     public void writeDownLectures() {
         for (Lecture lecture : this.lectures) {
