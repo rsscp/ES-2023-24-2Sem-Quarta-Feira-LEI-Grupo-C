@@ -38,10 +38,13 @@ public class LancaBrowser {
 			public void actionPerformed(ActionEvent e){
 				Desktop desk = Desktop.getDesktop();
 				try {
-					desk.browse(new java.net.URI("file://" + System.getProperty("user.dir") + File.separator + file));
-				} catch (IOException | URISyntaxException e1) {e1.printStackTrace();}
-			}
-	    });
+					String filePath = new File(System.getProperty("user.dir"), file).toURI().toString();
+					desk.browse(new java.net.URI(filePath));
+				} catch (IOException | URISyntaxException e1) {
+					e1.printStackTrace();
+				}
+	    	}
+		});
 	    frame.add(button);
 	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    frame.setSize(400,400);
