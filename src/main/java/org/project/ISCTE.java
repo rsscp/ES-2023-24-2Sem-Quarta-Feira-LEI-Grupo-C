@@ -1,6 +1,9 @@
 package org.project;
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.Scanner;
@@ -15,7 +18,32 @@ public class ISCTE {
     }
 
     /**
-     *This funcion tries to read data from file specified and consequently making objects
+     * Downloads a CSV file from the provided URL
+     * @param urlStr Provided URL String
+     * @throws IOException Thrown when failed to open input or output stream, failed to read from input stream or failed to write to output stream
+     * @throws MalformedURLException Thrown when parameter urlStr is an invalid URL String
+     */
+    public static void createCSV(String urlStr) throws IOException, MalformedURLException {
+        String[] urlSplit = urlStr.split("/");
+        String file = urlSplit[urlSplit.length - 1];
+        URL url = new URL(urlStr);
+
+        try (
+                BufferedInputStream bis = new BufferedInputStream(url.openStream());
+                FileOutputStream fis = new FileOutputStream(System.getProperty("user.dir") + File.separator + file);
+        ) {
+            byte[] buffer = new byte[1024];
+            int count = 0;
+            while ((count = bis.read(buffer, 0, 1024)) != -1) {
+                fis.write(buffer, 0, count);
+            }
+        } catch (IOException e) {
+            throw e;
+        }
+    }
+
+    /**
+     * Tries to read data from file specified and consequently making objects
      * of the class Lecture from this data.
      * @param fileName Specifies the file location from where are data readet
      * @throws IOException Exception in case of reading file
@@ -37,7 +65,7 @@ public class ISCTE {
     }
 
     /**
-     * This funcion writes down all the lectures.
+     * Writes down all the lectures.
      */
     public void writeDownLectures() {
         for (Lecture lecture : this.lectures) {
