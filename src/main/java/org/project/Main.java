@@ -7,8 +7,8 @@ public class Main {
     public static void main(String[] args) {
         ISCTE iscte = new ISCTE();
         try {
-            ISCTE.createCSV("https://raw.githubusercontent.com/jaswb/csvFilesES/main/HorarioDeExemplo.csv");
-            iscte.readLeactures("HorarioDeExemplo.csv");
+            iscte.createCSV("https://raw.githubusercontent.com/jaswb/csvFilesES/main/HorarioDeExemplo.csv");
+            iscte.readLeactures(iscte.getFile());
             iscte.writeDownLectures();
         } catch(MalformedURLException e) {
             // TODO Code run after receiving an invalid URL
