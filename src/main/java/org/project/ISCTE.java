@@ -1,4 +1,5 @@
 package org.project;
+
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -7,14 +8,16 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.Scanner;
+import javafx.collections.*;
 
 /**
  * This class represents the school which contains some lectures
  */
 public class ISCTE {
-    private final LinkedList<Lecture> lectures;
+    private final ObservableList<Lecture> lectures;
+
     public ISCTE() {
-        this.lectures = new LinkedList<>();
+        this.lectures = FXCollections.observableArrayList();
     }
 
     /**
@@ -62,6 +65,18 @@ public class ISCTE {
             this.lectures.add(new Lecture(arguments));
         }
         sc.close();
+    }
+
+    public ObservableList<Lecture> getPage(int pageNumber, int pageSize) throws  IndexOutOfBoundsException {
+        int firstIndex = pageNumber * pageSize;
+        if (firstIndex > lectures.size())
+            throw new IndexOutOfBoundsException("Page out of bounds");
+        int truePageSize = Math.min(lectures.size() - firstIndex + 1, pageSize);
+        return FXCollections.observableArrayList(lectures.subList(firstIndex, truePageSize));
+    }
+
+    public ObservableList<Lecture> getLectures() {
+        return lectures;
     }
 
     /**
