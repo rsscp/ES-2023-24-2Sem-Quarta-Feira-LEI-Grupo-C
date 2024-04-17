@@ -13,6 +13,7 @@ import javafx.collections.*;
  */
 public class ISCTE {
     private final ObservableList<Lecture> lectures;
+    String file;
 
     public ISCTE() {
         lectures = FXCollections.observableArrayList();

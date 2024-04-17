@@ -176,12 +176,12 @@ public class Lecture {
                 return DayOfWeek.WEDNESDAY;
             case "Sex":
                 return DayOfWeek.FRIDAY;
-            case "Sab":
+            case "Sáb":
                 return DayOfWeek.SATURDAY;
             case "Dom":
                 return DayOfWeek.SUNDAY;
             default:
-                throw new IllegalArgumentException("Invalid day of the week");
+                throw new IllegalArgumentException("Invalid day of the week: " + dayString);
         }
     }
 

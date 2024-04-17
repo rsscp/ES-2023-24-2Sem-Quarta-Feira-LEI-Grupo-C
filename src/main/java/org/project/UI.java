@@ -52,7 +52,7 @@ public class UI extends Application {
 
     private void getData() {
         try {
-            ISCTE.createCSV("https://raw.githubusercontent.com/jaswb/csvFilesES/main/HorarioDeExemplo.csv");
+            iscte.createCSV("https://raw.githubusercontent.com/jaswb/csvFilesES/main/HorarioDeExemplo.csv");
             iscte.readLeactures("HorarioDeExemplo.csv");
             iscte.writeDownLectures();
         } catch(MalformedURLException e) {
