@@ -47,6 +47,7 @@ public class UI extends Application {
         Scene scene = new Scene(new BorderPane(pagination), 1024, 768);
         stage.setScene(scene);
         stage.setTitle("Table pager");
+        stage.setMaximized(true);
         stage.show();
     }
 
@@ -87,6 +88,7 @@ public class UI extends Application {
         int fromIndex = pageIndex * rowsPerPage;
         int toIndex = Math.min(fromIndex + rowsPerPage, iscte.getLectures().size());
         table.setItems(FXCollections.observableArrayList(iscte.getLectures().subList(fromIndex, toIndex)));
+   //     table.setItems(iscte.getLectures());
 
         return new BorderPane(table);
     }

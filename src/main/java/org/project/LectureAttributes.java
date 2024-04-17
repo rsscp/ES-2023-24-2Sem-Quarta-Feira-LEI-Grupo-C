@@ -20,4 +20,5 @@ public enum LectureAttributes {
     public int getValue() {
         return value;
     }
+
 }
