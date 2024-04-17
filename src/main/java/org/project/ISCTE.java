@@ -1,9 +1,5 @@
 package org.project;
-
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -28,9 +24,9 @@ public class ISCTE {
      * @throws IOException Thrown when failed to open input or output stream, failed to read from input stream or failed to write to output stream
      * @throws MalformedURLException Thrown when parameter urlStr is an invalid URL String
      */
-    public static void createCSV(String urlStr) throws IOException, MalformedURLException {
+    public void createCSV(String urlStr) throws IOException, MalformedURLException {
         String[] urlSplit = urlStr.split("/");
-        String file = urlSplit[urlSplit.length - 1];
+        this.file = urlSplit[urlSplit.length - 1];
         URL url = new URL(urlStr);
 
         try (
@@ -53,7 +49,7 @@ public class ISCTE {
      * @param fileName Specifies the file location from where are data readet
      * @throws IOException Exception in case of reading file
      */
-    public void readLeactures(String fileName) throws IOException {
+   /* public void readLeactures(String fileName) throws IOException {
         File f = new File(fileName);
         Scanner sc = new Scanner(f);
 
@@ -67,6 +63,27 @@ public class ISCTE {
             this.lectures.add(new Lecture(arguments));
         }
         sc.close();
+    }*/
+
+    /**
+     * Tries to read data from file specified and consequently making objects
+     * of the class Lecture from this data.
+     * @param fileName Specifies the file location from where are data readet
+     * @throws IOException Exception in case of reading file
+     */
+    public void readLeactures(String fileName) throws IOException {
+        try (FileInputStream fis = new FileInputStream(fileName);
+             InputStreamReader isr = new InputStreamReader(fis);
+             BufferedReader br = new BufferedReader(isr)) {
+
+            br.readLine();
+
+            String lecture;
+            while ((lecture = br.readLine()) != null) {
+                String[] arguments = lecture.split(";");
+                this.lectures.add(new Lecture(arguments));
+            }
+        }
     }
 
     public ObservableList<Lecture> getPage(int pageNumber, int pageSize) throws  IndexOutOfBoundsException {
