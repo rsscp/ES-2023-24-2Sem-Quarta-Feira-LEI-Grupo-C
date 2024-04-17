@@ -2,26 +2,21 @@ package org.project;
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
+import javafx.collections.*;
 
 /**
  * This class represents the school which contains some lectures
  */
 public class ISCTE {
-    private final LinkedList<Lecture> lectures;
-    private String file;
-    public ISCTE() {
-        this.lectures = new LinkedList<>();
-        this.file = null;
-    }
+    private final ObservableList<Lecture> lectures;
+    String file;
 
-    /**
-     * Getter for file name
-     * @return file
-     */
-    public String getFile() {
-        return this.file;
+    public ISCTE() {
+        lectures = FXCollections.observableArrayList();
     }
 
     /**
@@ -90,6 +85,27 @@ public class ISCTE {
                 this.lectures.add(new Lecture(arguments));
             }
         }
+    }
+
+    public ObservableList<Lecture> getPage(int pageNumber, int pageSize) throws  IndexOutOfBoundsException {
+        int firstIndex = pageNumber * pageSize;
+        if (firstIndex > lectures.size())
+            throw new IndexOutOfBoundsException("Page out of bounds");
+        int truePageSize = Math.min(lectures.size() - firstIndex + 1, pageSize);
+        return FXCollections.observableArrayList(lectures.subList(firstIndex, truePageSize));
+    }
+
+    public ObservableList<Lecture> getLectures() {
+        return lectures;
+    }
+
+    public ObservableList<Lecture> getLectures(List<Filter> filters) {
+        ObservableList<Lecture> filteredLectures = FXCollections.observableArrayList();
+        for (Lecture l: lectures) {
+            if (l.testFilters(filters))
+                filteredLectures.add(l);
+        }
+        return filteredLectures;
     }
 
     /**

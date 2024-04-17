@@ -15,6 +15,7 @@ public class LancaBrowser {
 
 	public static void main(String[] args) throws IOException {
 		String urlStr = "https://github.com/vbasto-iscte/dataset-horarios/raw/main/SalasDeAulaPorTiposDeSala.html";
+		//String urlStr = "https://github.com/rsscp/ES_JJJDDR/blob/main/SalasDeAulaPorTiposDeSala.html";
 		String file = "SalasDeAulaPorTiposDeSala.html";
 		URL url = new URL(urlStr);
     	BufferedInputStream bis = new BufferedInputStream(url.openStream());
