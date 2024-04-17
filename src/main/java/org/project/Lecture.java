@@ -1,5 +1,16 @@
 package org.project;
 
+import java.sql.Time;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * Representation of specific lecure in the school.
  */
@@ -9,12 +20,13 @@ public class Lecture {
     private String shift;
     private String classN;
     private int numberOfStudentsAssigned;
-    private String  dayOfTheWeek;
-    private String startOfClass;
-    private String endOfClass;
-    private String dateOfClass;
+    private DayOfWeek dayOfTheWeek;
+    private LocalTime startOfClass;
+    private LocalTime endOfClass;
+    private LocalDate dateOfClass;
     private String specificationOfRoom;
     private String roomCode;
+    private List<BiConsumer<String,String>> filterMethods;      //TODO
 
     /**
      * Constructor of specific lectures
@@ -26,18 +38,18 @@ public class Lecture {
         this.shift = arguments[2];
         this.classN = arguments[3];
         this.numberOfStudentsAssigned = Integer.parseInt(arguments[4]);
-        this.dayOfTheWeek = arguments[5];
-        this.startOfClass = arguments[6];
-        this.endOfClass = arguments[7];
+        this.dayOfTheWeek = determineDayOfWeek(arguments[5]);
+        this.startOfClass = determineLocalTime(arguments[6]);
+        this.endOfClass = determineLocalTime(arguments[7]);
 
         if (arguments.length == 8) {
-            this.dateOfClass = "";
-            this.specificationOfRoom = "";
-            this.roomCode = "";
+            this.dateOfClass = null;
+            this.specificationOfRoom = null;
+            this.roomCode = null;
         } else if (arguments.length == 10 || arguments.length == 11){
-            this.dateOfClass = arguments[8];
+            this.dateOfClass = determineLocalDate(arguments[8]);
             this.specificationOfRoom = arguments[9];
-            this.roomCode = arguments.length == 11 ? arguments[10] : "";
+            this.roomCode = arguments.length == 11 ? arguments[10] : null;
         } else {
             for (String s: arguments)
                 System.err.println(s);
@@ -89,7 +101,7 @@ public class Lecture {
      * Getter method for attribute dayOfTheWeek
      * @return dayOfTheWeek
      */
-    public String getDayOfTheWeek() {
+    public DayOfWeek getDayOfTheWeek() {
         return dayOfTheWeek;
     }
 
@@ -97,7 +109,7 @@ public class Lecture {
      * Getter method for attribute startOfClass
      * @return startOfClass
      */
-    public String getStartOfClass() {
+    public LocalTime getStartOfClass() {
         return startOfClass;
     }
 
@@ -105,7 +117,7 @@ public class Lecture {
      * Getter method for attribute end of class
      * @return endOfClass
      */
-    public String getEndOfClass() {
+    public LocalTime getEndOfClass() {
         return endOfClass;
     }
 
@@ -113,7 +125,7 @@ public class Lecture {
      * Getter method for attribute dateOfClass
      * @return dateOfClass
      */
-    public String getDateOfClass() {
+    public LocalDate getDateOfClass() {
         return dateOfClass;
     }
 
@@ -150,5 +162,182 @@ public class Lecture {
                 ";" + this.dateOfClass +
                 ";" + this.specificationOfRoom +
                 ";" + this.roomCode;
+    }
+
+    private DayOfWeek determineDayOfWeek(String dayString) throws IllegalArgumentException {
+        switch(dayString) {
+            case "Seg":
+                return DayOfWeek.MONDAY;
+            case "Ter":
+                return DayOfWeek.TUESDAY;
+            case "Qua":
+                return DayOfWeek.THURSDAY;
+            case "Qui":
+                return DayOfWeek.WEDNESDAY;
+            case "Sex":
+                return DayOfWeek.FRIDAY;
+            case "Sab":
+                return DayOfWeek.SATURDAY;
+            case "Dom":
+                return DayOfWeek.SUNDAY;
+            default:
+                throw new IllegalArgumentException("Invalid day of the week");
+        }
+    }
+
+    private LocalTime determineLocalTime(String timeString) throws IndexOutOfBoundsException {
+        String[] timeParts = timeString.split(":");
+        return LocalTime.of(
+                Integer.parseInt(timeParts[0]),
+                Integer.parseInt(timeParts[1]),
+                Integer.parseInt(timeParts[2])
+        );
+    }
+
+    private LocalDate determineLocalDate(String dateString) {
+        String[] timeParts = dateString.split("/");
+        return LocalDate.of(
+                Integer.parseInt(timeParts[2]),
+                Integer.parseInt(timeParts[1]),
+                Integer.parseInt(timeParts[0])
+        );
+    }
+
+    /**
+     * Getter method for attribute course
+     * @return course
+     */
+    private boolean filterCourse(String filterString) {
+        return filterString(course, filterString);
+    }
+
+    /**
+     * Getter method for attribute curricularUnit
+     * @return curricularUnit
+     */
+    private boolean filterCurricuralUnit(String filterString) {
+        return filterString(curricuralUnit, filterString);
+    }
+
+    /**
+     * Getter method for attribute shift
+     * @return shift
+     */
+    private boolean filterShift(String filterString) {
+        return filterString(shift, filterString);
+    }
+
+    /**
+     * Getter method for attribute classN
+     * @return classN
+     */
+    private boolean filterClassN(String filterString) {
+        return filterString(classN, filterString);
+    }
+
+    /**
+     * Getter method for attribute numberOfStudentsAssigned
+     * @return numberOfStudentsAssigned
+     */
+    private boolean filterNumberOfStudentsAssigned(String filterString) {
+        return filterString(Integer.toString(numberOfStudentsAssigned), filterString);
+    }
+
+    /**
+     * Getter method for attribute dayOfTheWeek
+     * @return dayOfTheWeek
+     */
+    private boolean filterDayOfTheWeek(String filterString) {
+        return filterString(dayOfTheWeek.toString(), filterString);
+    }
+
+    /**
+     * Getter method for attribute startOfClass
+     * @return startOfClass
+     */
+    private boolean filterStartOfClass(String filterString) {
+        return filterString(startOfClass.toString(), filterString);
+    }
+
+    /**
+     * Getter method for attribute end of class
+     * @return endOfClass
+     */
+    private boolean filterEndOfClass(String filterString) {
+        return filterString(endOfClass.toString(), filterString);
+    }
+
+    /**
+     * Getter method for attribute dateOfClass
+     * @return dateOfClass
+     */
+    private boolean filterDateOfClass(String filterString) {
+        return filterString(dateOfClass.toString(), filterString);
+    }
+
+    /**
+     * Getter method for attribute specificationOfRoom
+     * @return specificationOfRoom
+     */
+    private boolean filterSpecificationOfRoom(String filterString) {
+        return filterString(specificationOfRoom, filterString);
+    }
+
+    /**
+     * Getter method for attribute roomCode
+     * @return roomCode
+     */
+    private boolean filterRoomCode(String filterString) {
+        return filterString(roomCode, filterString);
+    }
+
+    public boolean testFilters(List<Filter> filters) {
+        boolean result = true;
+        for (Filter filter: filters) {
+            switch (filter.getAttributeIndex()) {
+                case 0:
+                    result &= filterCourse(filter.getFilterString());
+                    break;
+                case 1:
+                    result &= filterCurricuralUnit(filter.getFilterString());
+                    break;
+                case 2:
+                    result &= filterShift(filter.getFilterString());
+                    break;
+                case 3:
+                    result &= filterClassN(filter.getFilterString());
+                    break;
+                case 4:
+                    result &= filterNumberOfStudentsAssigned(filter.getFilterString());
+                    break;
+                case 5:
+                    result &= filterDayOfTheWeek(filter.getFilterString());
+                    break;
+                case 6:
+                    result &= filterStartOfClass(filter.getFilterString());
+                    break;
+                case 7:
+                    result &= filterEndOfClass(filter.getFilterString());
+                    break;
+                case 8:
+                    result &= filterDateOfClass(filter.getFilterString());
+                    break;
+                case 9:
+                    result &= filterSpecificationOfRoom(filter.getFilterString());
+                    break;
+                case 10:
+                    result &= filterRoomCode(filter.getFilterString());
+                    break;
+                default:
+                    throw new IllegalArgumentException("No lecture attribute with index " + filter.getAttributeIndex());
+            }
+        }
+        return result;
+    }
+
+    private boolean filterString(String toBeFiltered, String filter) {
+        Pattern pattern = Pattern.compile(filter, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(toBeFiltered);
+        return matcher.find();
     }
 }

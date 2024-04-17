@@ -17,7 +17,7 @@ public enum LectureAttributes {
         this.value = value;
     }
 
-    public int getAttributeValue() {
+    public int getValue() {
         return value;
     }
 }

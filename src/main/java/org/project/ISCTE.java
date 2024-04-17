@@ -6,7 +6,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 import javafx.collections.*;
 
@@ -17,7 +19,7 @@ public class ISCTE {
     private final ObservableList<Lecture> lectures;
 
     public ISCTE() {
-        this.lectures = FXCollections.observableArrayList();
+        lectures = FXCollections.observableArrayList();
     }
 
     /**
@@ -77,6 +79,15 @@ public class ISCTE {
 
     public ObservableList<Lecture> getLectures() {
         return lectures;
+    }
+
+    public ObservableList<Lecture> getLectures(List<Filter> filters) {
+        ObservableList<Lecture> filteredLectures = FXCollections.observableArrayList();
+        for (Lecture l: lectures) {
+            if (l.testFilters(filters))
+                filteredLectures.add(l);
+        }
+        return filteredLectures;
     }
 
     /**

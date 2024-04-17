@@ -1,6 +1,9 @@
 package org.project;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.*;
@@ -20,11 +23,11 @@ public class UI extends Application {
     private final int COL_SIZE = 100;
 
     private ISCTE iscte = new ISCTE();
+    int rowsPerPage = 10;
 
     Stage stage;
-    BorderPane root = new BorderPane();
+    ScrollPane root;
     final VBox filtersVBox = new VBox();
-    final VBox rootVBox = new VBox();
     private TableView table = new TableView();
     List<Label> filterLabels = new ArrayList<>();
     List<TextField> filterTextFields = new ArrayList<>();
@@ -37,30 +40,17 @@ public class UI extends Application {
 
     @Override
     public void start(Stage stage) {
-        Scene scene = new Scene(root);
-
-        this.stage = stage;
-        stage.setTitle("Table View Sample");
-        stage.setMaximized(true);
-
-        rootVBox.setSpacing(5);
-        rootVBox.setPadding(new Insets(10, 0, 0, 10));
-
-        ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setContent(rootVBox);
-        root.setCenter(scrollPane);
-
-        tableLabel.setFont(new Font("Arial", 18));
-
-        setupData();
-        setupFilters();
-        setupTable();
-
+        getData();
+        createTable();
+        Pagination pagination = new Pagination((iscte.getLectures().size() / rowsPerPage + 1), 0);
+        pagination.setPageFactory(this::createPage);
+        Scene scene = new Scene(new BorderPane(pagination), 1024, 768);
         stage.setScene(scene);
+        stage.setTitle("Table pager");
         stage.show();
     }
 
-    private void setupData() {
+    private void getData() {
         try {
             ISCTE.createCSV("https://raw.githubusercontent.com/jaswb/csvFilesES/main/HorarioDeExemplo.csv");
             iscte.readLeactures("HorarioDeExemplo.csv");
@@ -72,7 +62,7 @@ public class UI extends Application {
         }
     }
 
-    private void setupFilters() {
+    private void makeFilters() {
         for (LectureAttributes a : LectureAttributes.values()) {
             Label currentLabel = new Label(a.name());
             TextField currentTextField = new TextField();
@@ -80,24 +70,24 @@ public class UI extends Application {
             filterTextFields.add(currentTextField);
             filtersVBox.getChildren().addAll(currentLabel, currentTextField);
         }
-        rootVBox.getChildren().add(filtersVBox);
     }
 
-    private void setupTable() {
-        table.prefHeightProperty().bind(stage.heightProperty());
-        table.prefWidthProperty().bind(stage.widthProperty());
+    private void createTable() {
         table.setEditable(false);
-
         for (LectureAttributes a : LectureAttributes.values()) {
             TableColumn currentCol = new TableColumn(a.name());
             currentCol.setMinWidth(COL_SIZE);
             currentCol.setCellValueFactory(new PropertyValueFactory<Lecture,String>(a.name()));
             tableColumns.add(currentCol);
         }
-
-        table.setItems(iscte.getLectures());
         table.getColumns().addAll(tableColumns);
+    }
 
-        rootVBox.getChildren().addAll(tableLabel, table);
+    private Node createPage(int pageIndex) {
+        int fromIndex = pageIndex * rowsPerPage;
+        int toIndex = Math.min(fromIndex + rowsPerPage, iscte.getLectures().size());
+        table.setItems(FXCollections.observableArrayList(iscte.getLectures().subList(fromIndex, toIndex)));
+
+        return new BorderPane(table);
     }
 }
