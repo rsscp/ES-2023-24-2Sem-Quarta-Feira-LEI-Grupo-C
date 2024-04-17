@@ -90,4 +90,21 @@ public class UI extends Application {
 
         return new BorderPane(table);
     }
+
+    private void setVisibleFilteredItems(String[] items) {
+        table.setItems(filtersLectures(items));
+    }
+
+    private ObservableList<Lecture> filtersLectures(String[] pFilters) {
+        String[] filters = pFilters;
+        List<Filter> f = new ArrayList<>();
+        LectureAttributes[] lectureAttributes = LectureAttributes.values();
+
+        for (int i = 0; i < filters.length; i++) {
+            if (!filters[i].equals("")) {
+                f.add(new Filter(lectureAttributes[i], filters[i]));
+            }
+        }
+        return iscte.getLectures(f);
+    }
 }
