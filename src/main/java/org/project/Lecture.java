@@ -26,7 +26,7 @@ public class Lecture {
     private LocalDate dateOfClass;
     private String specificationOfRoom;
     private String roomCode;
-    private List<BiConsumer<String,String>> filterMethods;      //TODO
+    private List<FilterConsumer<String>> filterMethods;      //TODO
 
     /**
      * Constructor of specific lectures
@@ -55,6 +55,20 @@ public class Lecture {
                 System.err.println(s);
             throw new IllegalArgumentException("Read line with illegal number of fields");
         }
+
+        /*
+        filterMethods.add(filter -> filterString(course, filter));
+        filterMethods.add(filter -> filterString(curricuralUnit, filter));
+        filterMethods.add(filter -> filterString(shift, filter));
+        filterMethods.add(filter -> filterString(classN, filter));
+        filterMethods.add(filter -> filterString(Integer.toString(numberOfStudentsAssigned), filter));
+        filterMethods.add(filter -> filterString(dayOfTheWeek.toString, filter));
+        filterMethods.add(filter -> filterString(course, filter));
+        filterMethods.add(filter -> filterString(course, filter));
+        filterMethods.add(filter -> filterString(course, filter));
+        filterMethods.add(filter -> filterString(course, filter));
+        filterMethods.add(filter -> filterString(course, filter));
+        */
     }
 
     /**

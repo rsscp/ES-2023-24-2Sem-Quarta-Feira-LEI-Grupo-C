@@ -7,9 +7,12 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.geometry.Insets;
 
@@ -26,8 +29,9 @@ public class UI extends Application {
     int rowsPerPage = 10;
 
     Stage stage;
-    ScrollPane root;
-    final VBox filtersVBox = new VBox();
+    StackPane root = new StackPane();
+    final VBox mainVBox = new VBox();
+    final HBox filtersHBox = new HBox();
     private TableView table = new TableView();
     List<Label> filterLabels = new ArrayList<>();
     List<TextField> filterTextFields = new ArrayList<>();
@@ -40,11 +44,18 @@ public class UI extends Application {
 
     @Override
     public void start(Stage stage) {
+        this.stage = stage;
+        stage.setWidth(1200);
+        stage.setHeight(800);
+        stage.setMaximized(true);
+        //mainVBox.setSpacing(5);
+        //mainVBox.setPadding(new Insets(10, 0, 0, 10));
+        mainVBox.getChildren().addAll(filtersHBox);
         getData();
+        createFilters();
         createTable();
-        Pagination pagination = new Pagination((iscte.getLectures().size() / rowsPerPage + 1), 0);
-        pagination.setPageFactory(this::createPage);
-        Scene scene = new Scene(new BorderPane(pagination), 1024, 768);
+        root.getChildren().addAll(mainVBox);
+        Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setTitle("Table pager");
         stage.show();
@@ -62,25 +73,31 @@ public class UI extends Application {
         }
     }
 
-    private void makeFilters() {
+    private void createFilters() {
         for (LectureAttributes a : LectureAttributes.values()) {
-            Label currentLabel = new Label(a.name());
+            //Label currentLabel = new Label(a.name());
             TextField currentTextField = new TextField();
-            filterLabels.add(currentLabel);
+            currentTextField.prefWidthProperty().bind(stage.widthProperty().divide(11));  //TODO not hardcoded
+            //filterLabels.add(currentLabel);
             filterTextFields.add(currentTextField);
-            filtersVBox.getChildren().addAll(currentLabel, currentTextField);
+            //filtersVBox.getChildren().addAll(currentLabel, currentTextField);
+            filtersHBox.getChildren().addAll(currentTextField);
         }
     }
 
     private void createTable() {
+        table.prefHeightProperty().bind(stage.heightProperty());
+        //table.prefWidthProperty().bind(stage.widthProperty());
         table.setEditable(false);
         for (LectureAttributes a : LectureAttributes.values()) {
             TableColumn currentCol = new TableColumn(a.name());
-            currentCol.setMinWidth(COL_SIZE);
+            currentCol.prefWidthProperty().bind(stage.widthProperty().divide(11));  //TODO not hardcoded
             currentCol.setCellValueFactory(new PropertyValueFactory<Lecture,String>(a.name()));
             tableColumns.add(currentCol);
         }
         table.getColumns().addAll(tableColumns);
+        table.setItems(iscte.getLectures());
+        mainVBox.getChildren().addAll(table);
     }
 
     private Node createPage(int pageIndex) {
