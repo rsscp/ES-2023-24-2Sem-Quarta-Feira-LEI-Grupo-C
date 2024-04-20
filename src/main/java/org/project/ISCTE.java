@@ -9,9 +9,11 @@ import java.util.Scanner;
  * This class represents the school which contains some lectures
  */
 public class ISCTE {
+    private final LinkedList<Room> rooms;
     private final LinkedList<Lecture> lectures;
     private String file;
     public ISCTE() {
+        this.rooms = new LinkedList<>();
         this.lectures = new LinkedList<>();
         this.file = null;
     }
