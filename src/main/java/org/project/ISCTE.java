@@ -2,28 +2,24 @@ package org.project;
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
+import javafx.collections.*;
 
 /**
  * This class represents the school which contains some lectures
  */
 public class ISCTE {
     private final LinkedList<Room> rooms;
-    private final LinkedList<Lecture> lectures;
-    private String file;
-    public ISCTE() {
-        this.rooms = new LinkedList<>();
-        this.lectures = new LinkedList<>();
-        this.file = null;
-    }
+    private final ObservableList<Lecture> lectures;
+    String file;
 
-    /**
-     * Getter for file name
-     * @return file
-     */
-    public String getFile() {
-        return this.file;
+    public ISCTE() {
+        lectures = FXCollections.observableArrayList();
+        rooms = new LinkedList<>();
+        this.file = null;
     }
 
     /**
@@ -57,28 +53,6 @@ public class ISCTE {
      * @param fileName Specifies the file location from where are data readet
      * @throws IOException Exception in case of reading file
      */
-   /* public void readLeactures(String fileName) throws IOException {
-        File f = new File(fileName);
-        Scanner sc = new Scanner(f);
-
-        sc.nextLine();
-
-        String lecture = "";
-
-        while (sc.hasNextLine()) {
-            lecture = sc.nextLine();
-            String[] arguments = lecture.split(";");
-            this.lectures.add(new Lecture(arguments));
-        }
-        sc.close();
-    }*/
-
-    /**
-     * Tries to read data from file specified and consequently making objects
-     * of the class Lecture from this data.
-     * @param fileName Specifies the file location from where are data readet
-     * @throws IOException Exception in case of reading file
-     */
     public void readLeactures(String fileName) throws IOException {
         try (FileInputStream fis = new FileInputStream(fileName);
              InputStreamReader isr = new InputStreamReader(fis);
@@ -94,12 +68,34 @@ public class ISCTE {
         }
     }
 
+    public ObservableList<Lecture> getPage(int pageNumber, int pageSize) throws  IndexOutOfBoundsException {
+        int firstIndex = pageNumber * pageSize;
+        if (firstIndex > lectures.size())
+            throw new IndexOutOfBoundsException("Page out of bounds");
+        int truePageSize = Math.min(lectures.size() - firstIndex + 1, pageSize);
+        return FXCollections.observableArrayList(lectures.subList(firstIndex, truePageSize));
+    }
+
+    public ObservableList<Lecture> getLectures() {
+        return lectures;
+    }
+
+    public ObservableList<Lecture> getLectures(List<Filter> filters, boolean includeEveryFilter) {
+        ObservableList<Lecture> filteredLectures = FXCollections.observableArrayList();
+        for (Lecture l: lectures) {
+            if (l.testFilters(filters, includeEveryFilter))
+                filteredLectures.add(l);
+        }
+        return filteredLectures;
+    }
+
     /**
      * Writes down all the lectures.
      */
     public void writeDownLectures() {
         for (Lecture lecture : this.lectures) {
             System.out.println(lecture);
+            break;
         }
     }
 }
