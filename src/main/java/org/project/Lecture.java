@@ -320,13 +320,40 @@ public class Lecture {
                     result = filterEndOfClass(filter.getFilterString());
                     break;
                 case 8:
-                    result = filterDateOfClass(filter.getFilterString());
+                    if (this.dateOfClass == null) {
+                        if (includeEveryFilter) {
+                            return false;
+                        } else {
+                            result = false;
+                        }
+                    }
+                    if (this.dateOfClass != null) {
+                        result = filterDateOfClass(filter.getFilterString());
+                    }
                     break;
                 case 9:
-                    result = filterSpecificationOfRoom(filter.getFilterString());
+                    if (this.specificationOfRoom == null) {
+                        if (includeEveryFilter) {
+                            return false;
+                        } else {
+                            result = false;
+                        }
+                    }
+                    if (this.specificationOfRoom != null) {
+                        result = filterSpecificationOfRoom(filter.getFilterString());
+                    }
                     break;
                 case 10:
-                    result = filterRoomCode(filter.getFilterString());
+                    if (this.roomCode == null) {
+                        if (includeEveryFilter) {
+                            return false;
+                        } else {
+                            result = false;
+                        }
+                    }
+                    if (this.roomCode != null) {
+                        result = filterRoomCode(filter.getFilterString());
+                    }
                     break;
                 default:
                     throw new IllegalArgumentException("No lecture attribute with index " + filter.getAttributeIndex());
@@ -342,8 +369,9 @@ public class Lecture {
     }
 
     private boolean filterString(String toBeFiltered, String filter) {
-        Pattern pattern = Pattern.compile(filter, Pattern.CASE_INSENSITIVE);
+        return toBeFiltered.equals(filter);
+        /*Pattern pattern = Pattern.compile(filter, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(toBeFiltered);
-        return matcher.find();
+        return matcher.find();*/
     }
 }
