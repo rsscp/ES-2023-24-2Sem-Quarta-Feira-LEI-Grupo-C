@@ -64,6 +64,7 @@ public class UI extends Application {
         Scene scene = new Scene(this.borderPane, 1024, 768);
         stage.setScene(scene);
         stage.setTitle("Table pager");
+        stage.setMaximized(true);
         stage.show();
     }
 

@@ -43,7 +43,7 @@ public class ISCTE {
             throw e;
         }
     }
-    
+
     /**
      * Tries to read data from file specified and consequently making objects
      * of the class Lecture from this data.
@@ -92,6 +92,7 @@ public class ISCTE {
     public void writeDownLectures() {
         for (Lecture lecture : this.lectures) {
             System.out.println(lecture);
+            break;
         }
     }
 }
