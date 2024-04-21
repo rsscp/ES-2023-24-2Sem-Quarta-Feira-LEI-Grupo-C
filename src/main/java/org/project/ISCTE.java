@@ -12,11 +12,14 @@ import javafx.collections.*;
  * This class represents the school which contains some lectures
  */
 public class ISCTE {
+    private final LinkedList<Room> rooms;
     private final ObservableList<Lecture> lectures;
     String file;
 
     public ISCTE() {
         lectures = FXCollections.observableArrayList();
+        rooms = new LinkedList<>();
+        this.file = null;
     }
 
     /**
