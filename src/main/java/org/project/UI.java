@@ -91,11 +91,11 @@ public class UI extends Application {
         return new BorderPane(table);
     }
 
-    private void setVisibleFilteredItems(String[] items) {
-        table.setItems(filtersLectures(items));
+    private void setVisibleFilteredItems(String[] items, boolean includeEverything) {
+        table.setItems(filtersLectures(items, includeEverything));
     }
 
-    private ObservableList<Lecture> filtersLectures(String[] pFilters) {
+    private ObservableList<Lecture> filtersLectures(String[] pFilters, boolean includeEveryFilter) {
         String[] filters = pFilters;
         List<Filter> f = new ArrayList<>();
         LectureAttributes[] lectureAttributes = LectureAttributes.values();
@@ -105,6 +105,6 @@ public class UI extends Application {
                 f.add(new Filter(lectureAttributes[i], filters[i]));
             }
         }
-        return iscte.getLectures(f);
+        return iscte.getLectures(f, includeEveryFilter);
     }
 }
