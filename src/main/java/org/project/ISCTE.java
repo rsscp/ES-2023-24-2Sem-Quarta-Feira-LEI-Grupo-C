@@ -98,4 +98,32 @@ public class ISCTE {
             break;
         }
     }
+
+    public void readRoomsFromCSV(String fileName) throws IOException {
+        try (FileInputStream fis = new FileInputStream(fileName);
+             InputStreamReader isr = new InputStreamReader(fis);
+             BufferedReader br = new BufferedReader(isr)) {
+
+            while (br.readLine() != null) {
+                String line = br.readLine();
+                String[] arguments = line.split("\t");
+
+                String designation = arguments[0];
+                String building = arguments[1];
+                int normalCapcity = Integer.parseInt(arguments[2]);
+                int examCapacity = Integer.parseInt(arguments[3]);
+                int numOfCharacteristics = Integer.parseInt(arguments[4]);
+                boolean[] otherProperties = new boolean[(arguments.length - 1 - 6)];
+
+                for(int i = 0; i < arguments.length; i++){
+                    if(arguments[i + 5].equals('X')){
+                        otherProperties[i] = true;
+                    }else{
+                        otherProperties[i] = false;
+                    }
+                }
+                rooms.add(new Room(building, designation, normalCapcity, examCapacity, numOfCharacteristics, otherProperties));
+            }
+        }
+    }
 }
