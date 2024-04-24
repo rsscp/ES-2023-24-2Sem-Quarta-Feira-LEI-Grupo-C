@@ -80,7 +80,6 @@ public class Lecture {
     }
 
     private String roomCode;
-    private List<BiConsumer<String,String>> filterMethods;      //TODO
 
     /**
      * Constructor of specific lectures
@@ -110,7 +109,19 @@ public class Lecture {
             throw new IllegalArgumentException("Read line with illegal number of fields");
         }
 
-
+        /*
+        filterMethods.add(filter -> filterString(course, filter));
+        filterMethods.add(filter -> filterString(curricuralUnit, filter));
+        filterMethods.add(filter -> filterString(shift, filter));
+        filterMethods.add(filter -> filterString(classN, filter));
+        filterMethods.add(filter -> filterString(Integer.toString(numberOfStudentsAssigned), filter));
+        filterMethods.add(filter -> filterString(dayOfTheWeek.toString, filter));
+        filterMethods.add(filter -> filterString(course, filter));
+        filterMethods.add(filter -> filterString(course, filter));
+        filterMethods.add(filter -> filterString(course, filter));
+        filterMethods.add(filter -> filterString(course, filter));
+        filterMethods.add(filter -> filterString(course, filter));
+        */
     }
 
     /**
@@ -347,54 +358,88 @@ public class Lecture {
         return filterString(roomCode, filterString);
     }
 
-    public boolean testFilters(List<Filter> filters) {
+    public boolean testFilters(List<Filter> filters, boolean includeEveryFilter) {
         boolean result = true;
         for (Filter filter: filters) {
             switch (filter.getAttributeIndex()) {
                 case 0:
-                    result &= filterCourse(filter.getFilterString());
+                    result = filterCourse(filter.getFilterString());
                     break;
                 case 1:
-                    result &= filterCurricuralUnit(filter.getFilterString());
+                    result = filterCurricuralUnit(filter.getFilterString());
                     break;
                 case 2:
-                    result &= filterShift(filter.getFilterString());
+                    result = filterShift(filter.getFilterString());
                     break;
                 case 3:
-                    result &= filterClassN(filter.getFilterString());
+                    result = filterClassN(filter.getFilterString());
                     break;
                 case 4:
-                    result &= filterNumberOfStudentsAssigned(filter.getFilterString());
+                    result = filterNumberOfStudentsAssigned(filter.getFilterString());
                     break;
                 case 5:
-                    result &= filterDayOfTheWeek(filter.getFilterString());
+                    result = filterDayOfTheWeek(filter.getFilterString());
                     break;
                 case 6:
-                    result &= filterStartOfClass(filter.getFilterString());
+                    result = filterStartOfClass(filter.getFilterString());
                     break;
                 case 7:
-                    result &= filterEndOfClass(filter.getFilterString());
+                    result = filterEndOfClass(filter.getFilterString());
                     break;
                 case 8:
-                    result &= filterDateOfClass(filter.getFilterString());
+                    if (this.dateOfClass == null) {
+                        if (includeEveryFilter) {
+                            return false;
+                        } else {
+                            result = false;
+                        }
+                    }
+                    if (this.dateOfClass != null) {
+                        result = filterDateOfClass(filter.getFilterString());
+                    }
                     break;
                 case 9:
-                    result &= filterSpecificationOfRoom(filter.getFilterString());
+                    if (this.specificationOfRoom == null) {
+                        if (includeEveryFilter) {
+                            return false;
+                        } else {
+                            result = false;
+                        }
+                    }
+                    if (this.specificationOfRoom != null) {
+                        result = filterSpecificationOfRoom(filter.getFilterString());
+                    }
                     break;
                 case 10:
-                    result &= filterRoomCode(filter.getFilterString());
+                    if (this.roomCode == null) {
+                        if (includeEveryFilter) {
+                            return false;
+                        } else {
+                            result = false;
+                        }
+                    }
+                    if (this.roomCode != null) {
+                        result = filterRoomCode(filter.getFilterString());
+                    }
                     break;
                 default:
                     throw new IllegalArgumentException("No lecture attribute with index " + filter.getAttributeIndex());
             }
+            if (!includeEveryFilter && result) {
+                return true;
+            }
+            if (includeEveryFilter && !result) {
+                return false;
+            }
         }
-        return result;
+        return includeEveryFilter;
     }
 
     private boolean filterString(String toBeFiltered, String filter) {
-        Pattern pattern = Pattern.compile(filter, Pattern.CASE_INSENSITIVE);
+        return toBeFiltered.equals(filter);
+        /*Pattern pattern = Pattern.compile(filter, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(toBeFiltered);
-        return matcher.find();
+        return matcher.find();*/
     }
 
 }

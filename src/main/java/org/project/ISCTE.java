@@ -12,11 +12,22 @@ import javafx.collections.*;
  * This class represents the school which contains some lectures
  */
 public class ISCTE {
+
+    private static ISCTE instance;
+    private final LinkedList<Room> rooms;
     private final ObservableList<Lecture> lectures;
-    String file;
+    private String fileName;
 
     public ISCTE() {
         lectures = FXCollections.observableArrayList();
+        rooms = new LinkedList<>();
+        this.fileName = null;
+    }
+
+    public static ISCTE getInstance() {
+        if (instance == null)
+            instance = new ISCTE();
+        return instance;
     }
 
     /**
@@ -25,14 +36,14 @@ public class ISCTE {
      * @throws IOException Thrown when failed to open input or output stream, failed to read from input stream or failed to write to output stream
      * @throws MalformedURLException Thrown when parameter urlStr is an invalid URL String
      */
-    public void createCSV(String urlStr) throws IOException, MalformedURLException {
+    public void getUrlFile(String urlStr) throws IOException, MalformedURLException {
         String[] urlSplit = urlStr.split("/");
-        this.file = urlSplit[urlSplit.length - 1];
+        this.fileName = urlSplit[urlSplit.length - 1];
         URL url = new URL(urlStr);
 
         try (
-                BufferedInputStream bis = new BufferedInputStream(url.openStream());
-                FileOutputStream fis = new FileOutputStream(System.getProperty("user.dir") + File.separator + file);
+            BufferedInputStream bis = new BufferedInputStream(url.openStream());
+            FileOutputStream fis = new FileOutputStream(System.getProperty("user.dir") + File.separator + fileName);
         ) {
             byte[] buffer = new byte[1024];
             int count = 0;
@@ -43,7 +54,7 @@ public class ISCTE {
             throw e;
         }
     }
-    
+
     /**
      * Tries to read data from file specified and consequently making objects
      * of the class Lecture from this data.
@@ -65,22 +76,14 @@ public class ISCTE {
         }
     }
 
-    public ObservableList<Lecture> getPage(int pageNumber, int pageSize) throws  IndexOutOfBoundsException {
-        int firstIndex = pageNumber * pageSize;
-        if (firstIndex > lectures.size())
-            throw new IndexOutOfBoundsException("Page out of bounds");
-        int truePageSize = Math.min(lectures.size() - firstIndex + 1, pageSize);
-        return FXCollections.observableArrayList(lectures.subList(firstIndex, truePageSize));
-    }
-
     public ObservableList<Lecture> getLectures() {
         return lectures;
     }
 
-    public ObservableList<Lecture> getLectures(List<Filter> filters) {
+    public ObservableList<Lecture> getLectures(List<Filter> filters, boolean includeEveryFilter) {
         ObservableList<Lecture> filteredLectures = FXCollections.observableArrayList();
         for (Lecture l: lectures) {
-            if (l.testFilters(filters))
+            if (l.testFilters(filters, includeEveryFilter))
                 filteredLectures.add(l);
         }
         return filteredLectures;
@@ -92,6 +95,7 @@ public class ISCTE {
     public void writeDownLectures() {
         for (Lecture lecture : this.lectures) {
             System.out.println(lecture);
+            break;
         }
     }
 

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:id="root" spacing="10" alignment="CENTER" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="org.project.ui.StartController" prefHeight="400.0" prefWidth="600.0">
+    <StackPane minHeight="100" minWidth="250">
+        <VBox spacing="10" alignment="CENTER" maxWidth="150">
+            <Button onAction="#chooseLocalFile" textAlignment="CENTER" wrapText="true" maxWidth="10000" minHeight="50">Ficheiro local</Button>
+            <Button onAction="#openUrlInput" textAlignment="CENTER" wrapText="true" maxWidth="10000" minHeight="50">Ficheiro em repositório remoto</Button>
+        </VBox>
+    </StackPane>
+</VBox>
