@@ -94,4 +94,5 @@ public class ISCTE {
             System.out.println(lecture);
         }
     }
+
 }
