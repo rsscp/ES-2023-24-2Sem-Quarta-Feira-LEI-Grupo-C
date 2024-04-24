@@ -15,7 +15,6 @@ public class Filter {
     public int getAttributeIndex() {
         return attribute.getValue();
     }
-
     public String getFilterString() {
         return filterString;
     }

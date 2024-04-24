@@ -14,11 +14,14 @@ import javafx.collections.*;
 public class ISCTE {
 
     private static ISCTE instance;
+    private final LinkedList<Room> rooms;
     private final ObservableList<Lecture> lectures;
     private String fileName;
 
     public ISCTE() {
         lectures = FXCollections.observableArrayList();
+        rooms = new LinkedList<>();
+        this.file = null;
     }
 
     public static ISCTE getInstance() {
@@ -58,28 +61,6 @@ public class ISCTE {
      * @param fileName Specifies the file location from where are data readet
      * @throws IOException Exception in case of reading file
      */
-   /* public void readLeactures(String fileName) throws IOException {
-        File f = new File(fileName);
-        Scanner sc = new Scanner(f);
-
-        sc.nextLine();
-
-        String lecture = "";
-
-        while (sc.hasNextLine()) {
-            lecture = sc.nextLine();
-            String[] arguments = lecture.split(";");
-            this.lectures.add(new Lecture(arguments));
-        }
-        sc.close();
-    }*/
-
-    /**
-     * Tries to read data from file specified and consequently making objects
-     * of the class Lecture from this data.
-     * @param fileName Specifies the file location from where are data readet
-     * @throws IOException Exception in case of reading file
-     */
     public void readLeactures(String fileName) throws IOException {
         try (FileInputStream fis = new FileInputStream(fileName);
              InputStreamReader isr = new InputStreamReader(fis);
@@ -99,10 +80,10 @@ public class ISCTE {
         return lectures;
     }
 
-    public ObservableList<Lecture> getLectures(List<Filter> filters) {
+    public ObservableList<Lecture> getLectures(List<Filter> filters, boolean includeEveryFilter) {
         ObservableList<Lecture> filteredLectures = FXCollections.observableArrayList();
         for (Lecture l: lectures) {
-            if (l.testFilters(filters))
+            if (l.testFilters(filters, includeEveryFilter))
                 filteredLectures.add(l);
         }
         return filteredLectures;
@@ -114,6 +95,7 @@ public class ISCTE {
     public void writeDownLectures() {
         for (Lecture lecture : this.lectures) {
             System.out.println(lecture);
+            break;
         }
     }
 }
