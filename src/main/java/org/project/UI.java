@@ -12,13 +12,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.control.TextField;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.*;
+import javafx.scene.layout.*;
+import javafx.stage.FileChooser;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.geometry.Insets;
 
-
+import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,6 +53,10 @@ public class UI extends Application {
 
     @Override
     public void start(Stage stage) {
+        this.stage = stage;
+        stage.setWidth(1200);
+        stage.setHeight(800);
+        stage.setMaximized(true);
         this.creatButtons();
         this.makeFilters();
         this.getData();
@@ -68,18 +73,29 @@ public class UI extends Application {
         stage.show();
     }
 
-    private void getData() {
-        try {
-            iscte.createCSV("https://raw.githubusercontent.com/jaswb/csvFilesES/main/HorarioDeExemplo.csv");
+    private void getData(String url, String path) throws IOException, IllegalArgumentException {
+        //iscte.createCSV("https://raw.githubusercontent.com/jaswb/csvFilesES/main/HorarioDeExemplo.csv");  //TODO Delete
+        if (path == "") {
+            iscte.getUrlFile(url);
             iscte.readLeactures("HorarioDeExemplo.csv");
-            iscte.writeDownLectures();
-        } catch(MalformedURLException e) {
-            // TODO Code run after receiving an invalid URL
-        } catch(IOException e) {
-            // TODO Code run when file couldn't be downloaded
+        } else {
+            iscte.readLeactures(path);
         }
     }
+     private void getData() {
+         try {
+             getData("https://raw.githubusercontent.com/jaswb/csvFilesES/main/HorarioDeExemplo.csv", "");
+         } catch (IOException e) {
+             e.printStackTrace();
+         }
+     }
 
+    private void createFilters() {
+        GridPane filters = new GridPane();
+        filters.getColumnConstraints().addAll(new ColumnConstraints(20), new ColumnConstraints(80));
+        int rowIndex = 0;
+    }
+    
     private void makeFilters() {
         HBox hbox = new HBox();
         VBox vBox = new VBox();
@@ -172,15 +188,19 @@ public class UI extends Application {
         return filters;
     }
 
-    private void createTable() {
+    private Node createTable() {
+        TableView table = new TableView();
+        table.prefHeightProperty().bind(stage.heightProperty());
         table.setEditable(false);
         for (LectureAttributes a : LectureAttributes.values()) {
             TableColumn currentCol = new TableColumn(a.name());
-            currentCol.setMinWidth(COL_SIZE);
+            currentCol.prefWidthProperty().bind(stage.widthProperty().divide(11));  //TODO not hardcoded
             currentCol.setCellValueFactory(new PropertyValueFactory<Lecture,String>(a.name()));
             tableColumns.add(currentCol);
         }
         table.getColumns().addAll(tableColumns);
+        table.setItems(iscte.getLectures());
+        return table;
     }
 
     private Node createPage(int pageIndex) {
