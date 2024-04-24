@@ -26,7 +26,6 @@ public class Lecture {
     private LocalDate dateOfClass;
     private String specificationOfRoom;
     private String roomCode;
-    private List<FilterConsumer<String>> filterMethods;      //TODO
 
     /**
      * Constructor of specific lectures

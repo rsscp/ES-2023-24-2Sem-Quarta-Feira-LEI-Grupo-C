@@ -1,23 +1,17 @@
 package org.project;
 
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.*;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.text.Font;
-import javafx.scene.layout.VBox;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.*;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.geometry.Insets;
 
+import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,12 +21,9 @@ public class UI extends Application {
 
     private ISCTE iscte = new ISCTE();
     int rowsPerPage = 10;
-
     Stage stage;
-    StackPane root = new StackPane();
-    final VBox mainVBox = new VBox();
-    final HBox filtersHBox = new HBox();
-    private TableView table = new TableView();
+    VBox startPageRoot;
+    VBox tablePageRoot;
     List<Label> filterLabels = new ArrayList<>();
     List<TextField> filterTextFields = new ArrayList<>();
     List<TableColumn> tableColumns = new ArrayList<>();
@@ -48,46 +39,77 @@ public class UI extends Application {
         stage.setWidth(1200);
         stage.setHeight(800);
         stage.setMaximized(true);
-        //mainVBox.setSpacing(5);
-        //mainVBox.setPadding(new Insets(10, 0, 0, 10));
-        mainVBox.getChildren().addAll(filtersHBox);
-        getData();
-        createFilters();
-        createTable();
-        root.getChildren().addAll(mainVBox);
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.setTitle("Table pager");
+
+        startStartPage();
+        startTablePage();
+
+        stage.setScene(new Scene(startPageRoot));
+        stage.setTitle("Title");
         stage.show();
     }
 
-    private void getData() {
-        try {
-            iscte.createCSV("https://raw.githubusercontent.com/jaswb/csvFilesES/main/HorarioDeExemplo.csv");
+    private void startStartPage() {
+        Label urlLabel = new Label("URL do ficheiro CSV");
+        TextField urlField = new TextField();
+        HBox urlLayout = new HBox(urlLabel, urlField);
+        urlLayout.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE );
+        urlLayout.setSpacing(10);
+
+        Button continueButton = new Button("Continue");
+        continueButton.setOnAction(e -> {
+            try {
+                getData(urlField.getText(), "");
+            } catch (IOException ex) {
+                startPageRoot.getChildren().addAll(new Label("Error"));
+                return;
+            }
+            stage.setScene(new Scene(tablePageRoot));
+        });
+
+        Button chooseFileButton = new Button("Select CSV file");
+        chooseFileButton.setOnAction(e -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Open Resource File");
+            fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+            File selectedFile = fileChooser.showOpenDialog(stage);
+        });
+
+        startPageRoot = new VBox(urlLayout, chooseFileButton, continueButton);
+        startPageRoot.setAlignment(Pos.CENTER);
+        startPageRoot.setSpacing(10);
+    }
+
+    private void startTablePage() {
+        tablePageRoot = new VBox(createFilters(), createTable());
+    }
+
+    private void getData(String url, String path) throws IOException, IllegalArgumentException {
+        //iscte.createCSV("https://raw.githubusercontent.com/jaswb/csvFilesES/main/HorarioDeExemplo.csv");  //TODO Delete
+        if (path == "") {
+            iscte.getUrlFile(url);
             iscte.readLeactures("HorarioDeExemplo.csv");
-            iscte.writeDownLectures();
-        } catch(MalformedURLException e) {
-            // TODO Code run after receiving an invalid URL
-        } catch(IOException e) {
-            // TODO Code run when file couldn't be downloaded
+        } else {
+            iscte.readLeactures(path);
         }
     }
 
-    private void createFilters() {
+    private Node createFilters() {
+        GridPane filters = new GridPane();
+        filters.getColumnConstraints().addAll(new ColumnConstraints(20), new ColumnConstraints(80));
+        int rowIndex = 0;
         for (LectureAttributes a : LectureAttributes.values()) {
-            //Label currentLabel = new Label(a.name());
+            Label currentLabel = new Label(a.name());
             TextField currentTextField = new TextField();
-            currentTextField.prefWidthProperty().bind(stage.widthProperty().divide(11));  //TODO not hardcoded
-            //filterLabels.add(currentLabel);
-            filterTextFields.add(currentTextField);
-            //filtersVBox.getChildren().addAll(currentLabel, currentTextField);
-            filtersHBox.getChildren().addAll(currentTextField);
+            currentTextField.setPrefWidth(500);
+            filters.addRow(rowIndex, currentLabel, currentTextField);
+            rowIndex++;
         }
+        return filters;
     }
 
-    private void createTable() {
+    private Node createTable() {
+        TableView table = new TableView();
         table.prefHeightProperty().bind(stage.heightProperty());
-        //table.prefWidthProperty().bind(stage.widthProperty());
         table.setEditable(false);
         for (LectureAttributes a : LectureAttributes.values()) {
             TableColumn currentCol = new TableColumn(a.name());
@@ -97,14 +119,6 @@ public class UI extends Application {
         }
         table.getColumns().addAll(tableColumns);
         table.setItems(iscte.getLectures());
-        mainVBox.getChildren().addAll(table);
-    }
-
-    private Node createPage(int pageIndex) {
-        int fromIndex = pageIndex * rowsPerPage;
-        int toIndex = Math.min(fromIndex + rowsPerPage, iscte.getLectures().size());
-        table.setItems(FXCollections.observableArrayList(iscte.getLectures().subList(fromIndex, toIndex)));
-
-        return new BorderPane(table);
+        return table;
     }
 }
