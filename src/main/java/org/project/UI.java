@@ -16,6 +16,7 @@ import javafx.scene.layout.*;
 import javafx.stage.FileChooser;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.geometry.Insets;
 
 import java.io.File;
 import java.io.IOException;
@@ -72,41 +73,6 @@ public class UI extends Application {
         stage.show();
     }
 
-    private void startStartPage() {
-        Label urlLabel = new Label("URL do ficheiro CSV");
-        TextField urlField = new TextField();
-        HBox urlLayout = new HBox(urlLabel, urlField);
-        urlLayout.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE );
-        urlLayout.setSpacing(10);
-
-        Button continueButton = new Button("Continue");
-        continueButton.setOnAction(e -> {
-            try {
-                getData(urlField.getText(), "");
-            } catch (IOException ex) {
-                startPageRoot.getChildren().addAll(new Label("Error"));
-                return;
-            }
-            stage.setScene(new Scene(tablePageRoot));
-        });
-
-        Button chooseFileButton = new Button("Select CSV file");
-        chooseFileButton.setOnAction(e -> {
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Open Resource File");
-            fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
-            File selectedFile = fileChooser.showOpenDialog(stage);
-        });
-
-        startPageRoot = new VBox(urlLayout, chooseFileButton, continueButton);
-        startPageRoot.setAlignment(Pos.CENTER);
-        startPageRoot.setSpacing(10);
-    }
-
-    private void startTablePage() {
-        tablePageRoot = new VBox(createFilters(), createTable());
-    }
-
     private void getData(String url, String path) throws IOException, IllegalArgumentException {
         //iscte.createCSV("https://raw.githubusercontent.com/jaswb/csvFilesES/main/HorarioDeExemplo.csv");  //TODO Delete
         if (path == "") {
@@ -116,8 +82,15 @@ public class UI extends Application {
             iscte.readLeactures(path);
         }
     }
+     private void getData() {
+         try {
+             getData("https://raw.githubusercontent.com/jaswb/csvFilesES/main/HorarioDeExemplo.csv", "");
+         } catch (IOException e) {
+             e.printStackTrace();
+         }
+     }
 
-    private Node createFilters() {
+    private void createFilters() {
         GridPane filters = new GridPane();
         filters.getColumnConstraints().addAll(new ColumnConstraints(20), new ColumnConstraints(80));
         int rowIndex = 0;

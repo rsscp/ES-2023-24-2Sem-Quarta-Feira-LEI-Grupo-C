@@ -21,7 +21,7 @@ public class ISCTE {
     public ISCTE() {
         lectures = FXCollections.observableArrayList();
         rooms = new LinkedList<>();
-        this.file = null;
+        this.fileName = null;
     }
 
     public static ISCTE getInstance() {
