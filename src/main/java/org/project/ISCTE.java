@@ -99,27 +99,32 @@ public class ISCTE {
         }
     }
 
+    public LinkedList<Room> getRooms() {
+        return rooms;
+    }
+
     public void readRoomsFromCSV(String fileName) throws IOException {
         try (FileInputStream fis = new FileInputStream(fileName);
              InputStreamReader isr = new InputStreamReader(fis);
              BufferedReader br = new BufferedReader(isr)) {
 
-            while (br.readLine() != null) {
-                String line = br.readLine();
-                String[] arguments = line.split("\t");
+            br.readLine();
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] arguments = line.split(";");
 
                 String designation = arguments[0];
                 String building = arguments[1];
                 int normalCapcity = Integer.parseInt(arguments[2]);
                 int examCapacity = Integer.parseInt(arguments[3]);
                 int numOfCharacteristics = Integer.parseInt(arguments[4]);
-                boolean[] otherProperties = new boolean[(arguments.length - 1 - 6)];
+                boolean[] otherProperties = new boolean[30];
 
-                for(int i = 0; i < arguments.length; i++){
-                    if(arguments[i + 5].equals('X')){
-                        otherProperties[i] = true;
+                for(int i = 5; i < arguments.length - 1; i++){
+                    if(arguments[5].equals('X')){
+                        otherProperties[i - 5] = true;
                     }else{
-                        otherProperties[i] = false;
+                        otherProperties[i - 5] = false;
                     }
                 }
                 rooms.add(new Room(building, designation, normalCapcity, examCapacity, numOfCharacteristics, otherProperties));
