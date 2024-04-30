@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UI extends Application {
-
     private final int COL_SIZE = 100;
     private ISCTE iscte = new ISCTE();
     int rowsPerPage = 10;
