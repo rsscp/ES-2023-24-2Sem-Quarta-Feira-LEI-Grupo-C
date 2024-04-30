@@ -15,18 +15,71 @@ import java.util.regex.Pattern;
  * Representation of specific lecure in the school.
  */
 public class Lecture {
+    public void setCourse(String course) {
+        this.course = course;
+    }
+
     private String course;
+
+    public void setCurricuralUnit(String curricuralUnit) {
+        this.curricuralUnit = curricuralUnit;
+    }
+
     private String curricuralUnit;
+
+    public void setShift(String shift) {
+        this.shift = shift;
+    }
+
     private String shift;
+
+    public void setClassN(String classN) {
+        this.classN = classN;
+    }
+
     private String classN;
+
+    public void setNumberOfStudentsAssigned(int numberOfStudentsAssigned) {
+        this.numberOfStudentsAssigned = numberOfStudentsAssigned;
+    }
+
     private int numberOfStudentsAssigned;
+
+    public void setDayOfTheWeek(DayOfWeek dayOfTheWeek) {
+        this.dayOfTheWeek = dayOfTheWeek;
+    }
+
     private DayOfWeek dayOfTheWeek;
+
+    public void setStartOfClass(LocalTime startOfClass) {
+        this.startOfClass = startOfClass;
+    }
+
     private LocalTime startOfClass;
+
+    public void setEndOfClass(LocalTime endOfClass) {
+        this.endOfClass = endOfClass;
+    }
+
     private LocalTime endOfClass;
+
+    public void setDateOfClass(LocalDate dateOfClass) {
+        this.dateOfClass = dateOfClass;
+    }
+
     private LocalDate dateOfClass;
+
+    public void setSpecificationOfRoom(String specificationOfRoom) {
+        this.specificationOfRoom = specificationOfRoom;
+    }
+
     private String specificationOfRoom;
+
+    public void setRoomCode(String roomCode) {
+        this.roomCode = roomCode;
+    }
+
     private String roomCode;
-    private List<BiConsumer<String,String>> filterMethods;      //TODO
 
     /**
      * Constructor of specific lectures
@@ -55,6 +108,20 @@ public class Lecture {
                 System.err.println(s);
             throw new IllegalArgumentException("Read line with illegal number of fields");
         }
+
+        /*
+        filterMethods.add(filter -> filterString(course, filter));
+        filterMethods.add(filter -> filterString(curricuralUnit, filter));
+        filterMethods.add(filter -> filterString(shift, filter));
+        filterMethods.add(filter -> filterString(classN, filter));
+        filterMethods.add(filter -> filterString(Integer.toString(numberOfStudentsAssigned), filter));
+        filterMethods.add(filter -> filterString(dayOfTheWeek.toString, filter));
+        filterMethods.add(filter -> filterString(course, filter));
+        filterMethods.add(filter -> filterString(course, filter));
+        filterMethods.add(filter -> filterString(course, filter));
+        filterMethods.add(filter -> filterString(course, filter));
+        filterMethods.add(filter -> filterString(course, filter));
+        */
     }
 
     /**
@@ -374,4 +441,5 @@ public class Lecture {
         Matcher matcher = pattern.matcher(toBeFiltered);
         return matcher.find();*/
     }
+
 }
