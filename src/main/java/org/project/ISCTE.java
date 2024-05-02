@@ -18,7 +18,7 @@ public class ISCTE {
     private final ObservableList<Lecture> lectures;
     private String fileName;
 
-    public ISCTE() {
+    private ISCTE() {
         lectures = FXCollections.observableArrayList();
         rooms = new LinkedList<>();
         this.fileName = null;
@@ -62,12 +62,12 @@ public class ISCTE {
      * @throws IOException Exception in case of reading file
      */
     public void readLeactures(String fileName) throws IOException {
-        try (FileInputStream fis = new FileInputStream(fileName);
-             InputStreamReader isr = new InputStreamReader(fis);
-             BufferedReader br = new BufferedReader(isr)) {
-
+        try (
+            FileInputStream fis = new FileInputStream(fileName);
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader br = new BufferedReader(isr)
+        ) {
             br.readLine();
-
             String lecture;
             while ((lecture = br.readLine()) != null) {
                 String[] arguments = lecture.split(";");

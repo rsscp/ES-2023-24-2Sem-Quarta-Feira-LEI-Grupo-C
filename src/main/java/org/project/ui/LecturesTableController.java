@@ -2,14 +2,13 @@ package org.project.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
+import javafx.scene.layout.GridPane;
+import org.project.FilterOperation;
 import org.project.ISCTE;
 import org.project.Lecture;
-import org.project.LectureAttributes;
+import org.project.LectureAttribute;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,37 +19,42 @@ public class LecturesTableController {
     private Parent root;
 
     @FXML
-    private TextField courseFilter;
-    @FXML
-    private TextField curricularUnitFilter;
-    @FXML
-    private TextField shiftFilter;
-    @FXML
-    private TextField classNFilter;
-    @FXML
-    private TextField numberOfStudentsAssignedFilter;
-    @FXML
-    private TextField dayOfTheWeekFilter;
-    @FXML
-    private TextField startOfClassFilter;
-    @FXML
-    private TextField endOfClassFilter;
-    @FXML
-    private TextField dateOfClassFilter;
-    @FXML
-    private TextField specificationOfRoomFilter;
-    @FXML
-    private TextField roomCodeFilter;
+    private GridPane grid;
     @FXML
     private TableView lectureTable;
 
     @FXML
-    public void initialize() {
-        //lectureTable.prefHeightProperty().bind(((Stage) root.getScene().getWindow()).heightProperty());
+    private void initialize() {
+        setFilters();
+        setTable();
+    }
+
+    @FXML
+    private void applyFilters() {
+
+    }
+
+    private void setFilters() {
+        for (LectureAttribute a : LectureAttribute.values()) {
+            TextField textField = new TextField();
+            textField.setId(a.name());
+            Button button = new Button(FilterOperation.NOP.getLabel());
+            button.setId(a.name() + "_op");
+            button.setPrefWidth(50);
+            button.setPrefHeight(50);
+            button.setOnAction(event -> {
+                button.setText(FilterOperation.getNextFilterLabel(button.getText()));
+            });
+            grid.addColumn(0, new Label(a.getLabel()));
+            grid.addColumn(1, textField);
+            grid.addColumn(2, button);
+        }
+    }
+
+    private void setTable() {
         List<TableColumn> tableColumns = new ArrayList<>();
-        for (LectureAttributes a : LectureAttributes.values()) {
-            TableColumn currentCol = new TableColumn(a.name());
-            //currentCol.prefWidthProperty().bind(((Stage) root.getScene().getWindow()).widthProperty().divide(11));  //TODO not hardcoded
+        for (LectureAttribute a : LectureAttribute.values()) {
+            TableColumn currentCol = new TableColumn(a.getLabel());
             currentCol.setCellValueFactory(new PropertyValueFactory<Lecture,String>(a.name()));
             tableColumns.add(currentCol);
         }

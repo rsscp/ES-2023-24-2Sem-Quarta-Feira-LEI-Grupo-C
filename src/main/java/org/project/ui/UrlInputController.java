@@ -22,15 +22,6 @@ public class UrlInputController {
     private TextField urlInput;
 
     @FXML
-    private void chooseLocalPath() {                                    //TODO Delete, not used
-        DirectoryChooser directoryChooser = new DirectoryChooser();
-        directoryChooser.setTitle("Open Resource File");
-        File selectedDirectory = directoryChooser.showDialog(((Stage) root.getScene().getWindow()));
-        if (selectedDirectory == null)
-            ;//TODO
-    }
-
-    @FXML
     private void loadTablePage() {
         try {
             ISCTE.getInstance().getUrlFile(urlInput.getText());

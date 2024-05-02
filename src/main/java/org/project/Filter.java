@@ -1,15 +1,14 @@
 package org.project;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 public class Filter {
-    private LectureAttributes attribute;
+    private LectureAttribute attribute;
     private String filterString;
+    private FilterOperation operation;
 
-    public Filter(LectureAttributes attribute, String filterString) {
+    public Filter(LectureAttribute attribute, String filterString, String opString) {
         this.attribute = attribute;
         this.filterString = filterString;
+        this.operation = FilterOperation.getFilterOperation(opString);
     }
 
     public int getAttributeIndex() {
@@ -17,5 +16,8 @@ public class Filter {
     }
     public String getFilterString() {
         return filterString;
+    }
+    public boolean op(boolean input) {
+        operation.op(input)
     }
 }

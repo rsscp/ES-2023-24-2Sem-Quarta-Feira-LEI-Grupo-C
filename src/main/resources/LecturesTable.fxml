@@ -5,33 +5,17 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
 
 <VBox fx:id="root" spacing="10" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="org.project.ui.LecturesTableController">
-    <GridPane hgap="15" vgap="10">
-        <Label GridPane.rowIndex="0" GridPane.columnIndex="0">Course</Label>
-        <Label GridPane.rowIndex="1" GridPane.columnIndex="0">Curricular Unit</Label>
-        <Label GridPane.rowIndex="2" GridPane.columnIndex="0">Shift</Label>
-        <Label GridPane.rowIndex="3" GridPane.columnIndex="0">Class N</Label>
-        <Label GridPane.rowIndex="4" GridPane.columnIndex="0">Number of Students Assigned</Label>
-        <Label GridPane.rowIndex="5" GridPane.columnIndex="0">Day of the Week</Label>
-        <Label GridPane.rowIndex="6" GridPane.columnIndex="0">Start of Class</Label>
-        <Label GridPane.rowIndex="7" GridPane.columnIndex="0">End of Class</Label>
-        <Label GridPane.rowIndex="8" GridPane.columnIndex="0">Date of Class</Label>
-        <Label GridPane.rowIndex="9" GridPane.columnIndex="0">Room Specification</Label>
-        <Label GridPane.rowIndex="10" GridPane.columnIndex="0">Room Code</Label>
-
-        <TextField fx:id="courseFilter" GridPane.rowIndex="0" GridPane.columnIndex="1" minWidth="300"></TextField>
-        <TextField fx:id="curricularUnitFilter" GridPane.rowIndex="1" GridPane.columnIndex="1" minWidth="300"></TextField>
-        <TextField fx:id="shiftFilter" GridPane.rowIndex="2" GridPane.columnIndex="1" minWidth="300"></TextField>
-        <TextField fx:id="classNFilter" GridPane.rowIndex="3" GridPane.columnIndex="1" minWidth="300"></TextField>
-        <TextField fx:id="numberOfStudentsAssignedFilter" GridPane.rowIndex="4" GridPane.columnIndex="1" minWidth="300"></TextField>
-        <TextField fx:id="dayOfTheWeekFilter" GridPane.rowIndex="5" GridPane.columnIndex="1" minWidth="300"></TextField>
-        <TextField fx:id="startOfClassFilter" GridPane.rowIndex="6" GridPane.columnIndex="1" minWidth="300"></TextField>
-        <TextField fx:id="endOfClassFilter" GridPane.rowIndex="7" GridPane.columnIndex="1" minWidth="300"></TextField>
-        <TextField fx:id="dateOfClassFilter" GridPane.rowIndex="8" GridPane.columnIndex="1" minWidth="300"></TextField>
-        <TextField fx:id="specificationOfRoomFilter" GridPane.rowIndex="9" GridPane.columnIndex="1" minWidth="300"></TextField>
-        <TextField fx:id="roomCodeFilter" GridPane.rowIndex="10" GridPane.columnIndex="1" minWidth="300"></TextField>
+    <padding>
+        <Insets bottom="10.0" left="30.0" right ="30.0" top="10.0"/>
+    </padding>
+    <GridPane fx:id="grid" hgap="15" vgap="10">
+        <padding>
+            <Insets bottom="20.0"/>
+        </padding>
     </GridPane>
-    <Button GridPane.columnIndex="3">Apply</Button>
+    <Button onAction="#applyFilters" GridPane.columnIndex="3" minWidth="100" minHeight="30">Apply Filters</Button>
     <TableView fx:id="lectureTable" prefHeight="10000"></TableView>
 </VBox>
