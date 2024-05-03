@@ -98,5 +98,29 @@ public class ISCTE {
             break;
         }
     }
-
+    public int checkConflict(Lecture l1, Lecture l2){
+        if( l1.equals(l2)){
+            return -1;
+        }
+        if(l1.getDateOfClass().equals(l2.getDateOfClass()) && l1.getRoomCode().equals(l2.getRoomCode()) && !(l1.getStartOfClass().isAfter(l2.getEndOfClass()) || l2.getStartOfClass().isAfter(l1.getEndOfClass()))){
+            return 1;
+        }
+        if(l1.getCourse().equals(l2.getCourse()) && l1.getDateOfClass().equals(l2.getDateOfClass()) && l1.getShift().equals(l2.getShift()) && !l1.getRoomCode().equals(l2.getRoomCode()) && !(l1.getStartOfClass().isAfter(l2.getEndOfClass()) || l2.getStartOfClass().isAfter(l1.getEndOfClass()))){
+            return 1;
+        }
+        return 0;
+    }
+    public ArrayList<ArrayList<Lecture>> mesureConflicts(){
+        ArrayList<ArrayList<Lecture>> l = new ArrayList<>();
+        for(int i=0; i<lectures.size();i++){
+            ArrayList<Lecture> li = new ArrayList<>();
+            for(int j=0; j<lectures.size();j++){
+               if((this.checkConflict(lectures.get(i),lectures.get(j)))!=0){
+                   li.add(lectures.get(j));
+               }
+            }
+            l.add(li);
+        }
+        return l;
+    }
 }

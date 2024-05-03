@@ -441,5 +441,4 @@ public class Lecture {
         Matcher matcher = pattern.matcher(toBeFiltered);
         return matcher.find();*/
     }
-
 }
