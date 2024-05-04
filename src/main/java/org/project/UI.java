@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.skin.TableHeaderRow;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.scene.input.MouseEvent;
@@ -41,15 +42,17 @@ public class UI extends Application {
     Stage stage;
     ScrollPane root;
     final HBox hBox = new HBox();
-    final GridPane gridPane = new GridPane();
     private TableView table = new TableView();
-
     private BorderPane borderPane;
-    List<Label> filterLabels = new ArrayList<>();
-    List<TextField> filterTextFields = new ArrayList<>();
     List<TableColumn> tableColumns = new ArrayList<>();
-    final Label tableLabel = new Label("Lectures");
-    private TextField userInputField;
+   // final GridPane gridPane = new GridPane();
+
+
+    //List<Label> filterLabels = new ArrayList<>();
+   // List<TextField> filterTextFields = new ArrayList<>();
+
+    //final Label tableLabel = new Label("Lectures");
+   // private TextField userInputField;
 
 
     private Button btnSearchAND;
@@ -71,9 +74,12 @@ public class UI extends Application {
         this.makeFilters();
         this.getData();
         this.createTable();
-        Pagination pagination = new Pagination((iscte.getLectures().size() / rowsPerPage + 1), 0);
+        //Pagination pagination = new Pagination((iscte.getLectures().size() / rowsPerPage + 1), 0);
+        Pagination pagination = new Pagination();
+        pagination.setPageCount(1);
         pagination.setPageFactory(this::createPage);
-        this.borderPane.setCenter(pagination);
+       // pagination.setPageFactory(null);
+        this.borderPane.setLeft(pagination);
         //BorderPane borderPane = new BorderPane(pagination, this.gridPane, null, null, null);
 
         Scene scene = new Scene(this.borderPane, 1024, 768);
@@ -417,6 +423,7 @@ public class UI extends Application {
 
         TableColumn RoomCodeCol = new TableColumn("roomCode");
         RoomCodeCol.setMinWidth(COL_SIZE);
+        RoomCodeCol.setMaxWidth(COL_SIZE);
         RoomCodeCol.setCellValueFactory(new PropertyValueFactory<Lecture,String>("roomCode"));
         RoomCodeCol.setCellFactory(TextFieldTableCell.forTableColumn());
         RoomCodeCol.setOnEditCommit(
@@ -435,8 +442,22 @@ public class UI extends Application {
                 }
         );
         tableColumns.add(RoomCodeCol);
+        table.setPrefWidth(1100);
+        table.setMinWidth(Region.USE_PREF_SIZE);
+        table.setMaxWidth(Region.USE_PREF_SIZE);
+        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         table.getColumns().addAll(tableColumns);
         table.setItems(iscte.getLectures());
+
+        this.setReactionToRowsInTable();
+    }
+
+    private void setReactionToRowsInTable() {
+        this.table.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                Lecture lecture = (Lecture) newSelection;
+            }
+        });
     }
 
 
@@ -478,9 +499,9 @@ public class UI extends Application {
     }
 
     private Node createPage(int pageIndex) {
-        int fromIndex = pageIndex * rowsPerPage;
-        int toIndex = Math.min(fromIndex + rowsPerPage, iscte.getLectures().size());
-        table.setItems(this.iscte.getLectures());
+       // int fromIndex = pageIndex * rowsPerPage;
+        //int toIndex = Math.min(fromIndex + rowsPerPage, iscte.getLectures().size());
+        this.table.setItems(this.iscte.getLectures());
 
         return new BorderPane(table);
     }
@@ -508,7 +529,7 @@ public class UI extends Application {
     }
     
     private void setVisibleFilteredItems(String[] items, boolean includeEverything) {
-        table.setItems(this.filtersLectures(items, includeEverything));
+        this.table.setItems(this.filtersLectures(items, includeEverything));
     }
 
     private ObservableList<Lecture> filtersLectures(String[] pFilters, boolean includeEveryFilter) {
