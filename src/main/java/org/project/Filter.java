@@ -17,7 +17,7 @@ public class Filter {
     public String getFilterString() {
         return filterString;
     }
-    public boolean op(boolean input) {
-        operation.op(input)
+    public boolean op(boolean input, boolean parameter) {
+        return operation.op(input, parameter);
     }
 }

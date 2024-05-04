@@ -23,6 +23,10 @@ public enum FilterOperation {
         return label;
     }
 
+    public boolean op(boolean input, boolean parameter) {
+        return operation.op(input, parameter);
+    }
+
     public static FilterOperation getFilterOperation(String opString) {
         return switch (opString) {
             case "OR" -> OR;
@@ -37,9 +41,5 @@ public enum FilterOperation {
             case "OR" -> "AND";
             default -> "-";
         };
-    }
-
-    public boolean op(boolean input, boolean parameter) {
-        return operation.op(input, parameter);
     }
 }

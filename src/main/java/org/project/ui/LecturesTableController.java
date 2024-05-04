@@ -23,10 +23,12 @@ public class LecturesTableController {
     @FXML
     private TableView lectureTable;
 
+    private List<TableColumn> lectureTableColumns;
+
     @FXML
     private void initialize() {
-        setFilters();
         setTable();
+        setFilters();
     }
 
     @FXML
@@ -36,29 +38,46 @@ public class LecturesTableController {
 
     private void setFilters() {
         for (LectureAttribute a : LectureAttribute.values()) {
+            lectureTableColumns.get(a.getValue()).setVisible(true);
             TextField textField = new TextField();
             textField.setId(a.name());
-            Button button = new Button(FilterOperation.NOP.getLabel());
-            button.setId(a.name() + "_op");
-            button.setPrefWidth(50);
-            button.setPrefHeight(50);
-            button.setOnAction(event -> {
-                button.setText(FilterOperation.getNextFilterLabel(button.getText()));
+            Button opButton = new Button(FilterOperation.NOP.getLabel());
+            opButton.setId(a.name() + "_op");
+            opButton.setPrefWidth(50);
+            opButton.setPrefHeight(50);
+            opButton.setOnAction(event -> {
+                opButton.setText(FilterOperation.getNextFilterLabel(opButton.getText()));
+            });
+            Button hideButton = new Button("Hide Column");
+            hideButton.setId(a.name() + "_hide");
+            hideButton.setPrefHeight(50);
+            hideButton.setOnAction(event -> {
+                switch (hideButton.getText()) {
+                    case "Hide Column" -> {
+                        lectureTableColumns.get(a.getValue()).setVisible(false);
+                        hideButton.setText("Show Column");
+                    }
+                    default -> {
+                        lectureTableColumns.get(a.getValue()).setVisible(true);
+                        hideButton.setText("Hide Column");
+                    }
+                }
             });
             grid.addColumn(0, new Label(a.getLabel()));
             grid.addColumn(1, textField);
-            grid.addColumn(2, button);
+            grid.addColumn(2, opButton);
+            grid.addColumn(3, hideButton);
         }
     }
 
     private void setTable() {
-        List<TableColumn> tableColumns = new ArrayList<>();
+        lectureTableColumns = new ArrayList<>();
         for (LectureAttribute a : LectureAttribute.values()) {
-            TableColumn currentCol = new TableColumn(a.getLabel());
-            currentCol.setCellValueFactory(new PropertyValueFactory<Lecture,String>(a.name()));
-            tableColumns.add(currentCol);
+            TableColumn column = new TableColumn(a.getLabel());
+            column.setCellValueFactory(new PropertyValueFactory<Lecture,String>(a.name()));
+            lectureTableColumns.add(column);
         }
-        lectureTable.getColumns().addAll(tableColumns);
+        lectureTable.getColumns().addAll(lectureTableColumns);
         lectureTable.setItems(ISCTE.getInstance().getLectures());
     }
 }
