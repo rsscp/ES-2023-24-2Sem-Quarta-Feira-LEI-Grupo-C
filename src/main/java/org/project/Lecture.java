@@ -80,12 +80,14 @@ public class Lecture {
     }
 
     private String roomCode;
+    private boolean isSelected;
 
     /**
      * Constructor of specific lectures
      * @param arguments Specifies details about specific lecture (room, start time, end time, name...).
      */
     public Lecture(String[] arguments) {
+        this.isSelected = false;
         this.course = arguments[0];
         this.curricuralUnit = arguments[1];
         this.shift = arguments[2];
@@ -442,4 +444,11 @@ public class Lecture {
         return matcher.find();*/
     }
 
+    public void setSelected(boolean selected) {
+        this.isSelected = selected;
+    }
+
+    public boolean isSelected() {
+        return this.isSelected;
+    }
 }

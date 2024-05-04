@@ -449,17 +449,61 @@ public class UI extends Application {
         table.getColumns().addAll(tableColumns);
         table.setItems(iscte.getLectures());
 
-        this.setReactionToRowsInTable();
+        this.creatContextMenuForLecture();
     }
 
-    private void setReactionToRowsInTable() {
-        this.table.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            if (newSelection != null) {
-                Lecture lecture = (Lecture) newSelection;
+    private void creatContextMenuForLecture() {
+        ContextMenu rowMenu = new ContextMenu();
+        MenuItem makeChange = new MenuItem("Make Change");
+        MenuItem deleteItem = new MenuItem("Delete");
+
+        makeChange.setOnAction(event -> {
+            Lecture selectedLecture = (Lecture) table.getSelectionModel().getSelectedItem();
+            if (selectedLecture != null) {
+                // Vytvoření nového okna
+                Stage editStage = new Stage();
+                editStage.setTitle("Edit");
+
+                // Vytvoření komponent pro editaci
+                TextField textField = new TextField();
+                Button saveButton = new Button("Submit");
+
+                // Nastavení akce pro tlačítko "Uložit"
+                saveButton.setOnAction(saveEvent -> {
+                    // Zde můžete provést akce pro uložení změn
+                    // Po uložení změn můžete okno zavřít
+                    editStage.close();
+                });
+
+                VBox layout = new VBox(10);
+                layout.getChildren().addAll(textField, saveButton);
+                layout.setAlignment(Pos.CENTER);
+
+                Scene scene = new Scene(layout, 300, 200);
+                editStage.setScene(scene);
+                editStage.show();
+                editStage.setResizable(false);
+            }
+        });
+
+        deleteItem.setOnAction(event -> {
+            Lecture selectedLecture = (Lecture) table.getSelectionModel().getSelectedItem();
+            if (selectedLecture != null) {
+
+            }
+        });
+
+        rowMenu.getItems().addAll(makeChange, deleteItem);
+
+        table.setContextMenu(rowMenu);
+
+        table.setOnContextMenuRequested(event -> {
+            Lecture selectedLecture =  (Lecture) table.getSelectionModel().getSelectedItem();
+            if (selectedLecture != null) {
+                rowMenu.show(table, event.getScreenX(), event.getScreenY());
             }
         });
     }
-
 
     private String[] getFilters() {
         VBox first = (VBox) this.hBox.getChildren().get(0);
