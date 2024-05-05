@@ -6,9 +6,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.scene.text.Text?>
 <VBox fx:id="root" spacing="10" alignment="CENTER" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="org.project.ui.StartController" prefHeight="400.0" prefWidth="600.0">
     <StackPane minHeight="100" minWidth="250">
         <VBox spacing="10" alignment="CENTER" maxWidth="150">
+            <Text fx:id="fileselecterror" style="-fx-fill:red; -fx-font-size:12" visible="false" managed="false">Failed to open selected file</Text>
             <Button onAction="#chooseLocalFile" textAlignment="CENTER" wrapText="true" maxWidth="10000" minHeight="50">Ficheiro local</Button>
             <Button onAction="#openUrlInput" textAlignment="CENTER" wrapText="true" maxWidth="10000" minHeight="50">Ficheiro em repositório remoto</Button>
         </VBox>

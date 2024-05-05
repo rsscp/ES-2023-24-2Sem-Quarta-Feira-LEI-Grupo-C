@@ -1,25 +1,18 @@
 package org.project;
 
 import javafx.application.Application;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.skin.TableHeaderRow;
 import javafx.scene.layout.*;
-import javafx.scene.text.Text;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.control.TextField;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.*;
-import javafx.scene.layout.*;
-import javafx.stage.FileChooser;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.geometry.Insets;
 import javafx.event.EventHandler;
-import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.util.converter.IntegerStringConverter;
 import javafx.util.StringConverter;
 import javafx.util.converter.LocalDateStringConverter;
@@ -27,7 +20,6 @@ import javafx.util.converter.LocalTimeStringConverter;
 
 import javax.swing.*;
 import java.io.*;
-import java.net.MalformedURLException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -40,7 +32,7 @@ import java.util.regex.Pattern;
 
 public class UI extends Application {
     private final int COL_SIZE = 100;
-    private ISCTE iscte = new ISCTE();
+    private ISCTE iscte = ISCTE.getInstance();
     int rowsPerPage = 10;
     Stage stage;
     ScrollPane root;
@@ -119,7 +111,7 @@ public class UI extends Application {
         HBox hbox = new HBox();
         VBox vBox = new VBox();
 
-        for (LectureAttributes a : LectureAttributes.values()) {
+        for (LectureAttribute a : LectureAttribute.values()) {
             TextField currentTextField = new TextField();
             currentTextField.setPrefWidth(100);
             currentTextField.setStyle("-fx-padding: 5px;");
@@ -688,12 +680,12 @@ public class UI extends Application {
     private ObservableList<Lecture> filtersLectures(String[] pFilters, boolean includeEveryFilter) {
         String[] filters = pFilters;
         List<Filter> f = new ArrayList<>();
-        LectureAttributes[] lectureAttributes = LectureAttributes.values();
+        LectureAttribute[] lectureAttributes = LectureAttribute.values();
         System.out.println(filters);
 
         for (int i = 0; i < filters.length; i++) {
             if (!filters[i].equals("")) {
-                f.add(new Filter(lectureAttributes[i], filters[i]));
+                f.add(new Filter(lectureAttributes[i], filters[i], ""));
             }
         }
         if (f.isEmpty()) {

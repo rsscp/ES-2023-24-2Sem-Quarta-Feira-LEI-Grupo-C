@@ -245,21 +245,21 @@ public class Lecture {
                 ";" + this.roomCode;
     }
 
-    private DayOfWeek determineDayOfWeek(String dayString) throws IllegalArgumentException {
+    public static DayOfWeek determineDayOfWeek(String dayString) throws IllegalArgumentException {
         switch(dayString) {
-            case "Seg":
+            case "Seg", "MONDAY":
                 return DayOfWeek.MONDAY;
-            case "Ter":
+            case "Ter", "TUESDAY":
                 return DayOfWeek.TUESDAY;
-            case "Qua":
+            case "Qua", "THURSDAY":
                 return DayOfWeek.THURSDAY;
-            case "Qui":
+            case "Qui", "WEDNESDAY":
                 return DayOfWeek.WEDNESDAY;
-            case "Sex":
+            case "Sex", "FRIDAY":
                 return DayOfWeek.FRIDAY;
-            case "Sáb":
+            case "Sáb", "SATURDAY":
                 return DayOfWeek.SATURDAY;
-            case "Dom":
+            case "Dom", "SUNDAY":
                 return DayOfWeek.SUNDAY;
             default:
                 throw new IllegalArgumentException("Invalid day of the week: " + dayString);
@@ -378,6 +378,16 @@ public class Lecture {
      */
     private boolean filterRoomCode(String filterString) {
         return filterString(roomCode, filterString);
+    }
+
+    public boolean testFilters(List<Filter> filters) {
+        String[] attributeStrings = toString().split(";");
+        if(filters.size() > attributeStrings.length)
+            throw new IllegalArgumentException("Unexpected arguments, filter list length greater than number of attributes to be filtered");
+        boolean result = true;
+        for (Filter f : filters)
+            result = f.op(result, filterString(attributeStrings[f.getAttributeIndex()], f.getFilterString()));
+        return result;
     }
 
     public boolean testFilters(List<Filter> filters, boolean includeEveryFilter) {
