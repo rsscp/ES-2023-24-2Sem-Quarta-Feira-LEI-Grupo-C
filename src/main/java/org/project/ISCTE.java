@@ -126,7 +126,7 @@ public class ISCTE {
         }
     }
 
-    public boolean findSpecificElmOfSpecificLecture(LectureAttributes attribute, String elm) {
+    public boolean findSpecificElmOfSpecificLecture(LectureAttribute attribute, String elm) {
         boolean founded = false;
 
         for (Lecture lecture : lectures) {

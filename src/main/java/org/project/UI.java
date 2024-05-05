@@ -513,7 +513,7 @@ public class UI extends Application {
                             }
                         }
                         if (i == 4) {
-                            if(!this.iscte.findSpecificElmOfSpecificLecture(LectureAttributes.specificationOfRoom, textFields.get(i).getText())) {
+                            if(!this.iscte.findSpecificElmOfSpecificLecture(LectureAttribute.specificationOfRoom, textFields.get(i).getText())) {
                                 sb.append("Invalid room");
                             }
                         }
