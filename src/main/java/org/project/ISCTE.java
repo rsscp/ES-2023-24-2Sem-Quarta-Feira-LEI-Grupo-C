@@ -89,6 +89,33 @@ public class ISCTE {
         return filteredLectures;
     }
 
+    public ObservableList<Lecture> getLectures(List<Filter> filters) {
+        ObservableList<Lecture> filteredLectures = FXCollections.observableArrayList();
+        for (Lecture l: lectures) {
+            if (l.testFilters(filters))
+                filteredLectures.add(l);
+        }
+        return filteredLectures;
+    }
+
+    public void writeCsv() throws Exception {
+        Writer writer = null;
+        try {
+            File file = new File(System.getProperty("user.dir") + File.separator + "NovoHorario.csv");
+            writer = new BufferedWriter(new FileWriter(file));
+            writer.write("Curso;Unidade Curricular;Turno;Turma;Inscritos no turno;Dia da semana;Hora início da aula;Hora fim da aula;Data da aula;Características da sala pedida para a aula;Sala atribuída à aula\n");
+            for (Lecture lecture : lectures) {
+                String text = lecture.toString();
+                writer.write(text + "\n");
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            writer.flush();
+            writer.close();
+        }
+    }
+
     /**
      * Writes down all the lectures.
      */

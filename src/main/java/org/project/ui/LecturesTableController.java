@@ -5,11 +5,12 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
-import org.project.FilterOperation;
-import org.project.ISCTE;
-import org.project.Lecture;
-import org.project.LectureAttribute;
+import org.project.*;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +24,9 @@ public class LecturesTableController {
     @FXML
     private TableView lectureTable;
 
-    private List<TableColumn> lectureTableColumns;
+    private List<TableColumn> lectureTableColumns = new ArrayList<>();
+    private List<Button> filterOpButtons = new ArrayList<>();
+    private List<TextField> filterTextFields = new ArrayList<>();
 
     @FXML
     private void initialize() {
@@ -33,7 +36,15 @@ public class LecturesTableController {
 
     @FXML
     private void applyFilters() {
-
+        List<Filter> filters = new ArrayList<>();
+        for (LectureAttribute a : LectureAttribute.values()) {
+            String filterText = filterTextFields.get(a.getValue()).getText();
+            String filterOp = filterOpButtons.get(a.getValue()).getText();
+            if (filterText != "")
+                filters.add(new Filter(a, filterText, filterOp));
+        }
+        lectureTable.setItems(ISCTE.getInstance().getLectures(filters));
+        System.out.println("Filters working?");
     }
 
     private void setFilters() {
@@ -63,6 +74,10 @@ public class LecturesTableController {
                     }
                 }
             });
+
+            filterTextFields.add(textField);
+            filterOpButtons.add(opButton);
+
             grid.addColumn(0, new Label(a.getLabel()));
             grid.addColumn(1, textField);
             grid.addColumn(2, opButton);
@@ -71,10 +86,9 @@ public class LecturesTableController {
     }
 
     private void setTable() {
-        lectureTableColumns = new ArrayList<>();
+        lectureTable.setEditable(true);
         for (LectureAttribute a : LectureAttribute.values()) {
-            TableColumn column = new TableColumn(a.getLabel());
-            column.setCellValueFactory(new PropertyValueFactory<Lecture,String>(a.name()));
+            TableColumn column = a.getTableColumn();
             lectureTableColumns.add(column);
         }
         lectureTable.getColumns().addAll(lectureTableColumns);
