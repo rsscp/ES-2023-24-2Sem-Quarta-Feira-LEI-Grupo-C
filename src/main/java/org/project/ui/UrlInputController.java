@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
@@ -22,15 +23,6 @@ public class UrlInputController {
     private TextField urlInput;
 
     @FXML
-    private void chooseLocalPath() {                                    //TODO Delete, not used
-        DirectoryChooser directoryChooser = new DirectoryChooser();
-        directoryChooser.setTitle("Open Resource File");
-        File selectedDirectory = directoryChooser.showDialog(((Stage) root.getScene().getWindow()));
-        if (selectedDirectory == null)
-            ;//TODO
-    }
-
-    @FXML
     private void loadTablePage() {
         try {
             ISCTE.getInstance().getUrlFile(urlInput.getText());
@@ -42,8 +34,12 @@ public class UrlInputController {
             ((Stage) sceneRoot.getScene().getWindow()).setMaximized(true);
         } catch (MalformedURLException e1) {
             //TODO
+            System.out.println("URLException?");
+            e1.printStackTrace();
         } catch (IOException e2) {
             //TODO
+            System.out.println("IOException?");
+            e2.printStackTrace();
         }
     }
 }
