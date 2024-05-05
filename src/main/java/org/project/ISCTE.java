@@ -2,10 +2,8 @@ package org.project;
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+
 import javafx.collections.*;
 
 /**
@@ -98,7 +96,7 @@ public class ISCTE {
             break;
         }
     }
-    public int checkConflict(Lecture l1, Lecture l2){
+    public static int checkConflict(Lecture l1, Lecture l2){
         if( l1.equals(l2)){
             return -1;
         }
@@ -110,17 +108,55 @@ public class ISCTE {
         }
         return 0;
     }
-    public ArrayList<ArrayList<Lecture>> mesureConflicts(){
-        ArrayList<ArrayList<Lecture>> l = new ArrayList<>();
-        for(int i=0; i<lectures.size();i++){
-            ArrayList<Lecture> li = new ArrayList<>();
-            for(int j=0; j<lectures.size();j++){
-               if((this.checkConflict(lectures.get(i),lectures.get(j)))!=0){
-                   li.add(lectures.get(j));
-               }
+    public static List<Set<Integer>> measureConflicts(List<Lecture> lectures) {
+        List<Set<Integer>> conflictGroups = new ArrayList<>();
+        int n = lectures.size();
+        boolean[] visited = new boolean[n];
+
+        Graph graph = new Graph(n);
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                if (checkConflict(lectures.get(i), lectures.get(j)) == 1) {
+                    graph.addEdge(i, j);
+                }
             }
-            l.add(li);
         }
-        return l;
+        for (int i = 0; i < n; i++) {
+            if (!visited[i]) {
+                Set<Integer> conflictGroup = new HashSet<>();
+                dfs(graph, i, visited, conflictGroup);
+                conflictGroups.add(conflictGroup);
+            }
+        }
+
+        return conflictGroups;
+    }
+
+    static class Graph {
+        int V;
+        LinkedList<Integer>[] list;
+
+        Graph(int V) {
+            this.V = V;
+            list = new LinkedList[V];
+            for (int i = 0; i < V; i++) {
+                list[i] = new LinkedList<>();
+            }
+        }
+
+        void addEdge(int src, int dest) {
+            list[src].add(dest);
+            list[dest].add(src);
+        }
+    }
+    private static void dfs(Graph graph, int v, boolean[] visited, Set<Integer> conflictGroup) {
+        visited[v] = true;
+        conflictGroup.add(v);
+
+        for (int neighbor : graph.list[v]) {
+            if (!visited[neighbor]) {
+                dfs(graph, neighbor, visited, conflictGroup);
+            }
+        }
     }
 }
