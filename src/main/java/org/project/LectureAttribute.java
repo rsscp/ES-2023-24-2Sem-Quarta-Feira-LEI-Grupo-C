@@ -58,14 +58,16 @@ public enum LectureAttribute {
     }
 
     public static TableColumn getTableColumnCourse() {
-        TableColumn NStudentsCol = new TableColumn("numberOfStudentsAssigned");
-        NStudentsCol.setCellValueFactory(new PropertyValueFactory<Lecture,Integer>("numberOfStudentsAssigned"));
-        NStudentsCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-        NStudentsCol.setOnEditCommit(
-            new EventHandler<javafx.scene.control.TableColumn.CellEditEvent<Lecture, Integer>>() {
+        TableColumn courseCol = new TableColumn("Course");
+        courseCol.setCellValueFactory(new PropertyValueFactory<Lecture,String>("Course"));
+        courseCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        courseCol.setOnEditCommit(
+            new EventHandler<TableColumn.CellEditEvent<Lecture, String>>() {
                 @Override
-                public void handle(javafx.scene.control.TableColumn.CellEditEvent<Lecture, Integer> t) {
-                    ((Lecture) t.getTableView().getItems().get(t.getTablePosition().getRow())).setNumberOfStudentsAssigned(t.getNewValue());
+                public void handle(TableColumn.CellEditEvent<Lecture, String> t) {
+                    ((Lecture) t.getTableView().getItems().get(
+                            t.getTablePosition().getRow())
+                    ).setCourse(t.getNewValue());
                     try {
                         ISCTE.getInstance().writeCsv();
                     } catch (Exception e) {
@@ -74,7 +76,7 @@ public enum LectureAttribute {
                 }
             }
         );
-        return NStudentsCol;
+        return courseCol;
     }
     public static TableColumn getTableColumnCurricuralUnit() {
         TableColumn cUnitCol = new TableColumn("curricuralUnit");
