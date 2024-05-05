@@ -126,4 +126,87 @@ public class ISCTE {
         }
     }
 
+    public boolean findSpecificElmOfSpecificLecture(LectureAttributes attribute, String elm) {
+        boolean founded = false;
+
+        for (Lecture lecture : lectures) {
+            switch (attribute) {
+                case course -> {
+                    if (lecture.getCourse().equals(elm)) {
+                        founded = true;
+                    }
+                }
+                case curricuralUnit -> {
+                    if (lecture.getCurricuralUnit().equals(elm)) {
+                        founded = true;
+                    }
+                }
+                case shift -> {
+                    if (lecture.getShift().equals(elm)) {
+                        founded = true;
+                    }
+                }
+                case classN -> {
+                    if (lecture.getClassN().equals(elm)) {
+                        founded = true;
+                    }
+                }
+                case numberOfStudentsAssigned -> {
+                    try {
+                        if (lecture.getNumberOfStudentsAssigned() == Integer.parseInt(elm)) {
+                            founded = true;
+                        }
+                    } catch (Exception e) {
+                        System.out.println(e);
+                    }
+                }
+                case dayOfTheWeek -> {
+                    if (lecture.getDayOfTheWeek().toString().equals(elm)) {
+                        founded = true;
+                    }
+                }
+                case startOfClass -> {
+                    if (lecture.getStartOfClass().toString().equals(elm)) {
+                        founded = true;
+                    }
+                }
+                case endOfClass -> {
+                    if (lecture.getEndOfClass().toString().equals(elm)) {
+                        founded = true;
+                    }
+                }
+                case dateOfClass -> {
+                    if (lecture.getDateOfClass() != null && lecture.getDateOfClass().toString().equals(elm)) {
+                        founded = true;
+                    }
+                }
+                case specificationOfRoom -> {
+                    if (lecture.getSpecificationOfRoom() != null && lecture.getSpecificationOfRoom().equals(elm)) {
+                        founded = true;
+                    }
+                }
+                case roomCode -> {
+                    if (lecture.getRoomCode() != null && lecture.getRoomCode().equals(elm)) {
+                        founded = true;
+                    }
+                }
+            }
+        }
+        return founded;
+    }
+
+    public String findRoomCode(String specificationOfRoom) {
+        for (Lecture lecture : this.lectures) {
+            if (lecture.getSpecificationOfRoom() != null && lecture.getSpecificationOfRoom().equals(specificationOfRoom)) {
+                return lecture.getRoomCode();
+            }
+        }
+        return null;
+    }
+
+    public void deleteLecture(Lecture lecture) {
+        if (lecture != null) {
+            this.lectures.remove(lecture);
+        }
+    }
 }
