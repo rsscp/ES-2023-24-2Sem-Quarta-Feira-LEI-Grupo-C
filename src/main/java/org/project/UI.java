@@ -25,6 +25,7 @@ import javafx.util.StringConverter;
 import javafx.util.converter.LocalDateStringConverter;
 import javafx.util.converter.LocalTimeStringConverter;
 
+import javax.swing.*;
 import java.io.*;
 import java.net.MalformedURLException;
 import java.time.DayOfWeek;
@@ -34,6 +35,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class UI extends Application {
     private final int COL_SIZE = 100;
@@ -458,51 +461,133 @@ public class UI extends Application {
         MenuItem deleteItem = new MenuItem("Delete");
 
         makeChange.setOnAction(event -> {
-            Lecture selectedLecture = (Lecture) table.getSelectionModel().getSelectedItem();
-            if (selectedLecture != null) {
-                // Vytvoření nového okna
+            Lecture lecture = (Lecture) table.getSelectionModel().getSelectedItem();
+            if (lecture != null) {
+
                 Stage editStage = new Stage();
                 editStage.setTitle("Edit");
+                VBox elements = new VBox(10);
 
-                // Vytvoření komponent pro editaci
-                TextField textField = new TextField();
-                Button saveButton = new Button("Submit");
+                elements.getChildren().add(this.createElmForEditTable(lecture, "Day of the week"));
+                elements.getChildren().add(this.createElmForEditTable(lecture, "Start of class"));
+                elements.getChildren().add(this.createElmForEditTable(lecture, "End of class"));
+                elements.getChildren().add(this.createElmForEditTable(lecture, "Date"));
+                elements.getChildren().add(this.createElmForEditTable(lecture, "Specification of room"));
 
-                // Nastavení akce pro tlačítko "Uložit"
-                saveButton.setOnAction(saveEvent -> {
-                    // Zde můžete provést akce pro uložení změn
-                    // Po uložení změn můžete okno zavřít
-                    editStage.close();
-                });
+                Button submitButton = new Button("Submit");
+                Label info = new Label("All atributes you enter must be in right format, otherwise they whould not be accepted!");
+                info.setStyle("-fx-font-style: italic;");
+                info.setAlignment(Pos.TOP_CENTER);
 
-                VBox layout = new VBox(10);
-                layout.getChildren().addAll(textField, saveButton);
-                layout.setAlignment(Pos.CENTER);
+                elements.getChildren().add(submitButton);
+                elements.getChildren().add(info);
+                elements.setAlignment(Pos.TOP_CENTER);
 
-                Scene scene = new Scene(layout, 300, 200);
+                Scene scene = new Scene(elements, 500, 270);
                 editStage.setScene(scene);
                 editStage.show();
                 editStage.setResizable(false);
+
+                submitButton.setOnAction(saveEvent -> {
+                    ObservableList<Node> nodes = elements.getChildren();
+                    ArrayList<TextField> textFields = new ArrayList<>();
+                    StringBuilder sb = new StringBuilder();
+
+                    for (Node node : nodes) {
+                        if (node instanceof HBox box) {
+                            System.out.println(((TextField) box.getChildren().get(1)).getText());
+                            textFields.add((TextField) box.getChildren().get(1));
+                        } else {
+                            break;
+                        }
+                    }
+
+                    System.out.print(textFields.size());
+
+                    for (int i = 0; i < textFields.size(); i++) {
+                        if (i == 0) {
+                            if (!this.isDayValid(textFields.get(i).getText())) {
+                                sb.append("Invalid day, ");
+                            }
+                        }
+                        if (i == 1 || i == 2) {
+                            if(!this.isTimeValid(textFields.get(i).getText())) {
+                                sb.append("Invalid time, ");
+                            }
+                        }
+                        if (i == 3) {
+                            if(!this.isDateValid(textFields.get(i).getText())) {
+                                sb.append("Invalid date, ");
+                            }
+                        }
+                        if (i == 4) {
+                            if(!this.iscte.findSpecificElmOfSpecificLecture(LectureAttributes.specificationOfRoom, textFields.get(i).getText())) {
+                                sb.append("Invalid room");
+                            }
+                        }
+                    }
+
+                    if (!sb.isEmpty()) {
+                        JOptionPane.showMessageDialog(null, sb.toString(), "Warning", JOptionPane.WARNING_MESSAGE);
+                    } else {
+                        lecture.setDayOfTheWeek(this.determineDayOfWeek(textFields.get(0).getText()));
+                        System.out.print("Good job");
+                        lecture.setStartOfClass(textFields.get(1).getText());
+                        System.out.print("Good job");
+                        lecture.setEndOfClass(textFields.get(2).getText());
+                        System.out.print("Good job");
+                        lecture.setDateOfClass(textFields.get(3).getText(),"-");
+                        System.out.print("Good job");
+                        lecture.setSpecificationOfRoom(textFields.get(4).getText());
+
+                        lecture.setRoomCode(this.iscte.findRoomCode(textFields.get(4).getText()));
+
+                        try {
+                            writeCsv();
+                        } catch (Exception e) {
+                            throw new RuntimeException(e);
+                        }
+                        editStage.close();
+                    }
+                });
             }
         });
 
         deleteItem.setOnAction(event -> {
-            Lecture selectedLecture = (Lecture) table.getSelectionModel().getSelectedItem();
-            if (selectedLecture != null) {
-
+            Lecture lecture = (Lecture) table.getSelectionModel().getSelectedItem();
+            if (lecture != null) {
+                this.iscte.deleteLecture(lecture);
             }
         });
 
         rowMenu.getItems().addAll(makeChange, deleteItem);
 
-        table.setContextMenu(rowMenu);
+        this.table.setContextMenu(rowMenu);
 
-        table.setOnContextMenuRequested(event -> {
+        this.table.setOnContextMenuRequested(event -> {
             Lecture selectedLecture =  (Lecture) table.getSelectionModel().getSelectedItem();
             if (selectedLecture != null) {
-                rowMenu.show(table, event.getScreenX(), event.getScreenY());
+                rowMenu.show(this.table, event.getScreenX(), event.getScreenY());
             }
         });
+    }
+
+    private HBox createElmForEditTable(Lecture lecture, String data) {
+        HBox hbox = new HBox();
+        Label label = new Label(data);
+        label.setPrefWidth(COL_SIZE * 2);
+        TextField textField = new TextField();
+        switch (data) {
+            case "Day of the week" -> textField.setText(lecture.getDayOfTheWeek().toString());
+            case "Start of class" -> textField.setText(lecture.getStartOfClass().toString());
+            case "End of class" -> textField.setText(lecture.getEndOfClass().toString());
+            case "Date" -> textField.setText(lecture.getDateOfClass().toString());
+            case "Specification of room" -> textField.setText(lecture.getSpecificationOfRoom());
+        }
+        label.setPrefWidth(COL_SIZE * 2);
+        hbox.getChildren().addAll(label, textField);
+        hbox.setAlignment(Pos.TOP_CENTER);
+        return hbox;
     }
 
     private String[] getFilters() {
@@ -540,6 +625,30 @@ public class UI extends Application {
             default:
                 return null;
         }
+    }
+
+    private boolean isDayValid(String day) {
+        return day.equals("MONDAY") || day.equals("TUESDAY") || day.equals("WEDNESDAY") ||
+                day.equals("THURSDAY") || day.equals("FRIDAY") || day.equals("SATURDAY") ||
+                day.equals("SUNDAY");
+    }
+
+    private boolean isTimeValid(String time) {
+        String timeRegex = "([01]?[0-9]|2[0-3]):[0-5][0-9]";
+
+        Pattern pattern = Pattern.compile(timeRegex);
+        Matcher matcher = pattern.matcher(time);
+
+        return matcher.matches();
+    }
+
+    private boolean isDateValid(String date) {
+        String dateRegex = "\\d{4}-\\d{2}-\\d{2}";
+
+        Pattern pattern = Pattern.compile(dateRegex);
+        Matcher matcher = pattern.matcher(date);
+
+        return matcher.matches();
     }
 
     private Node createPage(int pageIndex) {
