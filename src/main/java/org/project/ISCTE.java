@@ -96,67 +96,35 @@ public class ISCTE {
             break;
         }
     }
-    public static int checkConflict(Lecture l1, Lecture l2){
-        if( l1.equals(l2)){
+    public static int checkConflict(Lecture l1, Lecture l2) {
+        if (l1.equals(l2)) {
             return -1;
         }
-        if(l1.getDateOfClass().equals(l2.getDateOfClass()) && l1.getRoomCode().equals(l2.getRoomCode()) && !(l1.getStartOfClass().isAfter(l2.getEndOfClass()) || l2.getStartOfClass().isAfter(l1.getEndOfClass()))){
+        if(l1.getDateOfClass()==null || l2.getDateOfClass()==null || l1.getRoomCode() == null || l2.getRoomCode() == null){
+            return 0;
+        }
+        if (l1.getDateOfClass().equals(l2.getDateOfClass()) && l1.getRoomCode().equals(l2.getRoomCode()) && !(l1.getStartOfClass().plusSeconds(1).isAfter(l2.getEndOfClass()) || l2.getStartOfClass().plusSeconds(1).isAfter(l1.getEndOfClass()))) {
             return 1;
         }
-        if(l1.getCourse().equals(l2.getCourse()) && l1.getDateOfClass().equals(l2.getDateOfClass()) && l1.getShift().equals(l2.getShift()) && !l1.getRoomCode().equals(l2.getRoomCode()) && !(l1.getStartOfClass().isAfter(l2.getEndOfClass()) || l2.getStartOfClass().isAfter(l1.getEndOfClass()))){
+        if (l1.getCourse().equals(l2.getCourse()) && l1.getDateOfClass().equals(l2.getDateOfClass()) && l1.getShift().equals(l2.getShift()) && !l1.getRoomCode().equals(l2.getRoomCode()) && !(l1.getStartOfClass().plusSeconds(1).isAfter(l2.getEndOfClass()) || l2.getStartOfClass().plusSeconds(1).isAfter(l1.getEndOfClass()))) {
             return 1;
         }
         return 0;
     }
-    public static List<Set<Integer>> measureConflicts(List<Lecture> lectures) {
-        List<Set<Integer>> conflictGroups = new ArrayList<>();
-        int n = lectures.size();
-        boolean[] visited = new boolean[n];
-
-        Graph graph = new Graph(n);
-        for (int i = 0; i < n; i++) {
-            for (int j = i + 1; j < n; j++) {
+    public static ArrayList<ArrayList<Integer>> measureConflicts(List<Lecture> lectures) {
+        ArrayList<ArrayList<Integer>> conflitos = new ArrayList<ArrayList<Integer>>();
+        for (int i = 0; i < lectures.size(); i++) {
+            ArrayList<Integer> conflitosDeI = new ArrayList<Integer>();
+            for (int j = 0; j < lectures.size(); j++) {
                 if (checkConflict(lectures.get(i), lectures.get(j)) == 1) {
-                    graph.addEdge(i, j);
+                    conflitosDeI.add(j);
                 }
             }
+            conflitos.add(conflitosDeI);
         }
-        for (int i = 0; i < n; i++) {
-            if (!visited[i]) {
-                Set<Integer> conflictGroup = new HashSet<>();
-                dfs(graph, i, visited, conflictGroup);
-                conflictGroups.add(conflictGroup);
-            }
-        }
-
-        return conflictGroups;
+        return conflitos;
     }
 
-    static class Graph {
-        int V;
-        LinkedList<Integer>[] list;
 
-        Graph(int V) {
-            this.V = V;
-            list = new LinkedList[V];
-            for (int i = 0; i < V; i++) {
-                list[i] = new LinkedList<>();
-            }
-        }
 
-        void addEdge(int src, int dest) {
-            list[src].add(dest);
-            list[dest].add(src);
-        }
-    }
-    private static void dfs(Graph graph, int v, boolean[] visited, Set<Integer> conflictGroup) {
-        visited[v] = true;
-        conflictGroup.add(v);
-
-        for (int neighbor : graph.list[v]) {
-            if (!visited[neighbor]) {
-                dfs(graph, neighbor, visited, conflictGroup);
-            }
-        }
-    }
 }
