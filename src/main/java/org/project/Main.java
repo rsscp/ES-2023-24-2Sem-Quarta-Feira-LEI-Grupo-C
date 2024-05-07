@@ -18,18 +18,8 @@ import java.util.Set;
 public class Main {
     public static void main(String[] args) throws  IOException {
 
-        //App.main(args);
-        //UI.main(args);
-        ISCTE.getInstance().readLeactures("HorarioDeExemplo.csv");
-        ObservableList<Lecture> a =ISCTE.getInstance().getLectures();
-        String[] s = {"MIA","Urbanismo II","03836TP01","ARQ-D6, ARQ-D5, ARQ-D4, ARQ-D3, ARQ-D2, ARQ-D1","60","Sex","10:00:00","12:00:00","25/11/2022","Sala Aulas Mestrado","2E07"};
-        Lecture l1 = new Lecture(s);
-        a.add(l1);
-        ArrayList<ArrayList<Integer>> l = ISCTE.getInstance().measureConflicts(a);
-        //System.out.println(l.toString());
-        System.out.println(a.get(a.size()-1));
-        System.out.println(a.get(16774));
-        System.out.println(a.get(16786));
+        App.main(args);
+        UI.main(args);
 
 
     }
