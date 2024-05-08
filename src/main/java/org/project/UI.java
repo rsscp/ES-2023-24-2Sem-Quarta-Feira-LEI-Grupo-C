@@ -467,6 +467,7 @@ public class UI extends Application {
                 elements.getChildren().add(this.createElmForEditTable(lecture, "Specification of room"));
 
                 Button suggestionButton = new Button("Provide suggestion");
+                suggestionButton.setStyle("-fx-background-color: blue; -fx-text-fill: white;");
                 Button submitButton = new Button("Submit");
                 Label info = new Label("All atributes you enter must be in right format, otherwise they whould not be accepted!");
                 info.setStyle("-fx-font-style: italic;");
@@ -545,6 +546,10 @@ public class UI extends Application {
                         }
                         editStage.close();
                     }
+                });
+
+                suggestionButton.setOnAction(e -> {
+
                 });
             }
         });
