@@ -2,10 +2,8 @@ package org.project;
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+
 import javafx.collections.*;
 
 /**
@@ -125,6 +123,36 @@ public class ISCTE {
             break;
         }
     }
+    public static int checkConflict(Lecture l1, Lecture l2) {
+        if (l1.equals(l2)) {
+            return -1;
+        }
+        if(l1.getDateOfClass()==null || l2.getDateOfClass()==null || l1.getRoomCode() == null || l2.getRoomCode() == null){
+            return 0;
+        }
+        if (l1.getDateOfClass().equals(l2.getDateOfClass()) && l1.getRoomCode().equals(l2.getRoomCode()) && !(l1.getStartOfClass().plusSeconds(1).isAfter(l2.getEndOfClass()) || l2.getStartOfClass().plusSeconds(1).isAfter(l1.getEndOfClass()))) {
+            return 1;
+        }
+        if (l1.getCourse().equals(l2.getCourse()) && l1.getDateOfClass().equals(l2.getDateOfClass()) && l1.getShift().equals(l2.getShift()) && !l1.getRoomCode().equals(l2.getRoomCode()) && !(l1.getStartOfClass().plusSeconds(1).isAfter(l2.getEndOfClass()) || l2.getStartOfClass().plusSeconds(1).isAfter(l1.getEndOfClass()))) {
+            return 1;
+        }
+        return 0;
+    }
+    public static ArrayList<ArrayList<Integer>> measureConflicts(List<Lecture> lectures) {
+        ArrayList<ArrayList<Integer>> conflitos = new ArrayList<ArrayList<Integer>>();
+        for (int i = 0; i < lectures.size(); i++) {
+            ArrayList<Integer> conflitosDeI = new ArrayList<Integer>();
+            for (int j = 0; j < lectures.size(); j++) {
+                if (checkConflict(lectures.get(i), lectures.get(j)) == 1) {
+                    conflitosDeI.add(j);
+                }
+            }
+            conflitos.add(conflitosDeI);
+        }
+        return conflitos;
+    }
+
+
 
     public boolean findSpecificElmOfSpecificLecture(LectureAttribute attribute, String elm) {
         boolean founded = false;
