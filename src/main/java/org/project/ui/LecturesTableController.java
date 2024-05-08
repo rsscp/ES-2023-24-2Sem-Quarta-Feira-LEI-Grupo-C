@@ -5,6 +5,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 import org.project.*;
 
 import java.io.BufferedWriter;
@@ -94,4 +95,10 @@ public class LecturesTableController {
         lectureTable.getColumns().addAll(lectureTableColumns);
         lectureTable.setItems(ISCTE.getInstance().getLectures());
     }
+
+    @FXML
+    private void showConflictGraph(){
+        idk.start2(((Stage) root.getScene().getWindow()));
+    }
 }
+
