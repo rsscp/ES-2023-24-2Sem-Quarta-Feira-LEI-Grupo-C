@@ -466,16 +466,18 @@ public class UI extends Application {
                 elements.getChildren().add(this.createElmForEditTable(lecture, "Date"));
                 elements.getChildren().add(this.createElmForEditTable(lecture, "Specification of room"));
 
+                Button suggestionButton = new Button("Provide suggestion");
                 Button submitButton = new Button("Submit");
                 Label info = new Label("All atributes you enter must be in right format, otherwise they whould not be accepted!");
                 info.setStyle("-fx-font-style: italic;");
                 info.setAlignment(Pos.TOP_CENTER);
 
+                elements.getChildren().add(suggestionButton);
                 elements.getChildren().add(submitButton);
                 elements.getChildren().add(info);
                 elements.setAlignment(Pos.TOP_CENTER);
 
-                Scene scene = new Scene(elements, 500, 270);
+                Scene scene = new Scene(elements, 550, 270);
                 editStage.setScene(scene);
                 editStage.show();
                 editStage.setResizable(false);
@@ -493,6 +495,8 @@ public class UI extends Application {
                             break;
                         }
                     }
+
+
 
                     for (int i = 0; i < textFields.size(); i++) {
                         if (i == 0) {
@@ -517,8 +521,15 @@ public class UI extends Application {
                         }
                     }
 
+                    ArrayList<Lecture> l = new ArrayList<>();
+                    l.add(lecture);
+                    ArrayList<ArrayList<Integer>> conflicts = ISCTE.measureConflicts(l);
+                    boolean isThereConflict = !(conflicts.get(0).isEmpty());
+
                     if (!sb.isEmpty()) {
                         JOptionPane.showMessageDialog(null, sb.toString(), "Warning", JOptionPane.WARNING_MESSAGE);
+                    } else if (isThereConflict) {
+                        JOptionPane.showMessageDialog(null, "There is a conflict with at least with one class, try different parameters!", "Warning", JOptionPane.WARNING_MESSAGE);
                     } else {
                         lecture.setDayOfTheWeek(this.determineDayOfWeek(textFields.get(0).getText()));
                         lecture.setStartOfClass(textFields.get(1).getText());
