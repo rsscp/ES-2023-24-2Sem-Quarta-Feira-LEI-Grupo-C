@@ -494,8 +494,6 @@ public class UI extends Application {
                         }
                     }
 
-                    System.out.print(textFields.size());
-
                     for (int i = 0; i < textFields.size(); i++) {
                         if (i == 0) {
                             if (!this.isDayValid(textFields.get(i).getText())) {
@@ -523,15 +521,10 @@ public class UI extends Application {
                         JOptionPane.showMessageDialog(null, sb.toString(), "Warning", JOptionPane.WARNING_MESSAGE);
                     } else {
                         lecture.setDayOfTheWeek(this.determineDayOfWeek(textFields.get(0).getText()));
-                        System.out.print("Good job");
                         lecture.setStartOfClass(textFields.get(1).getText());
-                        System.out.print("Good job");
                         lecture.setEndOfClass(textFields.get(2).getText());
-                        System.out.print("Good job");
                         lecture.setDateOfClass(textFields.get(3).getText(),"-");
-                        System.out.print("Good job");
                         lecture.setSpecificationOfRoom(textFields.get(4).getText());
-
                         lecture.setRoomCode(this.iscte.findRoomCode(textFields.get(4).getText()));
 
                         try {
