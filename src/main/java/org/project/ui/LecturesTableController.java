@@ -2,15 +2,15 @@ package org.project.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
-import org.project.ISCTE;
-import org.project.Lecture;
-import org.project.LectureAttributes;
+import javafx.scene.layout.GridPane;
+import org.project.*;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,41 +20,78 @@ public class LecturesTableController {
     private Parent root;
 
     @FXML
-    private TextField courseFilter;
-    @FXML
-    private TextField curricularUnitFilter;
-    @FXML
-    private TextField shiftFilter;
-    @FXML
-    private TextField classNFilter;
-    @FXML
-    private TextField numberOfStudentsAssignedFilter;
-    @FXML
-    private TextField dayOfTheWeekFilter;
-    @FXML
-    private TextField startOfClassFilter;
-    @FXML
-    private TextField endOfClassFilter;
-    @FXML
-    private TextField dateOfClassFilter;
-    @FXML
-    private TextField specificationOfRoomFilter;
-    @FXML
-    private TextField roomCodeFilter;
+    private GridPane grid;
     @FXML
     private TableView lectureTable;
 
+    private List<TableColumn> lectureTableColumns = new ArrayList<>();
+    private List<Button> filterOpButtons = new ArrayList<>();
+    private List<TextField> filterTextFields = new ArrayList<>();
+
     @FXML
-    public void initialize() {
-        //lectureTable.prefHeightProperty().bind(((Stage) root.getScene().getWindow()).heightProperty());
-        List<TableColumn> tableColumns = new ArrayList<>();
-        for (LectureAttributes a : LectureAttributes.values()) {
-            TableColumn currentCol = new TableColumn(a.name());
-            //currentCol.prefWidthProperty().bind(((Stage) root.getScene().getWindow()).widthProperty().divide(11));  //TODO not hardcoded
-            currentCol.setCellValueFactory(new PropertyValueFactory<Lecture,String>(a.name()));
-            tableColumns.add(currentCol);
+    private void initialize() {
+        setTable();
+        setFilters();
+    }
+
+    @FXML
+    private void applyFilters() {
+        List<Filter> filters = new ArrayList<>();
+        for (LectureAttribute a : LectureAttribute.values()) {
+            String filterText = filterTextFields.get(a.getValue()).getText();
+            String filterOp = filterOpButtons.get(a.getValue()).getText();
+            if (filterText != "")
+                filters.add(new Filter(a, filterText, filterOp));
         }
-        lectureTable.getColumns().addAll(tableColumns);
+        lectureTable.setItems(ISCTE.getInstance().getLectures(filters));
+        System.out.println("Filters working?");
+    }
+
+    private void setFilters() {
+        for (LectureAttribute a : LectureAttribute.values()) {
+            lectureTableColumns.get(a.getValue()).setVisible(true);
+            TextField textField = new TextField();
+            textField.setId(a.name());
+            Button opButton = new Button(FilterOperation.NOP.getLabel());
+            opButton.setId(a.name() + "_op");
+            opButton.setPrefWidth(50);
+            opButton.setPrefHeight(50);
+            opButton.setOnAction(event -> {
+                opButton.setText(FilterOperation.getNextFilterLabel(opButton.getText()));
+            });
+            Button hideButton = new Button("Hide Column");
+            hideButton.setId(a.name() + "_hide");
+            hideButton.setPrefHeight(50);
+            hideButton.setOnAction(event -> {
+                switch (hideButton.getText()) {
+                    case "Hide Column" -> {
+                        lectureTableColumns.get(a.getValue()).setVisible(false);
+                        hideButton.setText("Show Column");
+                    }
+                    default -> {
+                        lectureTableColumns.get(a.getValue()).setVisible(true);
+                        hideButton.setText("Hide Column");
+                    }
+                }
+            });
+
+            filterTextFields.add(textField);
+            filterOpButtons.add(opButton);
+
+            grid.addColumn(0, new Label(a.getLabel()));
+            grid.addColumn(1, textField);
+            grid.addColumn(2, opButton);
+            grid.addColumn(3, hideButton);
+        }
+    }
+
+    private void setTable() {
+        lectureTable.setEditable(true);
+        for (LectureAttribute a : LectureAttribute.values()) {
+            TableColumn column = a.getTableColumn();
+            lectureTableColumns.add(column);
+        }
+        lectureTable.getColumns().addAll(lectureTableColumns);
         lectureTable.setItems(ISCTE.getInstance().getLectures());
     }
 }

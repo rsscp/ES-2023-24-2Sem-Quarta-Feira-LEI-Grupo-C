@@ -16,7 +16,7 @@ public class ISCTE {
     private final ObservableList<Lecture> lectures;
     private String fileName;
 
-    public ISCTE() {
+    private ISCTE() {
         lectures = FXCollections.observableArrayList();
         rooms = new LinkedList<>();
         this.fileName = null;
@@ -60,12 +60,12 @@ public class ISCTE {
      * @throws IOException Exception in case of reading file
      */
     public void readLeactures(String fileName) throws IOException {
-        try (FileInputStream fis = new FileInputStream(fileName);
-             InputStreamReader isr = new InputStreamReader(fis);
-             BufferedReader br = new BufferedReader(isr)) {
-
+        try (
+            FileInputStream fis = new FileInputStream(fileName);
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader br = new BufferedReader(isr)
+        ) {
             br.readLine();
-
             String lecture;
             while ((lecture = br.readLine()) != null) {
                 String[] arguments = lecture.split(";");
@@ -85,6 +85,33 @@ public class ISCTE {
                 filteredLectures.add(l);
         }
         return filteredLectures;
+    }
+
+    public ObservableList<Lecture> getLectures(List<Filter> filters) {
+        ObservableList<Lecture> filteredLectures = FXCollections.observableArrayList();
+        for (Lecture l: lectures) {
+            if (l.testFilters(filters))
+                filteredLectures.add(l);
+        }
+        return filteredLectures;
+    }
+
+    public void writeCsv() throws Exception {
+        Writer writer = null;
+        try {
+            File file = new File(System.getProperty("user.dir") + File.separator + "NovoHorario.csv");
+            writer = new BufferedWriter(new FileWriter(file));
+            writer.write("Curso;Unidade Curricular;Turno;Turma;Inscritos no turno;Dia da semana;Hora início da aula;Hora fim da aula;Data da aula;Características da sala pedida para a aula;Sala atribuída à aula\n");
+            for (Lecture lecture : lectures) {
+                String text = lecture.toString();
+                writer.write(text + "\n");
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            writer.flush();
+            writer.close();
+        }
     }
 
     /**
@@ -127,4 +154,87 @@ public class ISCTE {
 
 
 
+    public boolean findSpecificElmOfSpecificLecture(LectureAttribute attribute, String elm) {
+        boolean founded = false;
+
+        for (Lecture lecture : lectures) {
+            switch (attribute) {
+                case course -> {
+                    if (lecture.getCourse().equals(elm)) {
+                        founded = true;
+                    }
+                }
+                case curricuralUnit -> {
+                    if (lecture.getCurricuralUnit().equals(elm)) {
+                        founded = true;
+                    }
+                }
+                case shift -> {
+                    if (lecture.getShift().equals(elm)) {
+                        founded = true;
+                    }
+                }
+                case classN -> {
+                    if (lecture.getClassN().equals(elm)) {
+                        founded = true;
+                    }
+                }
+                case numberOfStudentsAssigned -> {
+                    try {
+                        if (lecture.getNumberOfStudentsAssigned() == Integer.parseInt(elm)) {
+                            founded = true;
+                        }
+                    } catch (Exception e) {
+                        System.out.println(e);
+                    }
+                }
+                case dayOfTheWeek -> {
+                    if (lecture.getDayOfTheWeek().toString().equals(elm)) {
+                        founded = true;
+                    }
+                }
+                case startOfClass -> {
+                    if (lecture.getStartOfClass().toString().equals(elm)) {
+                        founded = true;
+                    }
+                }
+                case endOfClass -> {
+                    if (lecture.getEndOfClass().toString().equals(elm)) {
+                        founded = true;
+                    }
+                }
+                case dateOfClass -> {
+                    if (lecture.getDateOfClass() != null && lecture.getDateOfClass().toString().equals(elm)) {
+                        founded = true;
+                    }
+                }
+                case specificationOfRoom -> {
+                    if (lecture.getSpecificationOfRoom() != null && lecture.getSpecificationOfRoom().equals(elm)) {
+                        founded = true;
+                    }
+                }
+                case roomCode -> {
+                    if (lecture.getRoomCode() != null && lecture.getRoomCode().equals(elm)) {
+                        founded = true;
+                    }
+                }
+            }
+        }
+        return founded;
+    }
+
+    public String findRoomCode(String specificationOfRoom) {
+        for (Lecture lecture : this.lectures) {
+            if (lecture.getSpecificationOfRoom() != null && lecture.getSpecificationOfRoom().equals(specificationOfRoom)) {
+                return lecture.getRoomCode();
+            }
+        }
+        return null;
+    }
+
+    public void deleteLecture(Lecture lecture) {
+        if (lecture != null) {
+            this.lectures.remove(lecture);
+        }
+    }
 }

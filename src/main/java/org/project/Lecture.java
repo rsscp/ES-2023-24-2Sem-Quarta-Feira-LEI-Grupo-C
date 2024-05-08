@@ -48,11 +48,17 @@ public class Lecture {
     public void setDayOfTheWeek(DayOfWeek dayOfTheWeek) {
         this.dayOfTheWeek = dayOfTheWeek;
     }
+    public void setDayOfTheWeek(String dayOfTheWeek) {
+        this.dayOfTheWeek = this.determineDayOfWeek(dayOfTheWeek);
+    }
 
     private DayOfWeek dayOfTheWeek;
 
     public void setStartOfClass(LocalTime startOfClass) {
         this.startOfClass = startOfClass;
+    }
+    public void setStartOfClass(String startOfClass) {
+        this.startOfClass = this.determineLocalTime(startOfClass);
     }
 
     private LocalTime startOfClass;
@@ -60,11 +66,17 @@ public class Lecture {
     public void setEndOfClass(LocalTime endOfClass) {
         this.endOfClass = endOfClass;
     }
+    public void setEndOfClass(String endOfClass) {
+        this.endOfClass = this.determineLocalTime(endOfClass);
+    }
 
     private LocalTime endOfClass;
 
     public void setDateOfClass(LocalDate dateOfClass) {
         this.dateOfClass = dateOfClass;
+    }
+    public void setDateOfClass(String dateOfClass, String splitStr) {
+        this.dateOfClass = this.determineLocalDate(dateOfClass, splitStr);
     }
 
     private LocalDate dateOfClass;
@@ -80,12 +92,14 @@ public class Lecture {
     }
 
     private String roomCode;
+    private boolean isSelected;
 
     /**
      * Constructor of specific lectures
      * @param arguments Specifies details about specific lecture (room, start time, end time, name...).
      */
     public Lecture(String[] arguments) {
+        this.isSelected = false;
         this.course = arguments[0];
         this.curricuralUnit = arguments[1];
         this.shift = arguments[2];
@@ -100,7 +114,7 @@ public class Lecture {
             this.specificationOfRoom = null;
             this.roomCode = null;
         } else if (arguments.length == 10 || arguments.length == 11){
-            this.dateOfClass = determineLocalDate(arguments[8]);
+            this.dateOfClass = determineLocalDate(arguments[8], "/");
             this.specificationOfRoom = arguments[9];
             this.roomCode = arguments.length == 11 ? arguments[10] : null;
         } else {
@@ -231,21 +245,21 @@ public class Lecture {
                 ";" + this.roomCode;
     }
 
-    private DayOfWeek determineDayOfWeek(String dayString) throws IllegalArgumentException {
+    public static DayOfWeek determineDayOfWeek(String dayString) throws IllegalArgumentException {
         switch(dayString) {
-            case "Seg":
+            case "Seg", "MONDAY":
                 return DayOfWeek.MONDAY;
-            case "Ter":
+            case "Ter", "TUESDAY":
                 return DayOfWeek.TUESDAY;
-            case "Qua":
+            case "Qua", "THURSDAY":
                 return DayOfWeek.THURSDAY;
-            case "Qui":
+            case "Qui", "WEDNESDAY":
                 return DayOfWeek.WEDNESDAY;
-            case "Sex":
+            case "Sex", "FRIDAY":
                 return DayOfWeek.FRIDAY;
-            case "Sáb":
+            case "Sáb", "SATURDAY":
                 return DayOfWeek.SATURDAY;
-            case "Dom":
+            case "Dom", "SUNDAY":
                 return DayOfWeek.SUNDAY;
             default:
                 throw new IllegalArgumentException("Invalid day of the week: " + dayString);
@@ -256,13 +270,21 @@ public class Lecture {
         String[] timeParts = timeString.split(":");
         return LocalTime.of(
                 Integer.parseInt(timeParts[0]),
-                Integer.parseInt(timeParts[1]),
-                Integer.parseInt(timeParts[2])
+                Integer.parseInt(timeParts[1])
+               // Integer.parseInt(timeParts[2])
         );
     }
 
-    private LocalDate determineLocalDate(String dateString) {
-        String[] timeParts = dateString.split("/");
+    private LocalDate determineLocalDate(String dateString, String strSplit) {
+        String[] timeParts = dateString.split(strSplit);
+
+        if (strSplit.equals("-")) {
+            return LocalDate.of(
+                    Integer.parseInt(timeParts[0]),
+                    Integer.parseInt(timeParts[1]),
+                    Integer.parseInt(timeParts[2])
+            );
+        }
         return LocalDate.of(
                 Integer.parseInt(timeParts[2]),
                 Integer.parseInt(timeParts[1]),
@@ -358,6 +380,16 @@ public class Lecture {
         return filterString(roomCode, filterString);
     }
 
+    public boolean testFilters(List<Filter> filters) {
+        String[] attributeStrings = toString().split(";");
+        if(filters.size() > attributeStrings.length)
+            throw new IllegalArgumentException("Unexpected arguments, filter list length greater than number of attributes to be filtered");
+        boolean result = true;
+        for (Filter f : filters)
+            result = f.op(result, filterString(attributeStrings[f.getAttributeIndex()], f.getFilterString()));
+        return result;
+    }
+
     public boolean testFilters(List<Filter> filters, boolean includeEveryFilter) {
         boolean result = true;
         for (Filter filter: filters) {
@@ -440,5 +472,13 @@ public class Lecture {
         /*Pattern pattern = Pattern.compile(filter, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(toBeFiltered);
         return matcher.find();*/
+    }
+
+    public void setSelected(boolean selected) {
+        this.isSelected = selected;
+    }
+
+    public boolean isSelected() {
+        return this.isSelected;
     }
 }

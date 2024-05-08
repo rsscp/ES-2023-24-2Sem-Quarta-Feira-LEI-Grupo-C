@@ -1,31 +1,25 @@
 package org.project;
 
 import javafx.application.Application;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.skin.TableHeaderRow;
 import javafx.scene.layout.*;
-import javafx.scene.text.Text;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.control.TextField;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.*;
-import javafx.scene.layout.*;
-import javafx.stage.FileChooser;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.geometry.Insets;
 import javafx.event.EventHandler;
-import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.util.converter.IntegerStringConverter;
 import javafx.util.StringConverter;
 import javafx.util.converter.LocalDateStringConverter;
 import javafx.util.converter.LocalTimeStringConverter;
 
+import javax.swing.*;
 import java.io.*;
-import java.net.MalformedURLException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -33,23 +27,27 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class UI extends Application {
     private final int COL_SIZE = 100;
-    private ISCTE iscte = new ISCTE();
+    private ISCTE iscte = ISCTE.getInstance();
     int rowsPerPage = 10;
     Stage stage;
     ScrollPane root;
     final HBox hBox = new HBox();
-    final GridPane gridPane = new GridPane();
     private TableView table = new TableView();
-
     private BorderPane borderPane;
-    List<Label> filterLabels = new ArrayList<>();
-    List<TextField> filterTextFields = new ArrayList<>();
     List<TableColumn> tableColumns = new ArrayList<>();
-    final Label tableLabel = new Label("Lectures");
-    private TextField userInputField;
+   // final GridPane gridPane = new GridPane();
+
+
+    //List<Label> filterLabels = new ArrayList<>();
+   // List<TextField> filterTextFields = new ArrayList<>();
+
+    //final Label tableLabel = new Label("Lectures");
+   // private TextField userInputField;
 
 
     private Button btnSearchAND;
@@ -71,9 +69,12 @@ public class UI extends Application {
         this.makeFilters();
         this.getData();
         this.createTable();
-        Pagination pagination = new Pagination((iscte.getLectures().size() / rowsPerPage + 1), 0);
+        //Pagination pagination = new Pagination((iscte.getLectures().size() / rowsPerPage + 1), 0);
+        Pagination pagination = new Pagination();
+        pagination.setPageCount(1);
         pagination.setPageFactory(this::createPage);
-        this.borderPane.setCenter(pagination);
+       // pagination.setPageFactory(null);
+        this.borderPane.setLeft(pagination);
         //BorderPane borderPane = new BorderPane(pagination, this.gridPane, null, null, null);
 
         Scene scene = new Scene(this.borderPane, 1024, 768);
@@ -110,7 +111,7 @@ public class UI extends Application {
         HBox hbox = new HBox();
         VBox vBox = new VBox();
 
-        for (LectureAttributes a : LectureAttributes.values()) {
+        for (LectureAttribute a : LectureAttribute.values()) {
             TextField currentTextField = new TextField();
             currentTextField.setPrefWidth(100);
             currentTextField.setStyle("-fx-padding: 5px;");
@@ -417,6 +418,7 @@ public class UI extends Application {
 
         TableColumn RoomCodeCol = new TableColumn("roomCode");
         RoomCodeCol.setMinWidth(COL_SIZE);
+        RoomCodeCol.setMaxWidth(COL_SIZE);
         RoomCodeCol.setCellValueFactory(new PropertyValueFactory<Lecture,String>("roomCode"));
         RoomCodeCol.setCellFactory(TextFieldTableCell.forTableColumn());
         RoomCodeCol.setOnEditCommit(
@@ -435,10 +437,143 @@ public class UI extends Application {
                 }
         );
         tableColumns.add(RoomCodeCol);
+        table.setPrefWidth(1100);
+        table.setMinWidth(Region.USE_PREF_SIZE);
+        table.setMaxWidth(Region.USE_PREF_SIZE);
+        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         table.getColumns().addAll(tableColumns);
         table.setItems(iscte.getLectures());
+
+        this.creatContextMenuForLecture();
     }
 
+    private void creatContextMenuForLecture() {
+        ContextMenu rowMenu = new ContextMenu();
+        MenuItem makeChange = new MenuItem("Make Change");
+        MenuItem deleteItem = new MenuItem("Delete");
+
+        makeChange.setOnAction(event -> {
+            Lecture lecture = (Lecture) table.getSelectionModel().getSelectedItem();
+            if (lecture != null) {
+
+                Stage editStage = new Stage();
+                editStage.setTitle("Edit");
+                VBox elements = new VBox(10);
+
+                elements.getChildren().add(this.createElmForEditTable(lecture, "Day of the week"));
+                elements.getChildren().add(this.createElmForEditTable(lecture, "Start of class"));
+                elements.getChildren().add(this.createElmForEditTable(lecture, "End of class"));
+                elements.getChildren().add(this.createElmForEditTable(lecture, "Date"));
+                elements.getChildren().add(this.createElmForEditTable(lecture, "Specification of room"));
+
+                Button submitButton = new Button("Submit");
+                Label info = new Label("All atributes you enter must be in right format, otherwise they whould not be accepted!");
+                info.setStyle("-fx-font-style: italic;");
+                info.setAlignment(Pos.TOP_CENTER);
+
+                elements.getChildren().add(submitButton);
+                elements.getChildren().add(info);
+                elements.setAlignment(Pos.TOP_CENTER);
+
+                Scene scene = new Scene(elements, 500, 270);
+                editStage.setScene(scene);
+                editStage.show();
+                editStage.setResizable(false);
+
+                submitButton.setOnAction(saveEvent -> {
+                    ObservableList<Node> nodes = elements.getChildren();
+                    ArrayList<TextField> textFields = new ArrayList<>();
+                    StringBuilder sb = new StringBuilder();
+
+                    for (Node node : nodes) {
+                        if (node instanceof HBox box) {
+                            System.out.println(((TextField) box.getChildren().get(1)).getText());
+                            textFields.add((TextField) box.getChildren().get(1));
+                        } else {
+                            break;
+                        }
+                    }
+
+                    for (int i = 0; i < textFields.size(); i++) {
+                        if (i == 0) {
+                            if (!this.isDayValid(textFields.get(i).getText())) {
+                                sb.append("Invalid day, ");
+                            }
+                        }
+                        if (i == 1 || i == 2) {
+                            if(!this.isTimeValid(textFields.get(i).getText())) {
+                                sb.append("Invalid time, ");
+                            }
+                        }
+                        if (i == 3) {
+                            if(!this.isDateValid(textFields.get(i).getText())) {
+                                sb.append("Invalid date, ");
+                            }
+                        }
+                        if (i == 4) {
+                            if(!this.iscte.findSpecificElmOfSpecificLecture(LectureAttribute.specificationOfRoom, textFields.get(i).getText())) {
+                                sb.append("Invalid room");
+                            }
+                        }
+                    }
+
+                    if (!sb.isEmpty()) {
+                        JOptionPane.showMessageDialog(null, sb.toString(), "Warning", JOptionPane.WARNING_MESSAGE);
+                    } else {
+                        lecture.setDayOfTheWeek(this.determineDayOfWeek(textFields.get(0).getText()));
+                        lecture.setStartOfClass(textFields.get(1).getText());
+                        lecture.setEndOfClass(textFields.get(2).getText());
+                        lecture.setDateOfClass(textFields.get(3).getText(),"-");
+                        lecture.setSpecificationOfRoom(textFields.get(4).getText());
+                        lecture.setRoomCode(this.iscte.findRoomCode(textFields.get(4).getText()));
+
+                        try {
+                            writeCsv();
+                        } catch (Exception e) {
+                            throw new RuntimeException(e);
+                        }
+                        editStage.close();
+                    }
+                });
+            }
+        });
+
+        deleteItem.setOnAction(event -> {
+            Lecture lecture = (Lecture) table.getSelectionModel().getSelectedItem();
+            if (lecture != null) {
+                this.iscte.deleteLecture(lecture);
+            }
+        });
+
+        rowMenu.getItems().addAll(makeChange, deleteItem);
+
+        this.table.setContextMenu(rowMenu);
+
+        this.table.setOnContextMenuRequested(event -> {
+            Lecture selectedLecture =  (Lecture) table.getSelectionModel().getSelectedItem();
+            if (selectedLecture != null) {
+                rowMenu.show(this.table, event.getScreenX(), event.getScreenY());
+            }
+        });
+    }
+
+    private HBox createElmForEditTable(Lecture lecture, String data) {
+        HBox hbox = new HBox();
+        Label label = new Label(data);
+        label.setPrefWidth(COL_SIZE * 2);
+        TextField textField = new TextField();
+        switch (data) {
+            case "Day of the week" -> textField.setText(lecture.getDayOfTheWeek().toString());
+            case "Start of class" -> textField.setText(lecture.getStartOfClass().toString());
+            case "End of class" -> textField.setText(lecture.getEndOfClass().toString());
+            case "Date" -> textField.setText(lecture.getDateOfClass().toString());
+            case "Specification of room" -> textField.setText(lecture.getSpecificationOfRoom());
+        }
+        label.setPrefWidth(COL_SIZE * 2);
+        hbox.getChildren().addAll(label, textField);
+        hbox.setAlignment(Pos.TOP_CENTER);
+        return hbox;
+    }
 
     private String[] getFilters() {
         VBox first = (VBox) this.hBox.getChildren().get(0);
@@ -477,10 +612,34 @@ public class UI extends Application {
         }
     }
 
+    private boolean isDayValid(String day) {
+        return day.equals("MONDAY") || day.equals("TUESDAY") || day.equals("WEDNESDAY") ||
+                day.equals("THURSDAY") || day.equals("FRIDAY") || day.equals("SATURDAY") ||
+                day.equals("SUNDAY");
+    }
+
+    private boolean isTimeValid(String time) {
+        String timeRegex = "([01]?[0-9]|2[0-3]):[0-5][0-9]";
+
+        Pattern pattern = Pattern.compile(timeRegex);
+        Matcher matcher = pattern.matcher(time);
+
+        return matcher.matches();
+    }
+
+    private boolean isDateValid(String date) {
+        String dateRegex = "\\d{4}-\\d{2}-\\d{2}";
+
+        Pattern pattern = Pattern.compile(dateRegex);
+        Matcher matcher = pattern.matcher(date);
+
+        return matcher.matches();
+    }
+
     private Node createPage(int pageIndex) {
-        int fromIndex = pageIndex * rowsPerPage;
-        int toIndex = Math.min(fromIndex + rowsPerPage, iscte.getLectures().size());
-        table.setItems(this.iscte.getLectures());
+       // int fromIndex = pageIndex * rowsPerPage;
+        //int toIndex = Math.min(fromIndex + rowsPerPage, iscte.getLectures().size());
+        this.table.setItems(this.iscte.getLectures());
 
         return new BorderPane(table);
     }
@@ -508,18 +667,18 @@ public class UI extends Application {
     }
     
     private void setVisibleFilteredItems(String[] items, boolean includeEverything) {
-        table.setItems(this.filtersLectures(items, includeEverything));
+        this.table.setItems(this.filtersLectures(items, includeEverything));
     }
 
     private ObservableList<Lecture> filtersLectures(String[] pFilters, boolean includeEveryFilter) {
         String[] filters = pFilters;
         List<Filter> f = new ArrayList<>();
-        LectureAttributes[] lectureAttributes = LectureAttributes.values();
+        LectureAttribute[] lectureAttributes = LectureAttribute.values();
         System.out.println(filters);
 
         for (int i = 0; i < filters.length; i++) {
             if (!filters[i].equals("")) {
-                f.add(new Filter(lectureAttributes[i], filters[i]));
+                f.add(new Filter(lectureAttributes[i], filters[i], ""));
             }
         }
         if (f.isEmpty()) {
