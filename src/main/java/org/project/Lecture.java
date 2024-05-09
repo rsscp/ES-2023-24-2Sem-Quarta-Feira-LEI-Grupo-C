@@ -422,12 +422,19 @@ public class Lecture {
     }
 
     public boolean testFilters(List<Filter> filters) {
-        String[] attributeStrings = toString().split(";");
-        if(filters.size() > attributeStrings.length)
-            throw new IllegalArgumentException("Unexpected arguments, filter list length greater than number of attributes to be filtered");
         boolean result = true;
-        for (Filter f : filters)
-            result = f.op(result, filterString(attributeStrings[f.getAttributeIndex()], f.getFilterString()));
+        boolean firstFilterCleared = false;
+        String[] attributeStrings = toString().split(";");
+        if(filters.size() > attributeStrings.length)//TODO Move this verification to ISCTE class
+            throw new IllegalArgumentException("Unexpected arguments, filter list length greater than number of attributes to be filtered");
+        for (Filter f : filters) {
+            if (!firstFilterCleared) {
+                result = filterString(attributeStrings[f.getAttributeIndex()], f.getFilterString());
+                firstFilterCleared = true;
+            } else {
+                result = f.op(result, filterString(attributeStrings[f.getAttributeIndex()], f.getFilterString()));
+            }
+        }
         return result;
     }
 
