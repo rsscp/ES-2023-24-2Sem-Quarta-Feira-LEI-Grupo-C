@@ -24,7 +24,9 @@ public enum LectureAttribute {
     endOfClass(7, "End"),
     dateOfClass(8, "Date"),
     specificationOfRoom(9, "Room"),
-    roomCode(10, "Room Code");
+    roomCode(10, "Room Code"),
+    semesterWeek(11, "Semester Week"),
+    yearWeek(12, "Year Week");
 
     private int value;
     private String label;
@@ -53,6 +55,8 @@ public enum LectureAttribute {
             case 8 -> getTableColumnDateOfClass();
             case 9 -> getTableColumnSpecificationOfRoom();
             case 10 -> getTableColumnRoomCode();
+            case 11 -> getTableColumnSemesterWeek();
+            case 12 -> getTableColumnYearWeek();
             default -> throw new IllegalArgumentException();
         };
     }
@@ -246,6 +250,9 @@ public enum LectureAttribute {
                     ((Lecture) t.getTableView().getItems().get(
                             t.getTablePosition().getRow())
                     ).setDateOfClass(t.getNewValue());
+                    ((Lecture) t.getTableView().getItems().get(
+                            t.getTablePosition().getRow())
+                    ).setWeeks();
                     try {
                         ISCTE.getInstance().writeCsv();
                     } catch (Exception e) {
@@ -297,5 +304,17 @@ public enum LectureAttribute {
             }
         );
         return roomCodeCol;
+    }
+    public static TableColumn getTableColumnSemesterWeek() {
+        TableColumn semestreWeekCol = new TableColumn("Semestre Week");
+        semestreWeekCol.setCellValueFactory(new PropertyValueFactory<Lecture,Integer>("semesterWeek"));
+        semestreWeekCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        return semestreWeekCol;
+    }
+    public static TableColumn getTableColumnYearWeek() {
+        TableColumn yearWeekCol = new TableColumn("Year Week");
+        yearWeekCol.setCellValueFactory(new PropertyValueFactory<Lecture,Integer>("yearWeek"));
+        yearWeekCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        return yearWeekCol;
     }
 }

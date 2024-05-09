@@ -2,6 +2,7 @@ package org.project;
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.*;
 
 import javafx.collections.*;
@@ -14,6 +15,8 @@ public class ISCTE {
     private static ISCTE instance;
     private final LinkedList<Room> rooms;
     private final ObservableList<Lecture> lectures;
+    private LocalDate firstSemesterStart;
+    private LocalDate secondSemesterStart;
     private String fileName;
 
     private ISCTE() {
@@ -26,6 +29,14 @@ public class ISCTE {
         if (instance == null)
             instance = new ISCTE();
         return instance;
+    }
+
+    public LocalDate getFirstSemesterStart() {
+        return firstSemesterStart;
+    }
+
+    public LocalDate getSecondSemesterStart() {
+        return secondSemesterStart;
     }
 
     /**
@@ -71,6 +82,8 @@ public class ISCTE {
                 String[] arguments = lecture.split(";");
                 this.lectures.add(new Lecture(arguments));
             }
+            setSemesterDates();
+            setCalculatedColumns();
         }
     }
 
@@ -235,6 +248,44 @@ public class ISCTE {
     public void deleteLecture(Lecture lecture) {
         if (lecture != null) {
             this.lectures.remove(lecture);
+        }
+    }
+
+    private void setSemesterDates() {
+        if (lectures.size() == 0)
+            throw new IllegalStateException("No lectures loaded");
+        ObservableList<Lecture> lecturesSorted = lectures.sorted((l1, l2) -> {
+            if (l1.getDateOfClass() == null)
+                return -1;
+            else if (l2.getDateOfClass() == null)
+                return 1;
+            else if (l1.getDateOfClass().isBefore(l2.getDateOfClass()))
+                return -1;
+            else
+                return 1;
+        }).filtered(l -> {
+            return l.getDateOfClass() != null;
+        });
+        LocalDate firstDate = lecturesSorted.get(0).getDateOfClass();
+        LocalDate lastDate = lecturesSorted.get(lecturesSorted.size()-1).getDateOfClass();
+        if(firstDate.getYear() == lastDate.getYear())
+            throw new IllegalStateException("Loaded incomplete curricular year");
+        else {
+            ObservableList<Lecture> secondSemesterLectures = lecturesSorted.filtered(l -> {
+                return l.getDateOfClass().getYear() == lastDate.getYear();
+            });
+            firstSemesterStart = firstDate;
+            secondSemesterStart = secondSemesterLectures.get(0).getDateOfClass();
+        }
+    }
+
+    private void setCalculatedColumns() {
+        ObservableList<Lecture> filteredLectures = lectures.filtered(l -> {
+            return l.getDateOfClass() != null;
+        });
+        for (Lecture l: filteredLectures) {
+            l.setSemesterWeek(firstSemesterStart, secondSemesterStart);
+            l.setYearWeek(firstSemesterStart);
         }
     }
 }
