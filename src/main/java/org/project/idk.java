@@ -1,11 +1,17 @@
 package org.project;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
+
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,10 +23,18 @@ public class idk extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        ArrayList<ArrayList<Integer>> listaDeListas = ISCTE.getInstance().measureConflicts(ISCTE.getInstance().getLectures());
+        String[] s1= {"LETI, LEI, LEI-PL, LIGE, LIGE-PL","Fundamentos de Arquitectura de Computadores","L0705TP23", "ET-A9, ET-A8, ET-A7, ET-A12, ET-A11, ET-A10","44","Sex","12:45:00","16:30:00","09/12/2022","Sala/anfiteatro aulas","C5.06"};
+        ObservableList<Lecture> l = ISCTE.getInstance().getLectures();
+        l.add(new Lecture(s1));
+        ArrayList<ArrayList<Integer>> listaDeListas = ISCTE.getInstance().measureConflicts(l);
+        ObservableList<ArrayList<Integer>> list = FXCollections.observableArrayList(listaDeListas);
+        list=list.filtered(lista->{
+            return !lista.isEmpty();
+        });
+
         Pane pane = new Pane();
-        for (int i = 0; i < listaDeListas.size(); i++) {
-            ArrayList<Integer> listaInterna = listaDeListas.get(i);
+        for (int i = 0; i < list.size(); i++) {
+            ArrayList<Integer> listaInterna = list.get(i);
             if (!listaInterna.isEmpty()) {
                 double x = 100 + i * 150;
                 double y = 100;
@@ -53,10 +67,19 @@ public class idk extends Application {
 
     public static void start2(Stage primaryStage) {
 
-        ArrayList<ArrayList<Integer>> listaDeListas = ISCTE.getInstance().measureConflicts(ISCTE.getInstance().getLectures());
+        String[] s1= {"LETI, LEI, LEI-PL, LIGE, LIGE-PL","Fundamentos de Arquitectura de Computadores","L0705TP23", "ET-A9, ET-A8, ET-A7, ET-A12, ET-A11, ET-A10","44","Sex","12:45:00","16:30:00","09/12/2022","Sala/anfiteatro aulas","C5.06"};
+        ObservableList<Lecture> l = ISCTE.getInstance().getLectures();
+        l.add(new Lecture(s1));
+        ArrayList<ArrayList<Integer>> listaDeListas = ISCTE.getInstance().measureConflicts(l);
+        ObservableList<ArrayList<Integer>> list = FXCollections.observableArrayList(listaDeListas);
+        list=list.filtered(lista->{
+            return !lista.isEmpty();
+        });
+
+
         Pane pane = new Pane();
-        for (int i = 0; i < listaDeListas.size(); i++) {
-            ArrayList<Integer> listaInterna = listaDeListas.get(i);
+        for (int i = 0; i < list.size(); i++) {
+            ArrayList<Integer> listaInterna = list.get(i);
             if (!listaInterna.isEmpty()) {
                 double x = 100 + i * 150;
                 double y = 100;

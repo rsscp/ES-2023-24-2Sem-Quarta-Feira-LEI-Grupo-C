@@ -98,7 +98,8 @@ public class LecturesTableController {
 
     @FXML
     private void showConflictGraph(){
-        idk.start2(((Stage) root.getScene().getWindow()));
+        Stage conflictStage = new Stage();
+        idk.start2(conflictStage);
     }
 }
 
