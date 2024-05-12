@@ -20,9 +20,5 @@ public class Main {
 
         //UI.main(args);
         App.main(args);
-
-
-
-
     }
 }
