@@ -226,25 +226,6 @@ public class Lecture {
         return roomCode;
     }
 
-    /**
-     * Lecture is represented by a string containing all it's information seperated by ";"
-     * @return It will return this information in a single String.
-     */
-    @Override
-    public String toString() {
-        return this.course +
-                ";" +  this.curricuralUnit +
-                ";" + this.shift +
-                ";" + this.classN +
-                ";" + this.numberOfStudentsAssigned +
-                ";" + this.dayOfTheWeek +
-                ";" + this.startOfClass +
-                ";" + this.endOfClass +
-                ";" + this.dateOfClass +
-                ";" + this.specificationOfRoom +
-                ";" + this.roomCode;
-    }
-
     public static DayOfWeek determineDayOfWeek(String dayString) throws IllegalArgumentException {
         switch(dayString) {
             case "Seg", "MONDAY":
@@ -378,6 +359,28 @@ public class Lecture {
      */
     private boolean filterRoomCode(String filterString) {
         return filterString(roomCode, filterString);
+    }
+
+    /**
+     * Lecture is represented by a string containing all it's information seperated by ";"
+     *
+     * @return It will return this information in a single String.
+     */
+    @Override
+    public String toString() {
+        return "{" + course +
+                "," + curricuralUnit +
+                "," + shift +
+                "," + classN +
+                "," + numberOfStudentsAssigned +
+                "," + dayOfTheWeek +
+                "," + startOfClass +
+                "," + endOfClass +
+                "," + dateOfClass +
+                "," + specificationOfRoom +
+                "," + roomCode +
+                "," + isSelected +
+                '}';
     }
 
     public boolean testFilters(List<Filter> filters) {
