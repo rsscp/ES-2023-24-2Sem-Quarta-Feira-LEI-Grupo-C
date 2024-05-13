@@ -308,7 +308,6 @@ public class ISCTE {
         }
     }
 
- SubstitutionClassSuggestion
     public ArrayList<String> getAllRooms() {
         ArrayList<String> rooms = new ArrayList<>();
         for (Lecture lecture : this.lectures) {
