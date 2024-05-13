@@ -43,7 +43,7 @@ public class Lecture {
         this.dayOfTheWeek = dayOfTheWeek;
     }
     public void setDayOfTheWeek(String dayOfTheWeek) {
-        this.dayOfTheWeek = this.determineDayOfWeek(dayOfTheWeek);
+        this.dayOfTheWeek = TimeUtils.determineDayOfWeek(dayOfTheWeek);
     }
 
     private DayOfWeek dayOfTheWeek;
@@ -52,7 +52,7 @@ public class Lecture {
         this.startOfClass = startOfClass;
     }
     public void setStartOfClass(String startOfClass) {
-        this.startOfClass = this.determineLocalTime(startOfClass);
+        this.startOfClass = TimeUtils.determineLocalTime(startOfClass);
     }
 
     private LocalTime startOfClass;
@@ -61,7 +61,7 @@ public class Lecture {
         this.endOfClass = endOfClass;
     }
     public void setEndOfClass(String endOfClass) {
-        this.endOfClass = this.determineLocalTime(endOfClass);
+        this.endOfClass = TimeUtils.determineLocalTime(endOfClass);
     }
 
     private LocalTime endOfClass;
@@ -70,7 +70,7 @@ public class Lecture {
         this.dateOfClass = dateOfClass;
     }
     public void setDateOfClass(String dateOfClass, String splitStr) {
-        this.dateOfClass = this.determineLocalDate(dateOfClass, splitStr);
+        this.dateOfClass = TimeUtils.determineLocalDate(dateOfClass, splitStr);
     }
 
     private LocalDate dateOfClass;
@@ -94,8 +94,9 @@ public class Lecture {
         long firstDay = 0;
         if (dateOfClass == null)
             this.semesterWeek = null;
-        else if (dateOfClass.getYear() == firstSemesterStart.getYear())
+        else if (dateOfClass.getYear() == firstSemesterStart.getYear()) {
             firstDay = firstSemesterStart.toEpochDay();
+        }
         else if (dateOfClass.getYear() == secondSemesterStart.getYear())
             firstDay = secondSemesterStart.toEpochDay();
         else
@@ -128,9 +129,9 @@ public class Lecture {
         this.shift = arguments[2];
         this.classN = arguments[3];
         this.numberOfStudentsAssigned = Integer.parseInt(arguments[4]);
-        this.dayOfTheWeek = determineDayOfWeek(arguments[5]);
-        this.startOfClass = determineLocalTime(arguments[6]);
-        this.endOfClass = determineLocalTime(arguments[7]);
+        this.dayOfTheWeek = TimeUtils.determineDayOfWeek(arguments[5]);
+        this.startOfClass = TimeUtils.determineLocalTime(arguments[6]);
+        this.endOfClass = TimeUtils.determineLocalTime(arguments[7]);
 
         switch (arguments.length) {
             case 8 -> {
@@ -139,7 +140,7 @@ public class Lecture {
                 this.roomCode = null;
             }
             case 10, 11 -> {
-                this.dateOfClass = determineLocalDate(arguments[8]);
+                this.dateOfClass = TimeUtils.determineLocalDate(arguments[8]);
                 this.specificationOfRoom = arguments[9];
                 this.roomCode = arguments.length == 11 ? arguments[10] : null;
             }
@@ -288,62 +289,6 @@ public class Lecture {
                 ";" + this.roomCode +
                 ";" + this.semesterWeek +
                 ";" + this.yearWeek;
-    }
-
-    public static DayOfWeek determineDayOfWeek(String dayString) throws IllegalArgumentException {
-        switch(dayString) {
-            case "Seg", "MONDAY":
-                return DayOfWeek.MONDAY;
-            case "Ter", "TUESDAY":
-                return DayOfWeek.TUESDAY;
-            case "Qua", "THURSDAY":
-                return DayOfWeek.THURSDAY;
-            case "Qui", "WEDNESDAY":
-                return DayOfWeek.WEDNESDAY;
-            case "Sex", "FRIDAY":
-                return DayOfWeek.FRIDAY;
-            case "Sáb", "SATURDAY":
-                return DayOfWeek.SATURDAY;
-            case "Dom", "SUNDAY":
-                return DayOfWeek.SUNDAY;
-            default:
-                throw new IllegalArgumentException("Invalid day of the week: " + dayString);
-        }
-    }
-
-    private LocalTime determineLocalTime(String timeString) throws IndexOutOfBoundsException {
-        String[] timeParts = timeString.split(":");
-        return LocalTime.of(
-                Integer.parseInt(timeParts[0]),
-                Integer.parseInt(timeParts[1])
-               // Integer.parseInt(timeParts[2])
-        );
-    }
-
-    private LocalDate determineLocalDate(String dateString) {
-        String[] timeParts = dateString.split("/");
-        return LocalDate.of(
-                Integer.parseInt(timeParts[2]),
-                Integer.parseInt(timeParts[1]),
-                Integer.parseInt(timeParts[0])
-        );
-    }
-
-    private LocalDate determineLocalDate(String dateString, String strSplit) {
-        String[] timeParts = dateString.split(strSplit);
-
-        if (strSplit.equals("-")) {
-            return LocalDate.of(
-                    Integer.parseInt(timeParts[0]),
-                    Integer.parseInt(timeParts[1]),
-                    Integer.parseInt(timeParts[2])
-            );
-        }
-        return LocalDate.of(
-                Integer.parseInt(timeParts[2]),
-                Integer.parseInt(timeParts[1]),
-                Integer.parseInt(timeParts[0])
-        );
     }
 
     /**

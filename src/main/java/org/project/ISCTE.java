@@ -2,7 +2,6 @@ package org.project;
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.charset.Charset;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -137,6 +136,41 @@ public class ISCTE {
         return filteredRooms;
     }
 
+    public ObservableList<Room> getAvailableRooms(LocalDate start, LocalDate end) {
+        ObservableList<Lecture> lecturesBetween = lectures.filtered(l -> {
+            return l.getDateOfClass().isAfter(start) && l.getDateOfClass().isBefore(end);
+        });
+        ObservableList<Room> availableRooms = rooms.filtered(r -> {
+            return lecturesBetween.filtered(l -> {
+                return l.getRoomCode() == r.getDesignation();
+            }).size() == 0;
+        });
+        return availableRooms;
+    }
+
+    public ObservableList<DaySlot> getAllSlots() {
+        
+    }
+
+    public ObservableList<DaySlot> getFirstSemesterSlots() {
+        ObservableList<DaySlot> slots = FXCollections.observableArrayList();
+        putFirstSemesterSlots(slots);
+        return slots;
+    }
+
+    public ObservableList<DaySlot> getSecondSemesterSlots() {
+        ObservableList<DaySlot> slots = FXCollections.observableArrayList();
+        putSecondSemesterSlots(slots);
+        return slots;
+    }
+
+    private void putFirstSemesterSlots(ObservableList<DaySlot> slots) {
+
+    }
+
+    private void putSecondSemesterSlots(ObservableList<DaySlot> slots) {
+
+    }
 
     public void writeCsv() throws Exception {
         Writer writer = null;
@@ -193,18 +227,6 @@ public class ISCTE {
             conflitos.add(conflitosDeI);
         }
         return conflitos;
-    }
-
-    public ObservableList<Room> getAvailableRooms(LocalDate start, LocalDate end) {
-        ObservableList<Lecture> lecturesBetween = lectures.filtered(l -> {
-            return l.getDateOfClass().isAfter(start) && l.getDateOfClass().isBefore(end);
-        });
-        ObservableList<Room> availableRooms = rooms.filtered(r -> {
-            return lecturesBetween.filtered(l -> {
-                return l.getRoomCode() == r.getDesignation();
-            }).size() == 0;
-        });
-        return availableRooms;
     }
 
     public boolean findSpecificElmOfSpecificLecture(LectureAttribute attribute, String elm) {
@@ -306,7 +328,7 @@ public class ISCTE {
         }).filtered(l -> {
             return l.getDateOfClass() != null;
         });
-        LocalDate firstDate = lecturesSorted.get(0).getDateOfClass();
+        LocalDate firstDate = lecturesSorted.get(0).getDateOfClass().;
         LocalDate lastDate = lecturesSorted.get(lecturesSorted.size()-1).getDateOfClass();
         if(firstDate.getYear() == lastDate.getYear())
             throw new IllegalStateException("Loaded incomplete curricular year");
@@ -314,8 +336,8 @@ public class ISCTE {
             ObservableList<Lecture> secondSemesterLectures = lecturesSorted.filtered(l -> {
                 return l.getDateOfClass().getYear() == lastDate.getYear();
             });
-            firstSemesterStart = firstDate;
-            secondSemesterStart = secondSemesterLectures.get(0).getDateOfClass();
+            firstSemesterStart = TimeUtils.determineStartOfWeek(firstDate);
+            secondSemesterStart = TimeUtils.determineStartOfWeek(secondSemesterLectures.get(0).getDateOfClass());
         }
     }
 
