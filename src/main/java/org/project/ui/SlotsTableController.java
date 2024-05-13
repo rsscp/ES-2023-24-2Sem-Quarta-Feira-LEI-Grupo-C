@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -75,10 +76,26 @@ public class SlotsTableController {
 
     private void setTable() {
         slotTable.setEditable(true);
-        for (LectureAttribute a : LectureAttribute.values()) {
-            TableColumn column = a.getTableColumn();
-            slotTableColumns.add(column);
-        }
+
+        TableColumn timeCol = new TableColumn("TimeSlot");
+        timeCol.setCellValueFactory(new PropertyValueFactory<Lecture,String>("TimeSlot"));
+        slotTableColumns.add(timeCol);
+
+        TableColumn dayCol = new TableColumn("DaySlot");
+        timeCol.setCellValueFactory(new PropertyValueFactory<Lecture,String>("DaySlot"));
+        slotTableColumns.add(dayCol);
+
+        TableColumn specRoomCol = new TableColumn("specificationOfRoom");
+        specRoomCol.setCellValueFactory(new PropertyValueFactory<Lecture,String>("specificationOfRoom"));
+        slotTableColumns.add(specRoomCol);
+
+        TableColumn roomCodeCol = new TableColumn("roomCode");
+        roomCodeCol.setCellValueFactory(new PropertyValueFactory<Lecture,String>("roomCode"));
+        slotTableColumns.add(roomCodeCol);
+
+
+
+
         slotTable.getColumns().addAll(slotTableColumns);
         slotTable.setItems(iscte.getLectures());
     }
