@@ -86,11 +86,11 @@ public class idk extends Application {
     public static void start2(Stage primaryStage) {
 
         ArrayList<Circle> circulos = new ArrayList<Circle>();
-        String[] s1= {"LETI, LEI, LEI-PL, LIGE, LIGE-PL","Fundamentos de Arquitectura de Computadores","L0705TP23", "ET-A9, ET-A8, ET-A7, ET-A12, ET-A11, ET-A10","44","Sex","12:45:00","16:30:00","09/12/2022","Sala/anfiteatro aulas","C5.06"};
-        String[] s2= {"ME","Teoria dos Jogos e dos Contratos","01789TP01","MEA1","30","Ter","10:00:00","14:00:00","04/11/2022","Sala Aulas Mestrado","AA2.25"};
+        /*String[] s1= {"LETI, LEI, LEI-PL, LIGE, LIGE-PL","Fundamentos de Arquitectura de Computadores","L0705TP23", "ET-A9, ET-A8, ET-A7, ET-A12, ET-A11, ET-A10","44","Sex","12:45:00","16:30:00","09/12/2022","Sala/anfiteatro aulas","C5.06"};
+        String[] s2= {"ME","Teoria dos Jogos e dos Contratos","01789TP01","MEA1","30","Ter","10:00:00","14:00:00","04/11/2022","Sala Aulas Mestrado","AA2.25"};*/
         ObservableList<Lecture> l = ISCTE.getInstance().getLectures();
-        l.add(new Lecture(s1));
-        l.add(new Lecture(s2));
+        /*l.add(new Lecture(s1));
+        l.add(new Lecture(s2));*/
         ArrayList<ArrayList<Integer>> listaDeListas = ISCTE.getInstance().measureConflicts(l);
         ArrayList<Pair<Integer, ArrayList<Integer>>> listaDePares = new ArrayList<Pair<Integer, ArrayList<Integer>>>();
 
