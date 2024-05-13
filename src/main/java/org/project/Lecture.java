@@ -132,18 +132,22 @@ public class Lecture {
         this.startOfClass = determineLocalTime(arguments[6]);
         this.endOfClass = determineLocalTime(arguments[7]);
 
-        if (arguments.length == 8) {
-            this.dateOfClass = null;
-            this.specificationOfRoom = null;
-            this.roomCode = null;
-        } else if (arguments.length == 10 || arguments.length == 11){
-            this.dateOfClass = determineLocalDate(arguments[8], "/");
-            this.specificationOfRoom = arguments[9];
-            this.roomCode = arguments.length == 11 ? arguments[10] : null;
-        } else {
-            for (String s: arguments)
-                System.err.println(s);
-            throw new IllegalArgumentException("Read line with illegal number of fields");
+        switch (arguments.length) {
+            case 8 -> {
+                this.dateOfClass = null;
+                this.specificationOfRoom = null;
+                this.roomCode = null;
+            }
+            case 10, 11 -> {
+                this.dateOfClass = determineLocalDate(arguments[8]);
+                this.specificationOfRoom = arguments[9];
+                this.roomCode = arguments.length == 11 ? arguments[10] : null;
+            }
+            default -> {
+                for (String s : arguments)
+                    System.err.println(s);
+                throw new IllegalArgumentException("Read line with illegal number of fields");
+            }
         }
 
         /*
@@ -313,6 +317,15 @@ public class Lecture {
                 Integer.parseInt(timeParts[0]),
                 Integer.parseInt(timeParts[1])
                // Integer.parseInt(timeParts[2])
+        );
+    }
+
+    private LocalDate determineLocalDate(String dateString) {
+        String[] timeParts = dateString.split("/");
+        return LocalDate.of(
+                Integer.parseInt(timeParts[2]),
+                Integer.parseInt(timeParts[1]),
+                Integer.parseInt(timeParts[0])
         );
     }
 
