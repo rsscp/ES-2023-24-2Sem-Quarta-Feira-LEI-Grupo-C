@@ -148,27 +148,27 @@ public class ISCTE {
         return availableRooms;
     }
 
-    public ObservableList<DaySlot> getAllSlots() {
-        
+    public ObservableList<DaySlots> getAllSlots() {
+        HashMap<LocalDate, DaySlots> slots = new HashMap<>();
     }
 
-    public ObservableList<DaySlot> getFirstSemesterSlots() {
-        ObservableList<DaySlot> slots = FXCollections.observableArrayList();
+    public ObservableList<DaySlots> getFirstSemesterSlots() {
+        ObservableList<DaySlots> slots = FXCollections.observableArrayList();
         putFirstSemesterSlots(slots);
         return slots;
     }
 
-    public ObservableList<DaySlot> getSecondSemesterSlots() {
-        ObservableList<DaySlot> slots = FXCollections.observableArrayList();
+    public ObservableList<DaySlots> getSecondSemesterSlots() {
+        ObservableList<DaySlots> slots = FXCollections.observableArrayList();
         putSecondSemesterSlots(slots);
         return slots;
     }
 
-    private void putFirstSemesterSlots(ObservableList<DaySlot> slots) {
+    private void putFirstSemesterSlots(ObservableList<DaySlots> slots) {
 
     }
 
-    private void putSecondSemesterSlots(ObservableList<DaySlot> slots) {
+    private void putSecondSemesterSlots(ObservableList<DaySlots> slots) {
 
     }
 
@@ -328,7 +328,7 @@ public class ISCTE {
         }).filtered(l -> {
             return l.getDateOfClass() != null;
         });
-        LocalDate firstDate = lecturesSorted.get(0).getDateOfClass().;
+        LocalDate firstDate = lecturesSorted.get(0).getDateOfClass();
         LocalDate lastDate = lecturesSorted.get(lecturesSorted.size()-1).getDateOfClass();
         if(firstDate.getYear() == lastDate.getYear())
             throw new IllegalStateException("Loaded incomplete curricular year");
