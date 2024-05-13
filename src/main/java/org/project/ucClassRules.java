@@ -1,5 +1,6 @@
 package org.project;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,9 +10,9 @@ public class ucClassRules {
 
     private int numberOfClassesToSchedule;
 
-    private List<String> excludedPeriods;
+    private List<TimeSlots> excludedPeriods;
 
-    private List<String> allowedPeriods;
+    private List<TimeSlots> allowedPeriods;
 
     private List<Room> preferredRooms;
 
@@ -31,13 +32,13 @@ public class ucClassRules {
 
     public void setNumberOfClassesToSchedule(int numberOfClassesToSchedule) {this.numberOfClassesToSchedule = numberOfClassesToSchedule;}
 
-    public List<String> getExcludedPeriods() {return excludedPeriods;}
+    public List<TimeSlots> getExcludedPeriods() {return excludedPeriods;}
 
-    public void setExcludedPeriods(List<String> excludedPeriods) {this.excludedPeriods = excludedPeriods;}
+    public void setExcludedPeriods(List<TimeSlots> excludedPeriods) {this.excludedPeriods = excludedPeriods;}
 
-    public List<String> getAllowedPeriods() {return allowedPeriods;}
+    public List<TimeSlots> getAllowedPeriods() {return allowedPeriods;}
 
-    public void setAllowedPeriods(List<String> allowedPeriods) {this.allowedPeriods = allowedPeriods;}
+    public void setAllowedPeriods(List<TimeSlots> allowedPeriods) {this.allowedPeriods = allowedPeriods;}
 
     public List<Room> getPreferredRooms() {return preferredRooms;}
 
