@@ -1,11 +1,11 @@
 package org.project;
 
 public class Filter {
-    private LectureAttribute attribute;
+    private Attribute attribute;
     private String filterString;
     private FilterOperation operation;
 
-    public Filter(LectureAttribute attribute, String filterString, String opString) {
+    public Filter(Attribute attribute, String filterString, String opString) {
         this.attribute = attribute;
         this.filterString = filterString;
         this.operation = FilterOperation.getFilterOperation(opString);

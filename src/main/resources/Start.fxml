@@ -11,7 +11,8 @@
     <StackPane minHeight="100" minWidth="250">
         <VBox spacing="10" alignment="CENTER" maxWidth="150">
             <Text fx:id="fileselecterror" style="-fx-fill:red; -fx-font-size:12" visible="false" managed="false">Failed to open selected file</Text>
-            <Button onAction="#chooseLocalFile" textAlignment="CENTER" wrapText="true" maxWidth="10000" minHeight="50">Ficheiro local</Button>
+            <Button onAction="#chooseLocalLectureFile" textAlignment="CENTER" wrapText="true" maxWidth="10000" minHeight="50">Ficheiro Lecture local</Button>
+            <Button onAction="#chooseLocalRoomFile" textAlignment="CENTER" wrapText="true" maxWidth="10000" minHeight="50">Ficheiro Room local</Button>
             <Button onAction="#openUrlInput" textAlignment="CENTER" wrapText="true" maxWidth="10000" minHeight="50">Ficheiro em repositório remoto</Button>
         </VBox>
     </StackPane>

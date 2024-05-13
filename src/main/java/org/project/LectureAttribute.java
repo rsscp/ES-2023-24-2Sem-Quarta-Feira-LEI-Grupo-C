@@ -13,7 +13,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public enum LectureAttribute {
+public enum LectureAttribute implements Attribute{
     course(0, "Course"),
     curricuralUnit(1, "Curricular Unit"),
     shift(2, "Shift"),
@@ -35,6 +35,7 @@ public enum LectureAttribute {
         this.label = label;
     }
 
+    @Override
     public int getValue() {
         return value;
     }
