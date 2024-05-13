@@ -2,6 +2,8 @@ package org.project;
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.Charset;
+import java.time.LocalDate;
 import java.util.*;
 
 import javafx.collections.*;
@@ -12,13 +14,20 @@ import javafx.collections.*;
 public class ISCTE {
 
     private static ISCTE instance;
-    private final LinkedList<Room> rooms;
+
+    public ObservableList<Room> getRooms() {
+        return rooms;
+    }
+
+    private final ObservableList<Room> rooms;
     private final ObservableList<Lecture> lectures;
+    private LocalDate firstSemesterStart;
+    private LocalDate secondSemesterStart;
     private String fileName;
 
     private ISCTE() {
         lectures = FXCollections.observableArrayList();
-        rooms = new LinkedList<>();
+        rooms = FXCollections.observableArrayList();
         this.fileName = null;
     }
 
@@ -26,6 +35,14 @@ public class ISCTE {
         if (instance == null)
             instance = new ISCTE();
         return instance;
+    }
+
+    public LocalDate getFirstSemesterStart() {
+        return firstSemesterStart;
+    }
+
+    public LocalDate getSecondSemesterStart() {
+        return secondSemesterStart;
     }
 
     /**
@@ -71,9 +88,25 @@ public class ISCTE {
                 String[] arguments = lecture.split(";");
                 this.lectures.add(new Lecture(arguments));
             }
+            setSemesterDates();
+            setCalculatedColumns();
         }
     }
 
+    public void readRooms(String fileName) throws IOException {
+        try (
+                FileInputStream fis = new FileInputStream(fileName);
+                InputStreamReader isr = new InputStreamReader(fis);
+                BufferedReader br = new BufferedReader(isr)
+        ) {
+            br.readLine();
+            String room;
+            while ((room = br.readLine()) != null) {
+                String[] arguments = room.split(";", -1);
+                this.rooms.add(new Room(arguments));
+            }
+        }
+    }
     public ObservableList<Lecture> getLectures() {
         return lectures;
     }
@@ -95,6 +128,15 @@ public class ISCTE {
         }
         return filteredLectures;
     }
+    public ObservableList<Room> getRooms(List<Filter> filters) {
+        ObservableList<Room> filteredRooms = FXCollections.observableArrayList();
+        for (Room r: rooms) {
+            if (r.testFilters(filters))
+                filteredRooms.add(r);
+        }
+        return filteredRooms;
+    }
+
 
     public void writeCsv() throws Exception {
         Writer writer = null;
@@ -154,6 +196,7 @@ public class ISCTE {
         }
         return false;
     }
+    
     public static ArrayList<ArrayList<Integer>> measureConflicts(List<Lecture> lectures) {
         ArrayList<ArrayList<Integer>> conflitos = new ArrayList<ArrayList<Integer>>();
         for (int i = 0; i < lectures.size(); i++) {
@@ -168,7 +211,17 @@ public class ISCTE {
         return conflitos;
     }
 
-
+    public ObservableList<Room> getAvailableRooms(LocalDate start, LocalDate end) {
+        ObservableList<Lecture> lecturesBetween = lectures.filtered(l -> {
+            return l.getDateOfClass().isAfter(start) && l.getDateOfClass().isBefore(end);
+        });
+        ObservableList<Room> availableRooms = rooms.filtered(r -> {
+            return lecturesBetween.filtered(l -> {
+                return l.getRoomCode() == r.getDesignation();
+            }).size() == 0;
+        });
+        return availableRooms;
+    }
 
     public boolean findSpecificElmOfSpecificLecture(LectureAttribute attribute, String elm) {
         boolean founded = false;
@@ -251,6 +304,44 @@ public class ISCTE {
     public void deleteLecture(Lecture lecture) {
         if (lecture != null) {
             this.lectures.remove(lecture);
+        }
+    }
+
+    private void setSemesterDates() {
+        if (lectures.size() == 0)
+            throw new IllegalStateException("No lectures loaded");
+        ObservableList<Lecture> lecturesSorted = lectures.sorted((l1, l2) -> {
+            if (l1.getDateOfClass() == null)
+                return -1;
+            else if (l2.getDateOfClass() == null)
+                return 1;
+            else if (l1.getDateOfClass().isBefore(l2.getDateOfClass()))
+                return -1;
+            else
+                return 1;
+        }).filtered(l -> {
+            return l.getDateOfClass() != null;
+        });
+        LocalDate firstDate = lecturesSorted.get(0).getDateOfClass();
+        LocalDate lastDate = lecturesSorted.get(lecturesSorted.size()-1).getDateOfClass();
+        if(firstDate.getYear() == lastDate.getYear())
+            throw new IllegalStateException("Loaded incomplete curricular year");
+        else {
+            ObservableList<Lecture> secondSemesterLectures = lecturesSorted.filtered(l -> {
+                return l.getDateOfClass().getYear() == lastDate.getYear();
+            });
+            firstSemesterStart = firstDate;
+            secondSemesterStart = secondSemesterLectures.get(0).getDateOfClass();
+        }
+    }
+
+    private void setCalculatedColumns() {
+        ObservableList<Lecture> filteredLectures = lectures.filtered(l -> {
+            return l.getDateOfClass() != null;
+        });
+        for (Lecture l: filteredLectures) {
+            l.setSemesterWeek(firstSemesterStart, secondSemesterStart);
+            l.setYearWeek(firstSemesterStart);
         }
     }
 }
