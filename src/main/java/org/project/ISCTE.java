@@ -4,6 +4,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
 
+import com.sun.javafx.scene.shape.ArcHelper;
 import javafx.collections.*;
 
 /**
@@ -236,5 +237,15 @@ public class ISCTE {
         if (lecture != null) {
             this.lectures.remove(lecture);
         }
+    }
+
+    public ArrayList<String> getAllRooms() {
+        ArrayList<String> rooms = new ArrayList<>();
+        for (Lecture lecture : this.lectures) {
+            if (lecture.getSpecificationOfRoom() != null && !rooms.contains(lecture.getSpecificationOfRoom())) {
+                rooms.add(lecture.getSpecificationOfRoom());
+            }
+        }
+        return rooms;
     }
 }
