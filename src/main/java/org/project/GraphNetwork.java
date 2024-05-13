@@ -73,13 +73,13 @@ public class GraphNetwork extends Application {
             Circle circle = new Circle(x, y, RADIUS);
             circle.setFill(Color.BLACK);
             circle.setStroke(Color.BLACK);
-            circle.setId(l.get(list.get(i).getKey()).toString());
+            circle.setId(l.get(list.get(i).getKey()).toString2());
             pane.getChildren().add(circle);
             circulos.add(circle);
             ArrayList<Integer> inteiros = list.get(i).getValue();
             for (int j = 0; j < inteiros.size(); j++) {
                 for (Circle circulo : circulos) {
-                    if (circulo.getId().equals(l.get(inteiros.get(j)).toString())) {
+                    if (circulo.getId().equals(l.get(inteiros.get(j)).toString2())) {
                         Line line = new Line(x, y + RADIUS, circulo.getCenterX(), circulo.getCenterY() - RADIUS);
                         pane.getChildren().add(line);
                     }
