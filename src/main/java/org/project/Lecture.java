@@ -434,6 +434,23 @@ public class Lecture {
         return filterString(roomCode, filterString);
     }
 
+    /**
+     * Lecture is represented by a string containing all it's information seperated by ";"
+     *
+     * @return It will return this information in a single String.
+     */
+    
+    public String toString2() {
+        return "{" + curricuralUnit +
+                "," + shift +
+                "," + startOfClass +
+                "," + endOfClass +
+                "," + dateOfClass +
+                "," + specificationOfRoom +
+                "," + roomCode +
+                '}';
+    }
+
     public boolean testFilters(List<Filter> filters) {
         boolean result = true;
         boolean firstFilterCleared = false;
