@@ -14,6 +14,8 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.Integer.parseInt;
+
 public class LecturesTableController {
 
     @FXML
@@ -22,11 +24,18 @@ public class LecturesTableController {
     @FXML
     private GridPane grid;
     @FXML
+    private GridPane grid2;
+    @FXML
     private TableView lectureTable;
 
     private List<TableColumn> lectureTableColumns = new ArrayList<>();
     private List<Button> filterOpButtons = new ArrayList<>();
     private List<TextField> filterTextFields = new ArrayList<>();
+    static String Curso = null;
+    static String UC = null;
+    static String Turno = null;
+    static String Turma = null;
+    static int Inscritos = 0;
 
     @FXML
     private void initialize() {
@@ -45,6 +54,37 @@ public class LecturesTableController {
         }
         lectureTable.setItems(ISCTE.getInstance().getLectures(filters));
         System.out.println("Filters working?");
+    }
+
+    private void setAddUC(){
+        TextField textCurso = new TextField();
+
+        TextField textUC = new TextField();
+
+        TextField textTurno = new TextField();
+
+        TextField textTurma = new TextField();
+
+        TextField textInscritos = new TextField();
+
+
+        Button addButton = new Button("Add");
+        addButton.setOnAction(event -> {
+            SlotTableController.setCurso(textCurso.getText());
+            SlotTableController.setUC(textUC.getText());
+            SlotTableController.setTurno(textTurno.getText());
+            SlotTableController.setTurma(textTurma.getText());
+            SlotTableController.setInscritos(parseInt(textInscritos.getText()));
+        });
+        addButton.setPrefWidth(50);
+        addButton.setPrefHeight(50);
+
+        grid2.addColumn(1, textCurso);
+        grid2.addColumn(2, textUC);
+        grid2.addColumn(3, textTurno);
+        grid2.addColumn(4, textTurma);
+        grid2.addColumn(5, textInscritos);
+        grid2.addColumn(6, addButton);
     }
 
     private void setFilters() {

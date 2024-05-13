@@ -17,5 +17,10 @@
         </padding>
     </GridPane>
     <Button onAction="#applyFilters" GridPane.columnIndex="3" minWidth="100" minHeight="30">Apply Filters</Button>
+    <GridPane fx:id="grid2" hgap="15" vgap="10">
+        <padding>
+            <Insets bottom="20.0"/>
+        </padding>
+    </GridPane>
     <TableView fx:id="lectureTable" prefHeight="10000"></TableView>
 </VBox>
