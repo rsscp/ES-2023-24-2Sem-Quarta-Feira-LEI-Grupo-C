@@ -127,16 +127,32 @@ public class ISCTE {
         if (l1.equals(l2)) {
             return -1;
         }
-        if(l1.getDateOfClass()==null || l2.getDateOfClass()==null || l1.getRoomCode() == null || l2.getRoomCode() == null){
+        if((l1.getClassN()==null || l2.getClassN()==null) && sameTime(l1,l2)){
+            if(l1.getCourse().equals(l2.getCourse())  && !l1.getCurricuralUnit().equals(l2.getCurricuralUnit())){
+                return 1;
+            }
             return 0;
         }
-        if (l1.getDateOfClass().equals(l2.getDateOfClass()) && l1.getRoomCode().equals(l2.getRoomCode()) && !(l1.getStartOfClass().plusSeconds(1).isAfter(l2.getEndOfClass()) || l2.getStartOfClass().plusSeconds(1).isAfter(l1.getEndOfClass()))) {
+        if (sameTime(l1, l2) && l1.getClassN().equals(l2.getClassN()) && l1.getCourse().equals(l2.getCourse()) && l1.getShift().equals(l2.getShift())) {
             return 1;
         }
-        if (l1.getCourse().equals(l2.getCourse()) && l1.getDateOfClass().equals(l2.getDateOfClass()) && l1.getShift().equals(l2.getShift()) && !l1.getRoomCode().equals(l2.getRoomCode()) && !(l1.getStartOfClass().plusSeconds(1).isAfter(l2.getEndOfClass()) || l2.getStartOfClass().plusSeconds(1).isAfter(l1.getEndOfClass()))) {
-            return 1;
+        if((l1.getRoomCode()!=null && l2.getRoomCode()!=null)) {
+            if (l1.getRoomCode().equals(l2.getRoomCode()) && sameTime(l1, l2) && !l1.getCurricuralUnit().equals(l2.getCurricuralUnit())) {
+                return 1;
+            }
         }
+
         return 0;
+    }
+
+    public static boolean sameTime(Lecture l1, Lecture l2){
+        if(l1.getDateOfClass()!=null && l2.getDateOfClass()!=null) {
+            if (!(l1.getStartOfClass().plusSeconds(1).isAfter(l2.getEndOfClass()) || l2.getStartOfClass().plusSeconds(1).isAfter(l1.getEndOfClass())) && l1.getDateOfClass().equals(l2.getDateOfClass())) {
+                return true;
+            }
+            return false;
+        }
+        return false;
     }
     public static ArrayList<ArrayList<Integer>> measureConflicts(List<Lecture> lectures) {
         ArrayList<ArrayList<Integer>> conflitos = new ArrayList<ArrayList<Integer>>();

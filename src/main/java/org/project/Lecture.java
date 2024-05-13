@@ -368,18 +368,13 @@ public class Lecture {
      */
     @Override
     public String toString() {
-        return "{" + course +
-                "," + curricuralUnit +
+        return "{" + curricuralUnit +
                 "," + shift +
-                "," + classN +
-                "," + numberOfStudentsAssigned +
-                "," + dayOfTheWeek +
                 "," + startOfClass +
                 "," + endOfClass +
                 "," + dateOfClass +
                 "," + specificationOfRoom +
                 "," + roomCode +
-                "," + isSelected +
                 '}';
     }
 
