@@ -13,7 +13,7 @@ import javafx.collections.*;
 public class ISCTE {
 
     private static ISCTE instance;
-    private final LinkedList<Room> rooms;
+    private final ObservableList<Room> rooms;
     private final ObservableList<Lecture> lectures;
     private LocalDate firstSemesterStart;
     private LocalDate secondSemesterStart;
@@ -21,7 +21,7 @@ public class ISCTE {
 
     private ISCTE() {
         lectures = FXCollections.observableArrayList();
-        rooms = new LinkedList<>();
+        rooms = FXCollections.observableArrayList();
         this.fileName = null;
     }
 
@@ -151,6 +151,7 @@ public class ISCTE {
         }
         return 0;
     }
+
     public static ArrayList<ArrayList<Integer>> measureConflicts(List<Lecture> lectures) {
         ArrayList<ArrayList<Integer>> conflitos = new ArrayList<ArrayList<Integer>>();
         for (int i = 0; i < lectures.size(); i++) {
@@ -165,7 +166,17 @@ public class ISCTE {
         return conflitos;
     }
 
-
+    public ObservableList<Room> getAvailableRooms(LocalDate start, LocalDate end) {
+        ObservableList<Lecture> lecturesBetween = lectures.filtered(l -> {
+            return l.getDateOfClass().isAfter(start) && l.getDateOfClass().isBefore(end);
+        });
+        ObservableList<Room> availableRooms = rooms.filtered(r -> {
+            return lecturesBetween.filtered(l -> {
+                return l.getRoomCode() == r.getDesignation();
+            }).size() == 0;
+        });
+        return availableRooms;
+    }
 
     public boolean findSpecificElmOfSpecificLecture(LectureAttribute attribute, String elm) {
         boolean founded = false;
