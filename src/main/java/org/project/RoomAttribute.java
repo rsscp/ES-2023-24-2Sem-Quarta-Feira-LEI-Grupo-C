@@ -11,7 +11,35 @@ public enum RoomAttribute implements Attribute{
     normalCapacity(2,"Normal Capacity"),
     examCapacity(3,"Exam Capacity"),
     numOfCharacteristics(4,"Number of Characteristics"),
-    otherProperties(5,"Other Properties");
+    amphitheatre(5,"Amphitheatre"),
+    techHelp(6,"Tech Help"),
+    arq1(7,"Arq1"),
+    arq2(8,"Arq2"),
+    arq3(9,"Arq3"),
+    arq4(10,"Arq4"),
+    arq5(11,"Arq5"),
+    arq6(12,"Arq6"),
+    arq9(13,"Arq9"),
+    BYOD(14,"BYOD"),
+    focusGroup(15,"Focus Group"),
+    schedule(16,"Schedule"),
+    labACI(17,"Lab ACI"),
+    labACII(18,"Lab ACII"),
+    labBE(19,"Lab BE"),
+    labEle(20,"Lab Ele"),
+    labInf(21,"Lab Inf"),
+    labJ(22,"Lab J"),
+    labRCI(23,"Lab RCI"),
+    labRCII(24,"Lab RCII"),
+    labTel(25,"Lab Tel"),
+    masterClass(26,"Master Class"),
+    masterClassPlus(27,"Master Class Plus"),
+    NEERoom(28,"NEE Room"),
+    testRoom(29,"Test Room"),
+    reunionRoom(30,"Reunion Room"),
+    architectureRoom(31,"Architecture Room"),
+    normalClassRoom(32,"Normal ClassRoom"),
+    videoCall(32,"Video Call");
 
     private int value;
     private String label;
@@ -28,54 +56,6 @@ public enum RoomAttribute implements Attribute{
     public String getLabel() {
         return label;
     }
-    public TableColumn getTableColumn() {
-        return switch (value) {
-            case 0 -> getTableColumnBuilding();
-            case 1 -> getTableColumnDesignation();
-            case 2 -> getTableColumnNormalCapacity();
-            case 3 -> getTableColumnExamCapacity();
-            case 4 -> getTableColumnNumOfCaracteristics();
-            case 5 -> getTableColumnOtherProperties();
-            default -> throw new IllegalArgumentException();
-        };
-    }
 
-    public static TableColumn getTableColumnBuilding() {
-        TableColumn buildingCol = new TableColumn("Building");
-        buildingCol.setCellValueFactory(new PropertyValueFactory<Lecture,String>("Building"));
-        buildingCol.setCellFactory(TextFieldTableCell.forTableColumn());
-        return buildingCol;
-    }
 
-    public static TableColumn getTableColumnDesignation() {
-        TableColumn designationCol = new TableColumn("Designtation");
-        designationCol.setCellValueFactory(new PropertyValueFactory<Lecture,String>("Designation"));
-        designationCol.setCellFactory(TextFieldTableCell.forTableColumn());
-        return designationCol;
-    }
-    public static TableColumn getTableColumnNormalCapacity() {
-        TableColumn normalCol = new TableColumn("Normal Capacity");
-        normalCol.setCellValueFactory(new PropertyValueFactory<Lecture,String>("Normal Capacity"));
-        normalCol.setCellFactory(TextFieldTableCell.forTableColumn());
-        return normalCol;
-    }
-    public static TableColumn getTableColumnExamCapacity() {
-        TableColumn examCol = new TableColumn("Exam Capacity");
-        examCol.setCellValueFactory(new PropertyValueFactory<Lecture,String>("Exam Capacity"));
-        examCol.setCellFactory(TextFieldTableCell.forTableColumn());
-        return examCol;
-    }
-    public static TableColumn getTableColumnNumOfCaracteristics() {
-        TableColumn caraCol = new TableColumn("Number of Characteristics");
-        caraCol.setCellValueFactory(new PropertyValueFactory<Lecture,String>("Number of Characteristics"));
-        caraCol.setCellFactory(TextFieldTableCell.forTableColumn());
-        return caraCol;
-    }
-    public static TableColumn getTableColumnOtherProperties() {
-        TableColumn propCol = new TableColumn("Other Properties");
-        propCol.setCellValueFactory(new PropertyValueFactory<Lecture,String>("Other Properties"));
-        propCol.setCellFactory(TextFieldTableCell.forTableColumn());
-        TableColumn col = new TableColumn("7");
-        return propCol;
-    }
 }

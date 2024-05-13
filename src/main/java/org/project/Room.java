@@ -1,12 +1,14 @@
 package org.project;
 
+import java.util.List;
+
 public class Room {
     private final String building;
     private String designation;
     private int normalCapacity;
     private int examCapacity;
     private int numOfCharacteristics;
-    private boolean amphitheather;
+    private boolean amphitheatre;
     private boolean techHelp;
     private boolean arq1;
     private boolean arq2;
@@ -18,11 +20,9 @@ public class Room {
     private boolean BYOD;
     private boolean focusGroup;
     private boolean schedule;
-    private boolean visible;
     private boolean labACI;
     private boolean labACII;
     private boolean labBE;
-    private boolean labEng;
     private boolean labEle;
     private boolean labInf;
     private boolean labJ;
@@ -33,11 +33,10 @@ public class Room {
     private boolean masterClassPlus;
     private boolean NEERoom;
     private boolean testRoom;
-    private boolean ReunionRoom;
+    private boolean reunionRoom;
     private boolean architectureRoom;
     private boolean normalClassRoom;
     private boolean videoCall;
-    private boolean atrium;
 
     public String getBuilding() {
         return building;
@@ -75,12 +74,12 @@ public class Room {
         this.numOfCharacteristics = numOfCharacteristics;
     }
 
-    public boolean isAmphitheather() {
-        return amphitheather;
+    public boolean isAmphitheatre() {
+        return amphitheatre;
     }
 
-    public void setAmphitheather(boolean amphitheather) {
-        this.amphitheather = amphitheather;
+    public void setAmphitheatre(boolean amphitheatre) {
+        this.amphitheatre = amphitheatre;
     }
 
     public boolean isTechHelp() {
@@ -171,14 +170,6 @@ public class Room {
         this.schedule = schedule;
     }
 
-    public boolean isVisible() {
-        return visible;
-    }
-
-    public void setVisible(boolean visible) {
-        this.visible = visible;
-    }
-
     public boolean isLabACI() {
         return labACI;
     }
@@ -201,14 +192,6 @@ public class Room {
 
     public void setLabBE(boolean labBE) {
         this.labBE = labBE;
-    }
-
-    public boolean isLabEng() {
-        return labEng;
-    }
-
-    public void setLabEng(boolean labEng) {
-        this.labEng = labEng;
     }
 
     public boolean isLabEle() {
@@ -292,11 +275,11 @@ public class Room {
     }
 
     public boolean isReunionRoom() {
-        return ReunionRoom;
+        return reunionRoom;
     }
 
     public void setReunionRoom(boolean reunionRoom) {
-        ReunionRoom = reunionRoom;
+        reunionRoom = reunionRoom;
     }
 
     public boolean isArchitectureRoom() {
@@ -323,51 +306,103 @@ public class Room {
         this.videoCall = videoCall;
     }
 
-    public boolean isAtrium() {
-        return atrium;
+    public Room(String[] arguments) {
+        this.building = arguments[0];
+        this.designation = arguments[1];
+        this.normalCapacity = Integer.parseInt(arguments[2]);
+        this.examCapacity = Integer.parseInt(arguments[3]);
+        this.numOfCharacteristics = Integer.parseInt(arguments[4]);
+        this.amphitheatre = check(arguments[5]);
+        this.techHelp = check(arguments[6]);
+        this.arq1 = check(arguments[7]);
+        this.arq2 = check(arguments[8]);
+        this.arq3 = check(arguments[9]);
+        this.arq4 = check(arguments[10]);
+        this.arq5 = check(arguments[11]);
+        this.arq6 = check(arguments[12]);
+        this.arq9 = check(arguments[13]);
+        this.BYOD = check(arguments[14]);
+        this.focusGroup = check(arguments[15]);
+        this.schedule = check(arguments[16]);
+        this.labACI = check(arguments[17]);
+        this.labACII = check(arguments[18]);
+        this.labBE = check(arguments[19]);
+        this.labEle = check(arguments[20]);
+        this.labInf = check(arguments[21]);
+        this.labJ = check(arguments[22]);
+        this.labRCI = check(arguments[23]);
+        this.labRCII = check(arguments[24]);
+        this.labTel = check(arguments[25]);
+        this.masterClass = check(arguments[26]);
+        this.masterClassPlus = check(arguments[27]);
+        this.NEERoom = check(arguments[28]);
+        this.testRoom = check(arguments[29]);
+        this.reunionRoom = check(arguments[30]);
+        this.architectureRoom = check(arguments[31]);
+        this.normalClassRoom = check(arguments[32]);
+        this.videoCall = check(arguments[33]);
     }
 
-    public void setAtrium(boolean atrium) {
-        this.atrium = atrium;
+    public static boolean check(String c){
+        if(c.equals("X")){
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    public Room(String b, String d, int nc, int ec, int ncha, boolean[] op) {
-        this.building=b;
-        this.designation=d;
-        this.normalCapacity=nc;
-        this.examCapacity=ec;
-        this.numOfCharacteristics=ncha;
-        this.techHelp=op[0];
-        this.arq1=op[1];
-        this.arq2=op[2];
-        this.arq3=op[3];
-        this.arq4=op[4];
-        this.arq5=op[5];
-        this.arq6=op[6];
-        this.arq9=op[7];
-        this.BYOD=op[8];
-        this.focusGroup=op[9];
-        this.schedule=op[10];
-        this.visible=op[11];
-        this.labACI=op[12];
-        this.labACII=op[13];
-        this.labBE=op[14];
-        this.labEng=op[15];
-        this.labEle=op[16];
-        this.labInf=op[17];
-        this.labJ=op[18];
-        this.labRCI=op[19];
-        this.labRCII=op[20];
-        this.labTel=op[21];
-        this.masterClass=op[22];
-        this.masterClassPlus=op[23];
-        this.NEERoom=op[24];
-        this.testRoom=op[25];
-        this.ReunionRoom=op[26];
-        this.architectureRoom=op[27];
-        this.normalClassRoom=op[28];
-        this.videoCall=op[29];
-        this.atrium=op[30];
+    public boolean testFilters(List<Filter> filters) {
+        String[] attributeStrings = toString().split(";");
+        if(filters.size() > attributeStrings.length)
+            throw new IllegalArgumentException("Unexpected arguments, filter list length greater than number of attributes to be filtered");
+        boolean result = true;
+        for (Filter f : filters)
+            result = f.op(result, filterString(attributeStrings[f.getAttributeIndex()], f.getFilterString()));
+        return result;
     }
 
+    private boolean filterString(String toBeFiltered, String filter) {
+        return toBeFiltered.equals(filter);
+        /*Pattern pattern = Pattern.compile(filter, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(toBeFiltered);
+        return matcher.find();*/
+    }
+
+    @Override
+    public String toString() {
+        return this.building +
+                ";" +  this.designation +
+                ";" +  this.normalCapacity +
+                ";" +  this.examCapacity +
+                ";" +  this.numOfCharacteristics +
+                ";" +  this.amphitheatre +
+                ";" +  this.techHelp +
+                ";" +  this.arq1 +
+                ";" +  this.arq2 +
+                ";" +  this.arq3 +
+                ";" +  this.arq4 +
+                ";" +  this.arq5 +
+                ";" +  this.arq6 +
+                ";" +  this.arq9 +
+                ";" +  this.BYOD +
+                ";" +  this.focusGroup +
+                ";" +  this.schedule +
+                ";" +  this.labACI +
+                ";" +  this.labACII +
+                ";" +  this.labBE +
+                ";" +  this.labEle +
+                ";" +  this.labInf +
+                ";" +  this.labJ +
+                ";" +  this.labRCI +
+                ";" +  this.labRCII +
+                ";" +  this.labTel +
+                ";" +  this.masterClass +
+                ";" +  this.masterClassPlus +
+                ";" +  this.NEERoom +
+                ";" +  this.testRoom +
+                ";" +  this.reunionRoom +
+                ";" +  this.architectureRoom +
+                ";" +  this.normalClassRoom +
+                ";" +  this.videoCall;
+    }
 }

@@ -3,6 +3,8 @@ package org.project.ui;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.GridPane;
 import org.project.*;
 
@@ -38,7 +40,7 @@ public class RoomsTableController {
             if (filterText != "")
                 filters.add(new Filter(a, filterText, filterOp));
         }
-        roomTable.setItems(ISCTE.getInstance().getLectures(filters));
+        roomTable.setItems(ISCTE.getInstance().getRooms(filters));
         System.out.println("Filters working?");
     }
 
@@ -81,12 +83,13 @@ public class RoomsTableController {
     }
 
     private void setTable() {
-        roomTable.setEditable(true);
-        for (RoomAttribute a : RoomAttribute.values()) {
-            TableColumn column = a.getTableColumn();
-            roomTableColumns.add(column);
+        roomTable.setEditable(false);
+        for(RoomAttribute a :RoomAttribute.values()){
+            TableColumn tableCol = new TableColumn(a.name());
+            tableCol.setCellValueFactory(new PropertyValueFactory<Room,String>(a.name()));
+            roomTableColumns.add(tableCol);
         }
         roomTable.getColumns().addAll(roomTableColumns);
-        roomTable.setItems(ISCTE.getInstance().getLectures());
+        roomTable.setItems(ISCTE.getInstance().getRooms());
     }
 }

@@ -14,13 +14,18 @@ import javafx.collections.*;
 public class ISCTE {
 
     private static ISCTE instance;
-    private final LinkedList<Room> rooms;
+
+    public ObservableList<Room> getRooms() {
+        return rooms;
+    }
+
+    private final ObservableList<Room> rooms;
     private final ObservableList<Lecture> lectures;
     private String fileName;
 
     private ISCTE() {
         lectures = FXCollections.observableArrayList();
-        rooms = new LinkedList<>();
+        rooms = FXCollections.observableArrayList();
         this.fileName = null;
     }
 
@@ -76,6 +81,20 @@ public class ISCTE {
         }
     }
 
+    public void readRooms(String fileName) throws IOException {
+        try (
+                FileInputStream fis = new FileInputStream(fileName);
+                InputStreamReader isr = new InputStreamReader(fis);
+                BufferedReader br = new BufferedReader(isr)
+        ) {
+            br.readLine();
+            String room;
+            while ((room = br.readLine()) != null) {
+                String[] arguments = room.split(";", -1);
+                this.rooms.add(new Room(arguments));
+            }
+        }
+    }
     public ObservableList<Lecture> getLectures() {
         return lectures;
     }
@@ -97,6 +116,15 @@ public class ISCTE {
         }
         return filteredLectures;
     }
+    public ObservableList<Room> getRooms(List<Filter> filters) {
+        ObservableList<Room> filteredRooms = FXCollections.observableArrayList();
+        for (Room r: rooms) {
+            if (r.testFilters(filters))
+                filteredRooms.add(r);
+        }
+        return filteredRooms;
+    }
+
 
     public void writeCsv() throws Exception {
         Writer writer = null;

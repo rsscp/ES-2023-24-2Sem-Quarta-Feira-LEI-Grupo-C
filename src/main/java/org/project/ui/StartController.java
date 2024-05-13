@@ -30,15 +30,15 @@ public class StartController {
     }
 
     @FXML
-    private void chooseLocalFile() {
+    private void chooseLocalRoomFile() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
         File selectedFile = fileChooser.showOpenDialog(((Stage) root.getScene().getWindow()));
         try {
             if (selectedFile != null) {
-                ISCTE.getInstance().readLeactures(selectedFile.getAbsolutePath());
-                loadTablePage();
+                ISCTE.getInstance().readRooms(selectedFile.getAbsolutePath());
+                loadRoomTablePage();
             }
         } catch (IOException e) {
             fileselecterror.setManaged(true);
@@ -46,7 +46,38 @@ public class StartController {
         }
     }
 
-    private void loadTablePage() {
+    @FXML
+    private void chooseLocalLectureFile() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Resource File");
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+        File selectedFile = fileChooser.showOpenDialog(((Stage) root.getScene().getWindow()));
+        try {
+            if (selectedFile != null) {
+                ISCTE.getInstance().readLeactures(selectedFile.getAbsolutePath());
+                loadLectureTablePage();
+            }
+        } catch (IOException e) {
+            fileselecterror.setManaged(true);
+            fileselecterror.setVisible(true);
+        }
+    }
+
+    private void loadRoomTablePage() {
+        try {
+            Parent sceneRoot = FXMLLoader.load(ClassLoader.getSystemResource("RoomsTable.fxml"));
+            ((Stage) root.getScene().getWindow()).setTitle("Rooms Table");
+            ((Stage) root.getScene().getWindow()).setResizable(true);
+            ((Stage) root.getScene().getWindow()).setScene(new Scene(sceneRoot));
+            ((Stage) sceneRoot.getScene().getWindow()).setMaximized(true);
+        } catch (MalformedURLException e1) {
+            //TODO
+        } catch (IOException e2) {
+            //TODO
+        }
+    }
+
+    private void loadLectureTablePage() {
         try {
             Parent sceneRoot = FXMLLoader.load(ClassLoader.getSystemResource("LecturesTable.fxml"));
             ((Stage) root.getScene().getWindow()).setTitle("Lectures Table");
