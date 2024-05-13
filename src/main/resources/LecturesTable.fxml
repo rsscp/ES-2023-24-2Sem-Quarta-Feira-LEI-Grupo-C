@@ -17,5 +17,6 @@
         </padding>
     </GridPane>
     <Button onAction="#applyFilters" GridPane.columnIndex="3" minWidth="100" minHeight="30">Apply Filters</Button>
+    <Button onAction="#showConflictGraph" GridPane.columnIndex="3" minWidth="100" minHeight="30">Conflict Graph</Button>
     <TableView fx:id="lectureTable" prefHeight="10000"></TableView>
 </VBox>

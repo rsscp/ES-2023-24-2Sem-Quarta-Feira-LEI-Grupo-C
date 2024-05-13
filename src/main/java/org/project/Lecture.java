@@ -1,15 +1,9 @@
 package org.project;
 
-import java.sql.Time;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Representation of specific lecure in the school.
@@ -92,6 +86,35 @@ public class Lecture {
     }
 
     private String roomCode;
+
+    public void setSemesterWeek(int semeterWeek) {
+        this.semesterWeek = semeterWeek;
+    }
+    public void setSemesterWeek(LocalDate firstSemesterStart, LocalDate secondSemesterStart) {
+        long firstDay = 0;
+        if (dateOfClass == null)
+            this.semesterWeek = null;
+        else if (dateOfClass.getYear() == firstSemesterStart.getYear())
+            firstDay = firstSemesterStart.toEpochDay();
+        else if (dateOfClass.getYear() == secondSemesterStart.getYear())
+            firstDay = secondSemesterStart.toEpochDay();
+        else
+            throw new IllegalArgumentException("Lecture date is outside the given date arguments' scope");
+        semesterWeek = ((int)(dateOfClass.toEpochDay() - firstDay))/7;
+    }
+
+    private Integer semesterWeek;
+
+    public void setYearWeek(int yearWeek) {
+        this.yearWeek = yearWeek;
+    }
+    public void setYearWeek(LocalDate firstSemesterStart) {
+        long firstDay = firstSemesterStart.toEpochDay();
+        yearWeek = ((int)(dateOfClass.toEpochDay() - firstDay))/7;
+    }
+
+    private Integer yearWeek;
+
     private boolean isSelected;
 
     /**
@@ -109,18 +132,22 @@ public class Lecture {
         this.startOfClass = determineLocalTime(arguments[6]);
         this.endOfClass = determineLocalTime(arguments[7]);
 
-        if (arguments.length == 8) {
-            this.dateOfClass = null;
-            this.specificationOfRoom = null;
-            this.roomCode = null;
-        } else if (arguments.length == 10 || arguments.length == 11){
-            this.dateOfClass = determineLocalDate(arguments[8], "/");
-            this.specificationOfRoom = arguments[9];
-            this.roomCode = arguments.length == 11 ? arguments[10] : null;
-        } else {
-            for (String s: arguments)
-                System.err.println(s);
-            throw new IllegalArgumentException("Read line with illegal number of fields");
+        switch (arguments.length) {
+            case 8 -> {
+                this.dateOfClass = null;
+                this.specificationOfRoom = null;
+                this.roomCode = null;
+            }
+            case 10, 11 -> {
+                this.dateOfClass = determineLocalDate(arguments[8]);
+                this.specificationOfRoom = arguments[9];
+                this.roomCode = arguments.length == 11 ? arguments[10] : null;
+            }
+            default -> {
+                for (String s : arguments)
+                    System.err.println(s);
+                throw new IllegalArgumentException("Read line with illegal number of fields");
+            }
         }
 
         /*
@@ -227,6 +254,22 @@ public class Lecture {
     }
 
     /**
+     * Getter method for attribute semesterWeek
+     * @return semesterWeek
+     */
+    public Integer getSemesterWeek() {
+        return semesterWeek;
+    }
+
+    /**
+     * Getter method for attribute yearWeek
+     * @return yearWeek
+     */
+    public Integer getYearWeek() {
+        return yearWeek;
+    }
+
+    /**
      * Lecture is represented by a string containing all it's information seperated by ";"
      * @return It will return this information in a single String.
      */
@@ -242,7 +285,9 @@ public class Lecture {
                 ";" + this.endOfClass +
                 ";" + this.dateOfClass +
                 ";" + this.specificationOfRoom +
-                ";" + this.roomCode;
+                ";" + this.roomCode +
+                ";" + this.semesterWeek +
+                ";" + this.yearWeek;
     }
 
     public static DayOfWeek determineDayOfWeek(String dayString) throws IllegalArgumentException {
@@ -272,6 +317,15 @@ public class Lecture {
                 Integer.parseInt(timeParts[0]),
                 Integer.parseInt(timeParts[1])
                // Integer.parseInt(timeParts[2])
+        );
+    }
+
+    private LocalDate determineLocalDate(String dateString) {
+        String[] timeParts = dateString.split("/");
+        return LocalDate.of(
+                Integer.parseInt(timeParts[2]),
+                Integer.parseInt(timeParts[1]),
+                Integer.parseInt(timeParts[0])
         );
     }
 
@@ -380,14 +434,45 @@ public class Lecture {
         return filterString(roomCode, filterString);
     }
 
+    /**
+     * Lecture is represented by a string containing all it's information seperated by ";"
+     *
+     * @return It will return this information in a single String.
+     */
+    
+    public String toString2() {
+        return "{" + curricuralUnit +
+                "," + shift +
+                "," + startOfClass +
+                "," + endOfClass +
+                "," + dateOfClass +
+                "," + specificationOfRoom +
+                "," + roomCode +
+                '}';
+    }
+
     public boolean testFilters(List<Filter> filters) {
-        String[] attributeStrings = toString().split(";");
-        if(filters.size() > attributeStrings.length)
-            throw new IllegalArgumentException("Unexpected arguments, filter list length greater than number of attributes to be filtered");
         boolean result = true;
-        for (Filter f : filters)
-            result = f.op(result, filterString(attributeStrings[f.getAttributeIndex()], f.getFilterString()));
+        boolean firstFilterCleared = false;
+        String[] attributeStrings = toString().split(";");
+        if(filters.size() > attributeStrings.length)//TODO Move this verification to ISCTE class
+            throw new IllegalArgumentException("Unexpected arguments, filter list length greater than number of attributes to be filtered");
+        for (Filter f : filters) {
+            if (!firstFilterCleared) {
+                result = filterString(attributeStrings[f.getAttributeIndex()], f.getFilterString());
+                firstFilterCleared = true;
+            } else {
+                result = f.op(result, filterString(attributeStrings[f.getAttributeIndex()], f.getFilterString()));
+            }
+        }
         return result;
+    }
+
+    public void setWeeks() {
+        LocalDate firstSemesterStart = ISCTE.getInstance().getFirstSemesterStart();
+        LocalDate secondSemesterStart = ISCTE.getInstance().getSecondSemesterStart();
+        setSemesterWeek(firstSemesterStart, secondSemesterStart);
+        setYearWeek(firstSemesterStart);
     }
 
     public boolean testFilters(List<Filter> filters, boolean includeEveryFilter) {

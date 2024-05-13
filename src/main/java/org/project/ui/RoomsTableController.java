@@ -3,14 +3,15 @@ package org.project.ui;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
 import org.project.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class LecturesTableController {
+public class RoomsTableController {
 
     @FXML
     private Parent root;
@@ -18,9 +19,9 @@ public class LecturesTableController {
     @FXML
     private GridPane grid;
     @FXML
-    private TableView lectureTable;
+    private TableView roomTable;
 
-    private List<TableColumn> lectureTableColumns = new ArrayList<>();
+    private List<TableColumn> roomTableColumns = new ArrayList<>();
     private List<Button> filterOpButtons = new ArrayList<>();
     private List<TextField> filterTextFields = new ArrayList<>();
 
@@ -33,19 +34,19 @@ public class LecturesTableController {
     @FXML
     private void applyFilters() {
         List<Filter> filters = new ArrayList<>();
-        for (LectureAttribute a : LectureAttribute.values()) {
+        for (RoomAttribute a : RoomAttribute.values()) {
             String filterText = filterTextFields.get(a.getValue()).getText();
             String filterOp = filterOpButtons.get(a.getValue()).getText();
             if (filterText != "")
                 filters.add(new Filter(a, filterText, filterOp));
         }
-        lectureTable.setItems(ISCTE.getInstance().getLectures(filters));
+        roomTable.setItems(ISCTE.getInstance().getRooms(filters));
         System.out.println("Filters working?");
     }
 
     private void setFilters() {
-        for (LectureAttribute a : LectureAttribute.values()) {
-            lectureTableColumns.get(a.getValue()).setVisible(true);
+        for (RoomAttribute a : RoomAttribute.values()) {
+            roomTableColumns.get(a.getValue()).setVisible(true);
             TextField textField = new TextField();
             textField.setId(a.name());
             Button opButton = new Button(FilterOperation.NOP.getLabel());
@@ -61,11 +62,11 @@ public class LecturesTableController {
             hideButton.setOnAction(event -> {
                 switch (hideButton.getText()) {
                     case "Hide Column" -> {
-                        lectureTableColumns.get(a.getValue()).setVisible(false);
+                        roomTableColumns.get(a.getValue()).setVisible(false);
                         hideButton.setText("Show Column");
                     }
                     default -> {
-                        lectureTableColumns.get(a.getValue()).setVisible(true);
+                        roomTableColumns.get(a.getValue()).setVisible(true);
                         hideButton.setText("Hide Column");
                     }
                 }
@@ -82,19 +83,13 @@ public class LecturesTableController {
     }
 
     private void setTable() {
-        lectureTable.setEditable(true);
-        for (LectureAttribute a : LectureAttribute.values()) {
-            TableColumn column = a.getTableColumn();
-            lectureTableColumns.add(column);
+        roomTable.setEditable(false);
+        for(RoomAttribute a :RoomAttribute.values()){
+            TableColumn tableCol = new TableColumn(a.name());
+            tableCol.setCellValueFactory(new PropertyValueFactory<Room,String>(a.name()));
+            roomTableColumns.add(tableCol);
         }
-        lectureTable.getColumns().addAll(lectureTableColumns);
-        lectureTable.setItems(ISCTE.getInstance().getLectures());
-    }
-
-    @FXML
-    private void showConflictGraph(){
-        Stage conflictStage = new Stage();
-        GraphNetwork.start2(conflictStage);
+        roomTable.getColumns().addAll(roomTableColumns);
+        roomTable.setItems(ISCTE.getInstance().getRooms());
     }
 }
-

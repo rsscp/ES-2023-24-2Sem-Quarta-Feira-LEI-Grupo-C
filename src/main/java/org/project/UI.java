@@ -209,9 +209,9 @@ public class UI extends Application {
         tableColumns.add(courseCol);
 
 
-        TableColumn CUnitCol = new TableColumn("curricuralUnit");
+        TableColumn CUnitCol = new TableColumn("CurricuralUnit");
         CUnitCol.setMinWidth(COL_SIZE);
-        CUnitCol.setCellValueFactory(new PropertyValueFactory<Lecture,String>("curricuralUnit"));
+        CUnitCol.setCellValueFactory(new PropertyValueFactory<Lecture,String>("CurricuralUnit"));
         CUnitCol.setCellFactory(TextFieldTableCell.forTableColumn());
         CUnitCol.setOnEditCommit(
                 new EventHandler<TableColumn.CellEditEvent<Lecture, String>>() {
