@@ -149,8 +149,7 @@ public class ISCTE {
         return availableRooms;
     }
 
-    /*
-    public ObservableList<DaySlots> getAllSlots() {
+    public ObservableList<DaySlot> getAllSlots() {
         HashMap<LocalDate, DaySlots> slots = new HashMap<>();
         for (LocalDate d = firstSemesterStart; d.isBefore(firstSemesterStart.plusDays(17*7)); d=d.plusDays(1))
             slots.put(d, new DaySlots(d));
@@ -166,10 +165,11 @@ public class ISCTE {
                 for (TimeSlot slot: slotsOccupied)
                     daySlots.removeSlot(slot);
         }
-        return FXCollections.observableArrayList(slots.values());
+        ObservableList<DaySlot> individualSlots = FXCollections.observableArrayList();
+        for (DaySlots daySlots: slots.values())
+            daySlots.getSlots().forEach(s -> individualSlots.add(new DaySlot(daySlots.getDate(), s)));
+        return individualSlots;
     }
-
-     */
 
     public ObservableList<DaySlot> getFirstSemesterSlots() {
         ObservableList<DaySlot> slots = FXCollections.observableArrayList();
