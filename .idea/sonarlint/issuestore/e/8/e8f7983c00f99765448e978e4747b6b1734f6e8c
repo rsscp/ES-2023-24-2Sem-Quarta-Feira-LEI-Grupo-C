@@ -1,0 +1,17 @@
+
+_
+java:S1192"IDefine a constant instead of duplicating this literal "user.dir" 3 times.(ğ‚È™
+>
+java:S1604&"(Make this anonymous inner class a lambda(Èú†
+g
+java:S2095"QUse try-with-resources or close this "BufferedInputStream" in a "finally" clause.(Ğ£ôœ
+d
+java:S2095"NUse try-with-resources or close this "FileOutputStream" in a "finally" clause.(ğ‚È™
+V	java:S125"<This block of commented-out lines of code should be removed.(Å¿á¨ÿÿÿÿÿ
+@
+java:S1874"+Remove this use of "URL"; it is deprecated.(ÄÀ€@
+E	java:S106"+Replace this use of System.out by a logger.(—Õ†öıÿÿÿÿ
+?	java:S106 "+Replace this use of System.out by a logger.(Ì¶Ã4
+E	java:S106!"+Replace this use of System.out by a logger.(ù®¤ıÿÿÿÿ
+_
+java:S32522"IUse static access with "javax.swing.WindowConstants" for "EXIT_ON_CLOSE".(¢¡´

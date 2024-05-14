@@ -111,8 +111,8 @@ public class Lecture {
 
     private String roomCode;
 
-    public void setSemesterWeek(int semeterWeek) {
-        this.semesterWeek = semeterWeek;
+    public void setSemesterWeek(int semesterWeek) {
+        this.semesterWeek = semesterWeek;
     }
     public void setSemesterWeek(LocalDate firstSemesterStart, LocalDate secondSemesterStart) {
         long firstDay = 0;
@@ -177,7 +177,7 @@ public class Lecture {
 
         /*
         filterMethods.add(filter -> filterString(course, filter));
-        filterMethods.add(filter -> filterString(curricuralUnit, filter));
+        filterMethods.add(filter -> filterString(curricularUnit, filter));
         filterMethods.add(filter -> filterString(shift, filter));
         filterMethods.add(filter -> filterString(classN, filter));
         filterMethods.add(filter -> filterString(Integer.toString(numberOfStudentsAssigned), filter));

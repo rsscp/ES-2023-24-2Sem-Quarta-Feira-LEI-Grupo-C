@@ -26,7 +26,7 @@ public class ISCTE {
     private LocalDate secondSemesterStart;
     private String fileName;
 
-    private ISCTE() {
+    public ISCTE() {
         lectures = FXCollections.observableArrayList();
         rooms = FXCollections.observableArrayList();
         this.fileName = null;
@@ -281,7 +281,7 @@ public class ISCTE {
                         founded = true;
                     }
                 }
-                case curricuralUnit -> {
+                case curricularUnit -> {
                     if (lecture.getCurricuralUnit().equals(elm)) {
                         founded = true;
                     }
@@ -378,7 +378,7 @@ public class ISCTE {
         return rooms;
     }
 
-    private void setSemesterDates() {
+    public void setSemesterDates() {
         if (lectures.size() == 0)
             throw new IllegalStateException("No lectures loaded");
         ObservableList<Lecture> lecturesSorted = lectures.sorted((l1, l2) -> {
@@ -406,7 +406,7 @@ public class ISCTE {
         }
     }
 
-    private void setCalculatedColumns() {
+    public void setCalculatedColumns() {
         ObservableList<Lecture> filteredLectures = lectures.filtered(l -> {
             return l.getDateOfClass() != null;
         });

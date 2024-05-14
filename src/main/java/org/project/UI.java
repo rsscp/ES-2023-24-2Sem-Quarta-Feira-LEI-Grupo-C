@@ -33,13 +33,13 @@ import java.util.regex.Pattern;
 
 public class UI extends Application {
     private final int COL_SIZE = 100;
-    private ISCTE iscte = ISCTE.getInstance();
+    ISCTE iscte = ISCTE.getInstance();
     int rowsPerPage = 10;
     Stage stage;
     ScrollPane root;
     final HBox hBox = new HBox();
-    private TableView table = new TableView();
-    private BorderPane borderPane;
+    public TableView table = new TableView();
+    public BorderPane borderPane;
     List<TableColumn> tableColumns = new ArrayList<>();
    // final GridPane gridPane = new GridPane();
 
@@ -51,9 +51,9 @@ public class UI extends Application {
    // private TextField userInputField;
 
 
-    private Button btnSearchAND;
-    private Button btnSearchOR;
-    private Button btnClear;
+    public Button btnSearchAND;
+    public Button btnSearchOR;
+    public Button btnClear;
 
 
     public static void main(String[] args) {
@@ -85,7 +85,7 @@ public class UI extends Application {
         stage.show();
     }
 
-    private void getData(String url, String path) throws IOException, IllegalArgumentException {
+    public void getData(String url, String path) throws IOException, IllegalArgumentException {
         //iscte.createCSV("https://raw.githubusercontent.com/jaswb/csvFilesES/main/HorarioDeExemplo.csv");  //TODO Delete
         if (path == "") {
             iscte.getUrlFile(url);
@@ -94,7 +94,7 @@ public class UI extends Application {
             iscte.readLeactures(path);
         }
     }
-     private void getData() {
+     public void getData() {
          try {
              getData("https://raw.githubusercontent.com/jaswb/csvFilesES/main/HorarioDeExemplo.csv", "");
          } catch (IOException e) {
@@ -102,7 +102,7 @@ public class UI extends Application {
          }
      }
 
-    private void createFilters() {
+    public void createFilters() {
         GridPane filters = new GridPane();
         filters.getColumnConstraints().addAll(new ColumnConstraints(20), new ColumnConstraints(80));
         int rowIndex = 0;
@@ -111,7 +111,7 @@ public class UI extends Application {
     /**
      * Making filtering bookmark
      */
-    private void makeFilters() {
+    public void makeFilters() {
         HBox hbox = new HBox();
         VBox vBox = new VBox();
 
@@ -149,7 +149,7 @@ public class UI extends Application {
     /**
      * Creating functionalities buttons
      */
-    private void creatButtons() {
+    public void creatButtons() {
         this.btnClear = new Button("Clear!");
         this.btnClear.setPrefWidth(100);
         this.btnClear.setPrefHeight(50);
@@ -193,7 +193,7 @@ public class UI extends Application {
         }
     }
 
-    private void createTable() {
+    public void createTable() {
         table.setEditable(true);
 
         TableColumn courseCol = new TableColumn("Course");
@@ -643,7 +643,7 @@ public class UI extends Application {
      * @param type of the text
      * @return
      */
-    private HBox createElmForEditTable(Lecture lecture, String data) {
+    public HBox createElmForEditTable(Lecture lecture, String data) {
         HBox hbox = new HBox();
         Label label = new Label(data);
         label.setPrefWidth(COL_SIZE * 2);
@@ -681,7 +681,7 @@ public class UI extends Application {
         return filters;
     }
 
-    private DayOfWeek determineDayOfWeek(String dayString) throws IllegalArgumentException {
+    public DayOfWeek determineDayOfWeek(String dayString) throws IllegalArgumentException {
         switch(dayString) {
             case "MONDAY":
                 return DayOfWeek.MONDAY;
@@ -707,7 +707,7 @@ public class UI extends Application {
      * @param day
      * @return result
      */
-    private boolean isDayValid(String day) {
+    public boolean isDayValid(String day) {
         return day.equals("MONDAY") || day.equals("TUESDAY") || day.equals("WEDNESDAY") ||
                 day.equals("THURSDAY") || day.equals("FRIDAY") || day.equals("SATURDAY") ||
                 day.equals("SUNDAY");
@@ -718,7 +718,7 @@ public class UI extends Application {
      * @param time
      * @return result
      */
-    private boolean isTimeValid(String time) {
+    public boolean isTimeValid(String time) {
         String timeRegex = "([01]?[0-9]|2[0-3]):[0-5][0-9]";
 
         Pattern pattern = Pattern.compile(timeRegex);
@@ -732,7 +732,7 @@ public class UI extends Application {
      * @param date
      * @return result
      */
-    private boolean isDateValid(String date) {
+    public boolean isDateValid(String date) {
         String dateRegex = "\\d{4}-\\d{2}-\\d{2}";
 
         Pattern pattern = Pattern.compile(dateRegex);
@@ -741,7 +741,7 @@ public class UI extends Application {
         return matcher.matches();
     }
 
-    private Node createPage(int pageIndex) {
+    public Node createPage(int pageIndex) {
        // int fromIndex = pageIndex * rowsPerPage;
         //int toIndex = Math.min(fromIndex + rowsPerPage, iscte.getLectures().size());
         this.table.setItems(this.iscte.getLectures());

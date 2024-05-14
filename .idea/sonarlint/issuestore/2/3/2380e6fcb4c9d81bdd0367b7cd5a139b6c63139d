@@ -1,0 +1,63 @@
+
+‡	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(Ú€èüÿÿÿÿJ$e60b887f-9dbb-430e-9491-93ff221b4102
+›
+java:S2293Ê"YReplace the type specification in this constructor call with the diamond operator ("<>").(òº›úÿÿÿÿJ$ae8048d8-298e-4ac4-a6bf-6affb0c134fd
+–
+java:S2293Ì"YReplace the type specification in this constructor call with the diamond operator ("<>").(¡ıó…J$3dd4f076-2e8d-4890-b5f3-2999750614d9
+M
+java:S1066·"/Merge this if statement with the enclosing one.(¹à³8Ñœ¡¿÷1
+²
+java:S1319É"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(§“êÑøÿÿÿÿJ$bf01dda5-98c8-411f-b12a-1f298b36914a
+
+java:S1319Ë"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(‹È©Í8Óœ¡¿÷1
+£
+java:S1488Û"fImmediately return this expression instead of assigning it to the temporary variable "availableRooms".(ç´ĞğJ$5ca8f1a4-62d7-41a7-93e2-a6a97d0a86e2
+~
+java:S4973İ"<Strings and Boxed types should be compared using "equals()".(ß„êàüÿÿÿÿJ$f39b8a8b-7885-427e-ba1d-b630ed5f23cb
+
+java:S2259›"DA "NullPointerException" could be thrown; "writer" is nullable here.(€ŠÿÊJ$11b2790c-bc78-4a1c-96c2-2f7e743e673c
+ˆ
+java:S2095’"LUse try-with-resources or close this "BufferedWriter" in a "finally" clause.(ûÔ³J$76ad493a-75dd-4f29-801e-7ddb194f4193
+º
+java:S11307"yRemove the declaration of thrown exception 'java.net.MalformedURLException' which is a subclass of 'java.io.IOException'.(åùüÿÿÿÿJ$2d000230-4a46-4692-82cb-410687570adb
+f
+java:S1874:"+Remove this use of "URL"; it is deprecated.(ÄÀ€@J$219bb2a2-8d2a-4d2e-a641-d9c2f7655c39
+“
+java:S2737F"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(ö™ûJ$0d60e4cb-4840-4e42-a267-c9586f30d7c4
+ˆ
+java:S2677V"LUse or store the value returned from "readLine" instead of throwing it away.(™¸¡J$322693ce-9fb4-4c24-99e3-0b43b43aad59
+ˆ
+java:S2677g"LUse or store the value returned from "readLine" instead of throwing it away.(™¸¡J$108e1e68-0bf4-4643-836f-d4c63fb02896
+l
+java:S2093"*Change this "try" to a try-with-resources.(¡»¢üùÿÿÿÿJ$16754d30-f41b-443f-8cef-321c71303739
+l	java:S106¥"+Replace this use of System.out by a logger.(ÜÖìÎşÿÿÿÿJ$526ee590-d87f-43a1-bcc2-db82430f0939
+r
+java:S1751¦"5Remove this "break" statement or make it conditional.(›ûä·J$1ee3cd29-916c-4af7-9a67-37b0f6e5df34
+_
+java:S1126Á"AReplace this if-then-else statement by a single return statement.(µàŞ8 ¡¡¿÷1
+
+java:S1602Ø"SRemove useless curly braces around statement and then remove useless return keyword(Ûá°ÄJ$eda757e2-d8a9-41d6-9497-d3a5a74f8eff
+
+java:S1602Û"SRemove useless curly braces around statement and then remove useless return keyword(ç´ĞğJ$9d536980-8190-4673-b955-96b0bd4e693f
+{
+java:S1155Ü">Use isEmpty() to check whether the collection is empty or not.(¡ÅâJ$c84b8117-df6a-4a71-a08a-c5c29b6a0a58
+
+java:S1602Ü"SRemove useless curly braces around statement and then remove useless return keyword(¡ÅâJ$3c1179a9-20ba-4704-b5ab-c37ceb58b351
+”
+java:S3776ê"RRefactor this method to reduce its Cognitive Complexity from 42 to the 15 allowed.(ş·ÂıøÿÿÿÿJ$348d7a5b-965c-46f4-94dc-250749f14273
+•	java:S131î"YComplete cases by adding the missing enum constants or add a default case to this switch.(¸‰ÊñJ$934363b8-6f9a-43a6-a8df-b9d9341e169d
+l	java:S106‰"+Replace this use of System.out by a logger.(¨¶ÑÍşÿÿÿÿJ$c6b3b0b4-0914-4eb7-b693-f2b54ae1b61b
+\
+java:S1117Ì"9Rename "rooms" which hides the field declared at line 23.(¿Éîıùÿÿÿÿ8³¡¡¿÷1
+€
+java:S1155Ö">Use isEmpty() to check whether the collection is empty or not.(©íÑùÿÿÿÿJ$968fbe20-670f-4ab5-83b8-d84a87fde38e
+
+java:S1602á"SRemove useless curly braces around statement and then remove useless return keyword(çŸ·J$b3b9e167-031b-476b-b31e-12f9c04014da
+
+java:S1602é"SRemove useless curly braces around statement and then remove useless return keyword(Ø½×´J$e0e5b321-116b-41fd-9516-6879e2417b60
+
+java:S1602ò"SRemove useless curly braces around statement and then remove useless return keyword(ªˆıqJ$01b57364-23ed-48a3-ada1-9785f9a33949
+W
+java:S1128"5Remove this unused import 'java.nio.charset.Charset'.(ü¶ØŸıÿÿÿÿ8¼¡¡¿÷1
+c
+java:S1128	"ARemove this unused import 'com.sun.javafx.scene.shape.ArcHelper'.(Ë—‰¥úÿÿÿÿ8¼¡¡¿÷1

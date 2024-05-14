@@ -33,7 +33,7 @@ public class LecturesTableController {
     private Parent root;
 
     @FXML
-    private GridPane grid;
+    public GridPane grid;
     @FXML
     private GridPane grid2;
     @FXML
