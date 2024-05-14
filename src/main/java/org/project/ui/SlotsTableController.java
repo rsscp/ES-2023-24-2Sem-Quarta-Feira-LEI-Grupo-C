@@ -115,6 +115,11 @@ public class SlotsTableController {
             DaySlot slot = (DaySlot) slotTable.getSelectionModel().getSelectedItem();
             Lecture lecture = new Lecture(Curso, UC, Turno, Turma, Inscritos, DayOfTheWeek, slot.getTimeSlot().getStart(), slot.getTimeSlot().getEnd(), slot.getDate(), SpecificationOfRoom, RoomCode);
             ISCTE.getInstance().getLectures().add(lecture);
+            try {
+                ISCTE.getInstance().writeCsv();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
             System.out.println("saved");
         });
 
