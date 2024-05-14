@@ -166,8 +166,12 @@ public class ISCTE {
                     daySlots.removeSlot(slot);
         }
         ObservableList<DaySlot> individualSlots = FXCollections.observableArrayList();
-        for (DaySlots daySlots: slots.values())
+        for (DaySlots daySlots: slots.values()) {
             daySlots.getSlots().forEach(s -> individualSlots.add(new DaySlot(daySlots.getDate(), s)));
+            System.out.println(daySlots.getDate());
+            System.out.println("coisa");
+        }
+
         return individualSlots;
     }
 

@@ -48,6 +48,7 @@ public class LecturesTableController {
     private void initialize() {
         setTable();
         setFilters();
+        setAddUC();
     }
 
     @FXML
@@ -90,6 +91,7 @@ public class LecturesTableController {
             SlotsTableController.setDayOfTheWeek(TimeUtils.determineDayOfWeek(textWeek.getText()));
             SlotsTableController.setRoomCode(textRoomCode.getText());
             SlotsTableController.setSpecificationOfRoom(textSpecRoom.getText());
+            loadSlotsTablePage();
         });
         addButton.setPrefWidth(50);
         addButton.setPrefHeight(50);
@@ -241,9 +243,7 @@ public class LecturesTableController {
                             throw new RuntimeException(e);
                         }
                         editStage.close();
-                        System.out.println("1");
                         loadSlotsTablePage();
-                        System.out.println("2");
                     }
                 });
 

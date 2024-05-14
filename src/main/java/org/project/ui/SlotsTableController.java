@@ -102,9 +102,7 @@ public class SlotsTableController {
         slotTableColumns.add(dateCol);
 
         slotTable.getColumns().addAll(slotTableColumns);
-        ObservableList<DaySlot> slots = iscte.getFirstSemesterSlots();
-        slots.addAll(iscte.getSecondSemesterSlots());
-        slotTable.setItems(slots);
+        slotTable.setItems(iscte.getAllSlots());
     }
 
     private void saveLecture() {
