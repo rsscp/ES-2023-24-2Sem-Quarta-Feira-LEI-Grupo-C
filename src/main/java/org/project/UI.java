@@ -510,8 +510,6 @@ public class UI extends Application {
                         }
                     }
 
-
-
                     for (int i = 0; i < textFields.size(); i++) {
                         if (i == 0) {
                             if (!this.isDayValid(textFields.get(i).getText())) {

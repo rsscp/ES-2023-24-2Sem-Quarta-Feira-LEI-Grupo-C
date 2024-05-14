@@ -9,6 +9,7 @@ import javafx.scene.control.TableColumn;
 import javafx.util.converter.LocalDateStringConverter;
 import javafx.util.converter.LocalTimeStringConverter;
 
+import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -62,6 +63,9 @@ public enum LectureAttribute implements Attribute{
         };
     }
 
+    /**
+     * Creates the Course Column for the LectureTable
+     */
     public static TableColumn getTableColumnCourse() {
         TableColumn courseCol = new TableColumn("Course");
         courseCol.setCellValueFactory(new PropertyValueFactory<Lecture,String>("Course"));
@@ -83,9 +87,13 @@ public enum LectureAttribute implements Attribute{
         );
         return courseCol;
     }
-    public static TableColumn getTableColumnCurricularUnit() {
-        TableColumn cUnitCol = new TableColumn("curricularUnit");
-        cUnitCol.setCellValueFactory(new PropertyValueFactory<Lecture,String>("curricularUnit"));
+
+    /**
+     * Creates the CurricularUnit Column for the LectureTable
+     */
+    public static TableColumn getTableColumnCurricuralUnit() {
+        TableColumn cUnitCol = new TableColumn("curricuralUnit");
+        cUnitCol.setCellValueFactory(new PropertyValueFactory<Lecture,String>("curricuralUnit"));
         cUnitCol.setCellFactory(TextFieldTableCell.forTableColumn());
         cUnitCol.setOnEditCommit(
             new EventHandler<TableColumn.CellEditEvent<Lecture, String>>() {
@@ -104,6 +112,10 @@ public enum LectureAttribute implements Attribute{
         );
         return cUnitCol;
     }
+
+    /**
+     * Creates the Shift Column for the LectureTable
+     */
     public static TableColumn getTableColumnShift() {
         TableColumn shiftCol = new TableColumn("Shift");
         shiftCol.setCellValueFactory(new PropertyValueFactory<Lecture,String>("Shift"));
@@ -125,6 +137,9 @@ public enum LectureAttribute implements Attribute{
         );
         return shiftCol;
     }
+    /**
+     * Creates the ClassN Column for the LectureTable
+     */
     public static TableColumn getTableColumnClassN() {
         TableColumn classNCol = new TableColumn("ClassN");
         classNCol.setCellValueFactory(new PropertyValueFactory<Lecture,String>("ClassN"));
@@ -146,6 +161,9 @@ public enum LectureAttribute implements Attribute{
         );
         return classNCol;
     }
+    /**
+     * Creates the NumberOfStudents Column for the LectureTable
+     */
     public static TableColumn getTableColumnNumberOfStudentsAssigned() {
         TableColumn nStudentsCol = new TableColumn("numberOfStudentsAssigned");
         nStudentsCol.setCellValueFactory(new PropertyValueFactory<Lecture,Integer>("numberOfStudentsAssigned"));
@@ -167,6 +185,9 @@ public enum LectureAttribute implements Attribute{
         );
         return nStudentsCol;
     }
+    /**
+     * Creates the DayOfTheWeek Column for the LectureTable
+     */
     public static TableColumn getTableColumnDayOfTheWeek() {
         TableColumn dayWeekCol = new TableColumn("dayOfTheWeek");
         dayWeekCol.setCellValueFactory(new PropertyValueFactory<Lecture, DayOfWeek>("dayOfTheWeek"));
@@ -178,7 +199,7 @@ public enum LectureAttribute implements Attribute{
                 }
                 @Override
                 public DayOfWeek fromString(String string) {
-                    return Lecture.determineDayOfWeek(string);
+                    return TimeUtils.determineDayOfWeekFromFile(string);
                 }
             }));
         dayWeekCol.setOnEditCommit(
@@ -198,6 +219,9 @@ public enum LectureAttribute implements Attribute{
         );
         return dayWeekCol;
     }
+    /**
+     * Creates the StartOfClass Column for the LectureTable
+     */
     public static TableColumn getTableColumnStartOfClass() {
         TableColumn startClassCol = new TableColumn("startOfClass");
         startClassCol.setCellValueFactory(new PropertyValueFactory<Lecture, LocalTime>("startOfClass"));
@@ -219,6 +243,9 @@ public enum LectureAttribute implements Attribute{
         );
         return startClassCol;
     }
+    /**
+     * Creates the EndOfClass Column for the LectureTable
+     */
     public static TableColumn getTableColumnEndOfClass() {
         TableColumn endClassCol = new TableColumn("endOfClass");
         endClassCol.setCellValueFactory(new PropertyValueFactory<Lecture, LocalTime>("endOfClass"));
@@ -240,6 +267,9 @@ public enum LectureAttribute implements Attribute{
         );
         return endClassCol;
     }
+    /**
+     * Creates the DateOfClass Column for the LectureTable
+     */
     public static TableColumn getTableColumnDateOfClass() {
         TableColumn dateClassCol = new TableColumn("dateOfClass");
         dateClassCol.setCellValueFactory(new PropertyValueFactory<Lecture, LocalDate>("dateOfClass"));
@@ -264,6 +294,9 @@ public enum LectureAttribute implements Attribute{
         );
         return dateClassCol;
     }
+    /**
+     * Creates the SpecificationOfRoom Column for the LectureTable
+     */
     public static TableColumn getTableColumnSpecificationOfRoom() {
         TableColumn specRoomCol = new TableColumn("specificationOfRoom");
         specRoomCol.setCellValueFactory(new PropertyValueFactory<Lecture,String>("specificationOfRoom"));
@@ -285,6 +318,9 @@ public enum LectureAttribute implements Attribute{
         );
         return specRoomCol;
     }
+    /**
+     * Creates the RoomCode Column for the LectureTable
+     */
     public static TableColumn getTableColumnRoomCode() {
         TableColumn roomCodeCol = new TableColumn("roomCode");
         roomCodeCol.setCellValueFactory(new PropertyValueFactory<Lecture,String>("roomCode"));
@@ -306,12 +342,18 @@ public enum LectureAttribute implements Attribute{
         );
         return roomCodeCol;
     }
+    /**
+     * Creates the SemesterWeek Column for the LectureTable
+     */
     public static TableColumn getTableColumnSemesterWeek() {
         TableColumn semestreWeekCol = new TableColumn("Semestre Week");
         semestreWeekCol.setCellValueFactory(new PropertyValueFactory<Lecture,Integer>("semesterWeek"));
         semestreWeekCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
         return semestreWeekCol;
     }
+    /**
+     * Creates the YearWeek Column for the LectureTable
+     */
     public static TableColumn getTableColumnYearWeek() {
         TableColumn yearWeekCol = new TableColumn("Year Week");
         yearWeekCol.setCellValueFactory(new PropertyValueFactory<Lecture,Integer>("yearWeek"));
