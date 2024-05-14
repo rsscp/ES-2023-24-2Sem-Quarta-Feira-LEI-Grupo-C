@@ -17,6 +17,9 @@ public class DaySlots {
     public LocalDate getDate() {
         return date;
     }
+    public Set<TimeSlot> getSlots() {
+        return timeSlots;
+    }
 
     public void addSlot(TimeSlot newSlot) {
         timeSlots.add(newSlot);

@@ -57,7 +57,7 @@ public class Lecture {
         this.dayOfTheWeek = dayOfTheWeek;
     }
     public void setDayOfTheWeek(String dayOfTheWeek) {
-        this.dayOfTheWeek = TimeUtils.determineDayOfWeek(dayOfTheWeek);
+        this.dayOfTheWeek = TimeUtils.determineDayOfWeekFromFile(dayOfTheWeek);
     }
 
     private DayOfWeek dayOfTheWeek;
@@ -143,7 +143,7 @@ public class Lecture {
         this.shift = arguments[2];
         this.classN = arguments[3];
         this.numberOfStudentsAssigned = Integer.parseInt(arguments[4]);
-        this.dayOfTheWeek = TimeUtils.determineDayOfWeek(arguments[5]);
+        this.dayOfTheWeek = TimeUtils.determineDayOfWeekFromFile(arguments[5]);
         this.startOfClass = TimeUtils.determineLocalTime(arguments[6]);
         this.endOfClass = TimeUtils.determineLocalTime(arguments[7]);
 

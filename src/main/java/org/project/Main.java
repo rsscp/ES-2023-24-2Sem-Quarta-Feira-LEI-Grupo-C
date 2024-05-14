@@ -33,6 +33,7 @@ public class Main {
 
         for (TimeSlot s: timeSlots.stream().toList())
             System.out.println(s);
+        */
 
         //System.out.println(slots.get(LocalDate.of(2024, 10, 10)));
         //Testar se um LectureSlot novo com os mesmos valores que uma key anterior vão dar à mesma entrada do hashmap

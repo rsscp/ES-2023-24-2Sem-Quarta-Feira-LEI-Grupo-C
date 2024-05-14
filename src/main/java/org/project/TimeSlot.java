@@ -1,5 +1,6 @@
 package org.project;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -23,17 +24,9 @@ public enum TimeSlot {
         NIGHT();
     }
 
-    public LocalTime getStart() {
-        return start;
-    }
-
-    public LocalTime getEnd() {
-        return end;
-    }
-
-    LocalTime start;
-    LocalTime end;
-    DaySection section;
+    private LocalTime start;
+    private LocalTime end;
+    private DaySection section;
 
     public String getLabel() {
         return label;
@@ -61,12 +54,20 @@ public enum TimeSlot {
         this.label = label;
     }
 
+    public LocalTime getStart() {
+        return start;
+    }
+
+    public LocalTime getEnd() {
+        return end;
+    }
+
     public boolean intrudes(LocalTime start, LocalTime end) {
         //TODO?
         return false;
     }
 
-    public List<TimeSlot> slotsOccupiedBy(LocalTime start, LocalTime end) {
+    public static List<TimeSlot> slotsOccupiedBy(LocalTime start, LocalTime end) {
         if (start.isAfter(end))
             throw new IllegalArgumentException("Argumento de início é posterior a argumento de fim");
         List<TimeSlot> occupiedSlots = new ArrayList<>();

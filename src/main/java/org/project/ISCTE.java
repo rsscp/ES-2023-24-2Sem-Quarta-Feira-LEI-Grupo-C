@@ -152,6 +152,21 @@ public class ISCTE {
     /*
     public ObservableList<DaySlots> getAllSlots() {
         HashMap<LocalDate, DaySlots> slots = new HashMap<>();
+        for (LocalDate d = firstSemesterStart; d.isBefore(firstSemesterStart.plusDays(17*7)); d=d.plusDays(1))
+            slots.put(d, new DaySlots(d));
+        for (LocalDate d = secondSemesterStart; d.isBefore(secondSemesterStart.plusDays(15*7)); d=d.plusDays(1))
+            slots.put(d, new DaySlots(d));
+        for (Lecture l: lectures) {
+            List<TimeSlot> slotsOccupied = TimeSlot.slotsOccupiedBy(
+                l.getStartOfClass(),
+                l.getEndOfClass()
+            );
+            DaySlots daySlots = slots.get(l.getDateOfClass());
+            if (daySlots != null)
+                for (TimeSlot slot: slotsOccupied)
+                    daySlots.removeSlot(slot);
+        }
+        return FXCollections.observableArrayList(slots.values());
     }
 
      */

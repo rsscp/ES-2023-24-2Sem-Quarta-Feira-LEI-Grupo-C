@@ -178,7 +178,7 @@ public enum LectureAttribute implements Attribute{
                 }
                 @Override
                 public DayOfWeek fromString(String string) {
-                    return TimeUtils.determineDayOfWeek(string);
+                    return TimeUtils.determineDayOfWeekFromFile(string);
                 }
             }));
         dayWeekCol.setOnEditCommit(
