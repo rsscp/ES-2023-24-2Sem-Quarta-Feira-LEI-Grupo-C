@@ -93,6 +93,12 @@ public class ISCTE {
         }
     }
 
+    /**
+     * Tries to read data from file specified and consequently making objects
+     * of the class Room from this data.
+     * @param fileName Specifies the file location from where data is read
+     * @throws IOException Exception in case of reading file
+     */
     public void readRooms(String fileName) throws IOException {
         try (
                 FileInputStream fis = new FileInputStream(fileName);
@@ -107,6 +113,8 @@ public class ISCTE {
             }
         }
     }
+
+
     public ObservableList<Lecture> getLectures() {
         return lectures;
     }
@@ -120,6 +128,10 @@ public class ISCTE {
         return filteredLectures;
     }
 
+    /**
+     * Returns a list of Lectures that has been checked by the filter given
+     * @param filters Contains a list of filters to applt to the list
+     */
     public ObservableList<Lecture> getLectures(List<Filter> filters) {
         ObservableList<Lecture> filteredLectures = FXCollections.observableArrayList(lectures);
         for (Lecture l: lectures) {
@@ -128,6 +140,11 @@ public class ISCTE {
         }
         return filteredLectures;
     }
+
+    /**
+     * Returns a list of Rooms that has been checked by the filter given
+     * @param filters Contains a list of filters to applt to the list
+     */
     public ObservableList<Room> getRooms(List<Filter> filters) {
         ObservableList<Room> filteredRooms = FXCollections.observableArrayList();
         for (Room r: rooms) {
@@ -171,50 +188,6 @@ public class ISCTE {
                 individualSlots.add(new DaySlot(daySlots.getDate(), slot));
         }
         return individualSlots;
-    }
-
-    public ObservableList<DaySlot> getFirstSemesterSlots() {
-        ObservableList<DaySlot> slots = FXCollections.observableArrayList();
-        putFirstSemesterSlots(slots);
-        return slots;
-    }
-
-    public ObservableList<DaySlot> getSecondSemesterSlots() {
-        ObservableList<DaySlot> slots = FXCollections.observableArrayList();
-        putSecondSemesterSlots(slots);
-        return slots;
-    }
-
-    private void putFirstSemesterSlots(ObservableList<DaySlot> slots) {
-        for(TimeSlot t:TimeSlot.values()){
-            DaySlot d1 = new DaySlot(TimeUtils.determineLocalDate("01/01/2022"),t);
-            DaySlot d2 = new DaySlot(TimeUtils.determineLocalDate("02/01/2022"),t);
-            DaySlot d3 = new DaySlot(TimeUtils.determineLocalDate("03/01/2022"),t);
-            DaySlot d4 = new DaySlot(TimeUtils.determineLocalDate("04/01/2022"),t);
-            DaySlot d5 = new DaySlot(TimeUtils.determineLocalDate("05/01/2022"),t);
-
-            slots.add(d1);
-            slots.add(d2);
-            slots.add(d3);
-            slots.add(d4);
-            slots.add(d5);
-        }
-    }
-
-    private void putSecondSemesterSlots(ObservableList<DaySlot> slots) {
-        for(TimeSlot t:TimeSlot.values()){
-            DaySlot d1 = new DaySlot(TimeUtils.determineLocalDate("01/02/2022"),t);
-            DaySlot d2 = new DaySlot(TimeUtils.determineLocalDate("02/02/2022"),t);
-            DaySlot d3 = new DaySlot(TimeUtils.determineLocalDate("03/02/2022"),t);
-            DaySlot d4 = new DaySlot(TimeUtils.determineLocalDate("04/02/2022"),t);
-            DaySlot d5 = new DaySlot(TimeUtils.determineLocalDate("05/02/2022"),t);
-
-            slots.add(d1);
-            slots.add(d2);
-            slots.add(d3);
-            slots.add(d4);
-            slots.add(d5);
-        }
     }
 
     public void writeCsv() throws Exception {
