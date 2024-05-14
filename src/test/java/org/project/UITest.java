@@ -91,6 +91,8 @@ public class UITest{
 
         assertNull(ui.determineDayOfWeek("INVALID_DAY"));
     }
+
+
         @Test
     public void testStart() {
             // Arrange

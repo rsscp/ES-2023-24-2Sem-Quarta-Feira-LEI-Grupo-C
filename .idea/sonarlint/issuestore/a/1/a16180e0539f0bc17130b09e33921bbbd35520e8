@@ -1,179 +1,193 @@
 
-‡	java:S112Ë"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚ÒéüÿÿÿÿJ$c36aa4eb-edc4-4420-95bf-bb7c9ea9157a
-‡	java:S112á"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚ÒéüÿÿÿÿJ$147dabd9-ae1f-4daf-87f3-0a5730bad95a
-‡	java:S112ö"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚ÒéüÿÿÿÿJ$af930816-1fe8-4fd9-9c59-0b1fbe418bf0
-‡	java:S112‹"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚ÒéüÿÿÿÿJ$ab893d77-a5bf-4cae-9af1-afcfe7a24724
-‡	java:S112¡"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚ÒéüÿÿÿÿJ$0c3a37c2-bea4-4f5d-b9bf-148e9b7b4387
-‡	java:S112Ä"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚ÒéüÿÿÿÿJ$57eec3db-abb7-4da0-8002-a628d353bdc9
-‡	java:S112Ú"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚ÒéüÿÿÿÿJ$0c00a174-bd15-4a3f-b296-453fa16a50a1
-‡	java:S112ñ"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚ÒéüÿÿÿÿJ$f1abb6a4-e351-4863-a480-568bc6be7a90
-‡	java:S112‡"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚ÒéüÿÿÿÿJ$1b34d4d1-0fb0-4066-a6f4-2804b72bc06a
-‡	java:S112œ"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚ÒéüÿÿÿÿJ$0808e214-dd66-43f6-9a5d-7d103a226a51
-‡	java:S112²"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚ÒéüÿÿÿÿJ$b62164f7-423d-43ca-bfd1-f9fbb2ff3b03
-‡	java:S112 "FDefine and throw a dedicated exception instead of using a generic one.(Ò‚ÒéüÿÿÿÿJ$818101f6-53d5-4fae-86db-3d7606b2f022
-‡	java:S112’"FDefine and throw a dedicated exception instead of using a generic one.(Ú€èüÿÿÿÿJ$420c6c33-8f82-4937-a64d-4b104011c4c0
-p
-java:S3740("/Provide the parametrized type for this generic.(—œñßüÿÿÿÿJ$6c9eaa2d-5326-42aa-81cd-935ca3d1c2db
-p
-java:S3740("/Provide the parametrized type for this generic.(—œñßüÿÿÿÿJ$b326f9a2-bea8-4607-8012-02b0bf40aae4
-j
-java:S3740*"/Provide the parametrized type for this generic.(°¤‚dJ$c10a92b5-5e30-4ea9-bc6f-542d8593d551
+	java:S112Õ"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8“ûÛ»÷1J$17cc2ecf-86aa-4b40-8ca5-bb921e190a0d
+	java:S112ë"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8”ûÛ»÷1J$94839ea8-7cfe-4986-88b0-7c8abbf3cf13
+	java:S112€"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8”ûÛ»÷1J$eee726c9-1150-4ab1-a4b4-2862e03d27f4
+	java:S112•"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8”ûÛ»÷1J$f2d341bd-789c-4347-b67b-fe36b6feae07
+	java:S112«"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8”ûÛ»÷1J$806a6ba8-8106-4d5e-97d1-3f137d3ff4ee
+	java:S112Î"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8”ûÛ»÷1J$d2a67c17-6dc0-4432-aa3e-855912fbca7e
+	java:S112ä"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8”ûÛ»÷1J$6a76e811-d059-4a1e-8de4-ce9941582a4f
+	java:S112û"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8”ûÛ»÷1J$eb5b06d5-8394-4bac-939b-408414f3d1b8
+	java:S112‘"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8”ûÛ»÷1J$b6864159-18b0-4e1b-98fb-0e99630ec310
+	java:S112¦"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8”ûÛ»÷1J$8dbe31ed-f533-499b-ace1-b1224e934844
+	java:S112¼"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8”ûÛ»÷1J$1bea07e3-ebd8-49ba-99ea-937b9af2ec1c
+	java:S112®"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8”ûÛ»÷1J$8427c4d5-f8e7-4ed3-bcf0-5846fac23018
+	java:S112ò"FDefine and throw a dedicated exception instead of using a generic one.(Ú€èüÿÿÿÿ8•ûÛ»÷1J$565273c2-8ce6-4b8c-9fd1-add501006df1
+w
+java:S3740)"/Provide the parametrized type for this generic.(—œñßüÿÿÿÿ8•ûÛ»÷1J$c6369cea-76fe-41a6-90f6-2a6917affe37
+w
+java:S3740)"/Provide the parametrized type for this generic.(—œñßüÿÿÿÿ8•ûÛ»÷1J$6a3daee3-e4f5-420b-9abb-23fc63b5f9cd
 q
-java:S3740½"/Provide the parametrized type for this generic.(Â™ÖÈùÿÿÿÿJ$2c222c3f-c3d6-43c5-86e2-ff914e723a3f
+java:S3740+"/Provide the parametrized type for this generic.(°¤‚d8•ûÛ»÷1J$bd5dd1a2-701b-4d9d-8da8-0130883288a8
+x
+java:S3740Ç"/Provide the parametrized type for this generic.(Â™ÖÈùÿÿÿÿ8•ûÛ»÷1J$9b320ba0-6812-4958-8208-f1e1b7d87b91
+x
+java:S3740Ç"/Provide the parametrized type for this generic.(Â™ÖÈùÿÿÿÿ8•ûÛ»÷1J$0734dc6c-8e79-4b66-a1cd-272cd28959c8
+s
+java:S3740İ"/Provide the parametrized type for this generic.(×ôÇÓ8•ûÛ»÷1J$2a3e3014-bcd2-456e-bac8-4e7700f74bd7
+s
+java:S3740İ"/Provide the parametrized type for this generic.(×ôÇÓ8•ûÛ»÷1J$3130c94b-2ce9-408f-a5f2-b9cdd4b33279
+x
+java:S3740ò"/Provide the parametrized type for this generic.(ÿı…»ûÿÿÿÿ8–ûÛ»÷1J$9fd012e9-8622-491c-9997-8349da449333
+x
+java:S3740ò"/Provide the parametrized type for this generic.(ÿı…»ûÿÿÿÿ8–ûÛ»÷1J$dc1b233e-4260-4f08-a450-c7c486dc991f
+s
+java:S3740‡"/Provide the parametrized type for this generic.(¶Ü“8–ûÛ»÷1J$28046d5e-51f3-4941-8861-d67059e9488b
+s
+java:S3740‡"/Provide the parametrized type for this generic.(¶Ü“8–ûÛ»÷1J$9e90a3a3-a3bb-4b3d-be52-07f7c7640324
+s
+java:S3740œ"/Provide the parametrized type for this generic.(½½¹¯8–ûÛ»÷1J$b12ff25d-254e-4520-8a90-634e3aa469d1
+s
+java:S3740œ"/Provide the parametrized type for this generic.(½½¹¯8–ûÛ»÷1J$af3582ec-1ce5-43f0-9c47-7915369f608c
+s
+java:S3740²"/Provide the parametrized type for this generic.(ñµÄÂ8–ûÛ»÷1J$fcdd298e-19dd-441c-8624-9b309df63aaf
+s
+java:S3740²"/Provide the parametrized type for this generic.(ñµÄÂ8–ûÛ»÷1J$8274ae4b-ed79-490f-ad83-c7acd8b541ef
+x
+java:S3740Õ"/Provide the parametrized type for this generic.(ñ¿Êùÿÿÿÿ8–ûÛ»÷1J$3e36ed99-083b-4c99-a960-27188fc27a60
+x
+java:S3740Õ"/Provide the parametrized type for this generic.(ñ¿Êùÿÿÿÿ8–ûÛ»÷1J$b6cb4300-a947-4c51-9ede-341778bbb3ed
+r
+java:S3740ì"/Provide the parametrized type for this generic.(½óş<8–ûÛ»÷1J$1bb2f0ec-a477-4a39-9a17-59d147ab3535
+r
+java:S3740ì"/Provide the parametrized type for this generic.(½óş<8–ûÛ»÷1J$63fd53e8-56f0-472e-92ec-3f8773bef4e6
+s
+java:S3740‚"/Provide the parametrized type for this generic.(…½8–ûÛ»÷1J$f8bb1201-aa87-47c1-9e8a-320372ade7bf
+s
+java:S3740‚"/Provide the parametrized type for this generic.(…½8–ûÛ»÷1J$51943536-5e53-48b6-b6c7-bcd7647ee626
+x
+java:S3740˜"/Provide the parametrized type for this generic.(Ñ­êúÿÿÿÿ8–ûÛ»÷1J$a767e752-ae4e-4164-b28e-79bac45bcfd5
+x
+java:S3740˜"/Provide the parametrized type for this generic.(Ñ­êúÿÿÿÿ8–ûÛ»÷1J$6dbc2a62-d6a5-4973-a67b-09094b5fca33
+s
+java:S3740­"/Provide the parametrized type for this generic.(ÑÇ„Ñ8–ûÛ»÷1J$9cff1917-ec34-489b-9bc3-ed2dd4312662
+s
+java:S3740­"/Provide the parametrized type for this generic.(ÑÇ„Ñ8–ûÛ»÷1J$02517235-fd0f-4f85-82c7-29e338c770ea
+
+java:S1192Ø"IDefine a constant instead of duplicating this literal "THURSDAY" 3 times.(Õ©ê¹8›ûÛ»÷1J$29dbba2d-23c0-4c76-92c8-b0af110e18e2
+“
+java:S1192×"JDefine a constant instead of duplicating this literal "WEDNESDAY" 3 times.(½˜ùÿÿÿÿ8›ûÛ»÷1J$c4ff93b2-bdf8-44a2-82fd-0f7bc4353755
+‘
+java:S1192Ö"HDefine a constant instead of duplicating this literal "TUESDAY" 3 times.(¡Å°ßùÿÿÿÿ8›ûÛ»÷1J$708a3958-44e9-4d2d-acc1-a625995034dd
+
+java:S1192Ù"GDefine a constant instead of duplicating this literal "FRIDAY" 3 times.(‡Åüøÿÿÿÿ8›ûÛ»÷1J$3a6f312f-015d-49b7-b5a1-bec5283ed26b
+
+java:S1192Õ"GDefine a constant instead of duplicating this literal "MONDAY" 3 times.(â›•ÿÿÿÿÿ8›ûÛ»÷1J$ac3b4387-b253-4474-bbc5-091c4d2d6b8a
+s
+java:S1066½"/Merge this if statement with the enclosing one.(¹š·ê8ûÛ»÷1J$b5004f56-1765-4175-9693-c9013c624c05
+s
+java:S1066…"/Merge this if statement with the enclosing one.(ïïù8ûÛ»÷1J$1aefd7d9-19fa-40c5-9439-e276faaf24ca
+x
+java:S1066Š"/Merge this if statement with the enclosing one.(ÑìÏ³ùÿÿÿÿ8ûÛ»÷1J$a1d22d5c-754d-4b04-9477-fe7b5e97a5a2
+s
+java:S1066"/Merge this if statement with the enclosing one.(”ÃÒÄ8ûÛ»÷1J$dc6ce307-52e4-4387-a599-c3fde5675c0b
+x
+java:S1066”"/Merge this if statement with the enclosing one.(‚É˜úÿÿÿÿ8ûÛ»÷1J$448a102b-1cbf-4b8d-a6bc-bc83e86e4be9
+”	java:S117İ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(×ôÇÓ8ŸûÛ»÷1J$ab4ef5ce-450e-479e-b80b-6a8f4a4c1c21
+”	java:S117‡"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¶Ü“8ŸûÛ»÷1J$63d82aa3-f61d-4a8c-b4b3-c9a76b5c1a57
+”	java:S117œ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(½½¹¯8 ûÛ»÷1J$1d7451df-67ce-4707-bc50-7e04b9e04c69
+™	java:S117Õ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ñ¿Êùÿÿÿÿ8 ûÛ»÷1J$0e993986-ebeb-45a1-9dc4-9e728b6b8094
+“	java:S117ì"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(½óş<8 ûÛ»÷1J$bc54fb5c-5101-4290-9552-d89145628730
+”	java:S117‚"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(…½8 ûÛ»÷1J$f1e23ced-cde2-4036-9d40-e63ff0c88853
+™	java:S117˜"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ñ­êúÿÿÿÿ8 ûÛ»÷1J$d4495427-7446-41ec-b4fc-aa10fadd00a0
+”	java:S117­"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÑÇ„Ñ8 ûÛ»÷1J$da4194ec-84b1-4112-ac59-24694671dbae
+l
+java:S1604Ì"(Make this anonymous inner class a lambda(²¨ìÑ8¡ûÛ»÷1J$b33cc9e6-aea8-4ce5-adff-7a481ce78522
+l
+java:S1604â"(Make this anonymous inner class a lambda(²¨ìÑ8¡ûÛ»÷1J$65615e29-76bf-4922-bec2-274576e6a170
+l
+java:S1604÷"(Make this anonymous inner class a lambda(²¨ìÑ8¡ûÛ»÷1J$2b175d04-9a28-4beb-8dfc-7e016ff6c741
+l
+java:S1604Œ"(Make this anonymous inner class a lambda(²¨ìÑ8¡ûÛ»÷1J$1b72e24d-51ab-413b-923a-d78c0f9e9a53
 q
-java:S3740½"/Provide the parametrized type for this generic.(Â™ÖÈùÿÿÿÿJ$6035b72f-5ecf-4eca-b2fa-c6514515e030
-l
-java:S3740Ó"/Provide the parametrized type for this generic.(×ôÇÓJ$6887faa0-a47b-4785-8d5b-eb730ab2e5a4
-l
-java:S3740Ó"/Provide the parametrized type for this generic.(×ôÇÓJ$e6721dda-2f9d-4994-a091-ee9570c96814
+java:S1604¢"(Make this anonymous inner class a lambda(ñÔì£ıÿÿÿÿ8¡ûÛ»÷1J$9e8c3f9b-2e60-4246-8409-9be022f878de
 q
-java:S3740è"/Provide the parametrized type for this generic.(ÿı…»ûÿÿÿÿJ$87682e93-9364-42c0-9f7f-1bceb314df95
+java:S1604Å"(Make this anonymous inner class a lambda(ä²‡Çúÿÿÿÿ8¡ûÛ»÷1J$688cb2bf-1eee-4f68-9d2b-a3b20d0a4b61
+l
+java:S1604Û"(Make this anonymous inner class a lambda(´æô°8¡ûÛ»÷1J$e24b1d71-ffee-4afe-b54f-9b28c686b7b7
+l
+java:S1604ò"(Make this anonymous inner class a lambda(´æô°8¢ûÛ»÷1J$9de40b33-14ab-43e8-8feb-ac74c9b7ac7c
 q
-java:S3740è"/Provide the parametrized type for this generic.(ÿı…»ûÿÿÿÿJ$8af7aba0-d57c-42d9-9928-a24a8a886133
+java:S1604ˆ"(Make this anonymous inner class a lambda(ï¦£…øÿÿÿÿ8¢ûÛ»÷1J$0b1bd9f9-b5b4-436c-a655-a40e1dcebe26
 l
-java:S3740ı"/Provide the parametrized type for this generic.(¶Ü“J$56a2aed5-0e75-4640-84ae-c4b19827e09c
+java:S1604"(Make this anonymous inner class a lambda(²¨ìÑ8¢ûÛ»÷1J$c41c05d3-c597-4e57-9319-b25d38509187
 l
-java:S3740ı"/Provide the parametrized type for this generic.(¶Ü“J$9df83447-ede4-46ea-ac87-ae105db3f3de
-l
-java:S3740’"/Provide the parametrized type for this generic.(½½¹¯J$2d4ee5c4-763f-4897-b6dc-660047262869
-l
-java:S3740’"/Provide the parametrized type for this generic.(½½¹¯J$55228a9f-5fce-475a-a088-b2183de85734
-l
-java:S3740¨"/Provide the parametrized type for this generic.(ñµÄÂJ$1ee7f1b7-308f-48f3-8dd5-0c7844efac79
-l
-java:S3740¨"/Provide the parametrized type for this generic.(ñµÄÂJ$6b426ee4-2fa7-44bc-a26e-c18c70046631
-q
-java:S3740Ë"/Provide the parametrized type for this generic.(ñ¿ÊùÿÿÿÿJ$11d1432c-9dc3-4a39-8f5f-2d6f73e6b720
-q
-java:S3740Ë"/Provide the parametrized type for this generic.(ñ¿ÊùÿÿÿÿJ$64f07596-7ad6-434b-90fb-742a36112a64
-k
-java:S3740â"/Provide the parametrized type for this generic.(½óş<J$69e787de-2d3c-499c-bfdc-1517c8dd0f49
-k
-java:S3740â"/Provide the parametrized type for this generic.(½óş<J$72e75d91-6d62-461a-a9d0-c1b4db75d647
-l
-java:S3740ø"/Provide the parametrized type for this generic.(…½J$97c02d6e-faf8-49bb-bd53-fd38722d24ec
-l
-java:S3740ø"/Provide the parametrized type for this generic.(…½J$1ec0cfcb-5047-4cf0-a677-3a0af04be3b8
-q
-java:S3740"/Provide the parametrized type for this generic.(Ñ­êúÿÿÿÿJ$cd7d62fb-22a4-4524-b93f-2e5b492f1a99
-q
-java:S3740"/Provide the parametrized type for this generic.(Ñ­êúÿÿÿÿJ$b425b8a8-b0f0-4b83-bcb0-3dc10e356229
-l
-java:S3740£"/Provide the parametrized type for this generic.(ÑÇ„ÑJ$3a4277ee-0fe7-46ca-bb22-1e36d62254fe
-l
-java:S3740£"/Provide the parametrized type for this generic.(ÑÇ„ÑJ$025d0583-956c-47f3-85b7-ee7670f7d999
-l
-java:S1066³"/Merge this if statement with the enclosing one.(¹š·êJ$b36d8526-2740-42e0-b4e2-be3848ffa9ac
-l
-java:S1066÷"/Merge this if statement with the enclosing one.(ïïùJ$39e98d68-9099-4ef4-9530-31044095f998
-q
-java:S1066ü"/Merge this if statement with the enclosing one.(ÑìÏ³ùÿÿÿÿJ$5b9c33c2-610f-46e9-920a-25e82b6d70fa
-l
-java:S1066"/Merge this if statement with the enclosing one.(”ÃÒÄJ$4696b586-fe28-4171-935d-8565be396c9e
-q
-java:S1066†"/Merge this if statement with the enclosing one.(‚É˜úÿÿÿÿJ$5c39a3ca-280c-464c-8907-357696532841
-	java:S117Ó"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(×ôÇÓJ$06105ede-f5ac-42a4-9d01-e3fb1fb1ce89
-	java:S117ı"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¶Ü“J$11ed4679-5504-4014-b1ec-eea2fa54b985
-	java:S117’"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(½½¹¯J$ba0a9e44-1638-4882-ac85-c7f28e6c94a4
-’	java:S117Ë"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ñ¿ÊùÿÿÿÿJ$0764e96f-65b1-4c3c-8d24-05a8a88a159f
-Œ	java:S117â"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(½óş<J$c3283f9e-9153-44b9-a221-472e73bf485a
-	java:S117ø"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(…½J$37b22bc5-5478-462f-a1d4-d3b899b571a0
-’	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ñ­êúÿÿÿÿJ$bb623d09-1165-4f3e-a2fb-ecc8d2c0be72
-	java:S117£"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÑÇ„ÑJ$e7950ba8-1efe-4260-84a6-4b2081415f8d
-e
-java:S1604Â"(Make this anonymous inner class a lambda(²¨ìÑJ$7899150f-40e7-4d0c-a472-190d3bce0203
-e
-java:S1604Ø"(Make this anonymous inner class a lambda(²¨ìÑJ$934c884d-f6b8-46d0-8dcc-ace649d8926d
-e
-java:S1604í"(Make this anonymous inner class a lambda(²¨ìÑJ$af126b18-a777-4a22-b901-4cd4b639f768
-e
-java:S1604‚"(Make this anonymous inner class a lambda(²¨ìÑJ$0cbbc630-0aca-4f97-b39a-9fac7683332c
-j
-java:S1604˜"(Make this anonymous inner class a lambda(ñÔì£ıÿÿÿÿJ$436e8555-5824-4026-8e77-a3d703349095
-j
-java:S1604»"(Make this anonymous inner class a lambda(ä²‡ÇúÿÿÿÿJ$68766d62-8d6a-4efc-b39f-6b9bb766e9d6
-e
-java:S1604Ñ"(Make this anonymous inner class a lambda(´æô°J$df43584a-b1bc-4788-b770-ee19e13f67e7
-e
-java:S1604è"(Make this anonymous inner class a lambda(´æô°J$03319391-17d4-4a04-929d-6daf473cb9f2
-j
-java:S1604ş"(Make this anonymous inner class a lambda(ï¦£…øÿÿÿÿJ$85208d54-5ff5-44b2-b483-05b70f610bf3
-e
-java:S1604“"(Make this anonymous inner class a lambda(²¨ìÑJ$0f12a420-3dba-44db-b35c-7dd1cbeed390
-e
-java:S1604©"(Make this anonymous inner class a lambda(²¨ìÑJ$4a8cae83-635a-4216-9ce0-6499eac4a549
+java:S1604³"(Make this anonymous inner class a lambda(²¨ìÑ8¢ûÛ»÷1J$654e1333-2280-44dc-8f0b-c489384df3b2
 ™
-java:S1104("QMake table a static final constant or non-public and provide accessors if needed.(—œñßüÿÿÿÿ8¸··÷1J$0aee4ba7-1fde-42b9-8b0e-4844c0287af1
-s
-java:S1104)"VMake borderPane a static final constant or non-public and provide accessors if needed.(ÛÒ£ö8ĞÌ··÷1
+java:S1104)"QMake table a static final constant or non-public and provide accessors if needed.(—œñßüÿÿÿÿ8¤ûÛ»÷1J$2a627069-03fc-4588-89af-7e6cee83d6b6
+™
+java:S1104*"VMake borderPane a static final constant or non-public and provide accessors if needed.(ÛÒ£ö8¤ûÛ»÷1J$818c6b05-b51d-4ea4-aceb-81acdc512062
  
-java:S11045"XMake btnSearchAND a static final constant or non-public and provide accessors if needed.(…õ¾ÿÿÿÿÿ8àù¶·÷1J$bc756d51-5254-439d-80c2-fea8971b95cc
+java:S11046"XMake btnSearchAND a static final constant or non-public and provide accessors if needed.(…õ¾ÿÿÿÿÿ8¤ûÛ»÷1J$095b7af8-8438-4fb7-8765-e522d8381d62
 š
-java:S11046"WMake btnSearchOR a static final constant or non-public and provide accessors if needed.(¦†×ë8Ï’··÷1J$0c760d6d-e2c7-41b9-bc99-be8bfb3ea209
+java:S11047"WMake btnSearchOR a static final constant or non-public and provide accessors if needed.(¦†×ë8¤ûÛ»÷1J$915ff9b5-9220-4d67-8b5e-c0ef4be0da75
 œ
-java:S11047"TMake btnClear a static final constant or non-public and provide accessors if needed.(¸¹„üÿÿÿÿ8¸··÷1J$398f5a77-517e-4113-a36d-92b879d727fa
-}
-java:S4973Y"<Strings and Boxed types should be compared using "equals()".(Œ¬ùìúÿÿÿÿJ$65657cca-3fd0-4a14-af4f-3500f870f95e
+java:S11048"TMake btnClear a static final constant or non-public and provide accessors if needed.(¸¹„üÿÿÿÿ8¤ûÛ»÷1J$3515d221-ecf1-435d-8b6d-bee87393eec9
 „
-java:S2184¾"HCast one of the operands of this multiplication operation to a "double".(à°LJ$3c3c26df-4d1e-4205-bee9-2dc039bc378c
-„
-java:S2184Ç"HCast one of the operands of this multiplication operation to a "double".(à°LJ$aecd121e-29bb-4922-9ee8-5433accd1c56
-
-java:S2259£"DA "NullPointerException" could be thrown; "writer" is nullable here.(€ŠÿÊJ$ce540aaf-e0b1-4f8e-bbd7-703a7e1b7139
+java:S4973Z"<Strings and Boxed types should be compared using "equals()".(Œ¬ùìúÿÿÿÿ8§ûÛ»÷1J$dbd6bdcd-e8c5-43fc-900c-5b1058f7575c
+‹
+java:S2184‹"HCast one of the operands of this multiplication operation to a "double".(à°L8©ûÛ»÷1J$fc103c59-f189-48bc-b296-f4725a2527ae
+‹
+java:S2184”"HCast one of the operands of this multiplication operation to a "double".(à°L8©ûÛ»÷1J$774501ad-8066-4b91-be8e-3b79d7b111cb
 ˆ
-java:S2095–"LUse try-with-resources or close this "BufferedWriter" in a "finally" clause.(ûÔ³J$650b42db-a6d1-4f72-b28d-0ed9c1720194
-“	java:S116""SRename this field "COL_SIZE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ˆ¸æğıÿÿÿÿJ$ca1f3394-a57a-439d-9936-8ffef69c0183
-b
-java:S1170""!Make this final field static too.(ˆ¸æğıÿÿÿÿJ$4b2a15c2-2c24-4b0d-b89d-0def740f1633
-|	java:S125+"<This block of commented-out lines of code should be removed.(¬äÇ‘ÿÿÿÿÿJ$86e3ae5b-d806-4af1-8c59-b5b940a194bc
-|	java:S125."<This block of commented-out lines of code should be removed.(±‡ìşÿÿÿÿJ$467edfc2-cb1e-4f32-be7e-6f94a845272c
-w	java:S1251"<This block of commented-out lines of code should be removed.(ØŒçºJ$89a19974-9798-4923-a9e4-5bfd67f0da45
-|	java:S125H"<This block of commented-out lines of code should be removed.(Ş·ÕâúÿÿÿÿJ$ffd2493b-7cf5-4214-a1ba-9c294cc62ba4
-v	java:S125L"<This block of commented-out lines of code should be removed.(Ñ¯ªXJ$889c820e-09ac-406f-bf4a-ff0fe76f7d72
-|	java:S125N"<This block of commented-out lines of code should be removed.(±‰«üøÿÿÿÿJ$8ae4fdeb-0e5e-4c57-9111-ef87508e3be9
-s
-java:S1135X"2Complete the task associated to this TODO comment.(«ºöõøÿÿÿÿJ$8bb1f6cf-ba0a-4be2-a40a-5fead28bf851
-n
-java:S1481k"-Remove this unused "rowIndex" local variable.(çÖÑ³üÿÿÿÿJ$0f56a9e3-832f-45a3-9890-8cd8ef4282cb
-g
-java:S1481r"&Remove this unused "a" local variable.(¼Ö”ªùÿÿÿÿJ$3d50e11b-1f70-43f5-8829-92de5132b33f
-n
-java:S1602•",Remove useless curly braces around statement(–á£ÿÿÿÿÿJ$1e1072c1-bac6-4e1b-a138-bcfd0a469ff5
+java:S2259ƒ"DA "NullPointerException" could be thrown; "writer" is nullable here.(€ŠÿÊ8ëûÛ»÷1J$f967687a-ba22-4518-b756-ca6f8199c028
 
-java:S3776º"RRefactor this method to reduce its Cognitive Complexity from 24 to the 15 allowed.(©¦‡ÛJ$5ca095fc-6b49-4076-aa89-dd15f4bce839
-l
-java:S1905Å"*Remove this unnecessary cast to "Lecture".(ş¬ÅÎûÿÿÿÿJ$738cfadc-6046-4840-b78b-dabf2d61bed6
-l
-java:S1905Û"*Remove this unnecessary cast to "Lecture".(ş¬ÅÎûÿÿÿÿJ$d4fa4754-5763-4c47-b458-2a03c7f2ab98
-l
-java:S1905ğ"*Remove this unnecessary cast to "Lecture".(ş¬ÅÎûÿÿÿÿJ$e6b1ecee-a4ce-460b-b899-9cbbe549ee69
-l
-java:S1905…"*Remove this unnecessary cast to "Lecture".(ş¬ÅÎûÿÿÿÿJ$6a459a84-d375-47b1-9aea-ccafa79833db
-l
-java:S1905›"*Remove this unnecessary cast to "Lecture".(ş¬ÅÎûÿÿÿÿJ$ed871d68-9c75-46ec-887c-4a9ac2f89e9e
-l
-java:S1905¾"*Remove this unnecessary cast to "Lecture".(ş¬ÅÎûÿÿÿÿJ$0da6d902-0ea7-4a1a-b073-d549e2cf0760
-l
-java:S1905Ô"*Remove this unnecessary cast to "Lecture".(ş¬ÅÎûÿÿÿÿJ$f110e187-024d-4cc8-8c98-8f2290dfdd35
-l
-java:S1905ë"*Remove this unnecessary cast to "Lecture".(ş¬ÅÎûÿÿÿÿJ$b56593ec-1be9-436e-9aca-87b01a00e90a
-l
-java:S1905"*Remove this unnecessary cast to "Lecture".(ş¬ÅÎûÿÿÿÿJ$a6748a02-0f03-48f7-a69b-9260b65902ba
-l
-java:S1905–"*Remove this unnecessary cast to "Lecture".(ş¬ÅÎûÿÿÿÿJ$2299f485-453e-452e-9948-e0077d946ab2
-l
-java:S1905¬"*Remove this unnecessary cast to "Lecture".(ş¬ÅÎûÿÿÿÿJ$489da009-33de-46db-854c-f96f8612cfd1
-
-java:S3776Â"RRefactor this method to reduce its Cognitive Complexity from 76 to the 15 allowed.(à™³J$145ca916-2f4e-44bd-89fd-ca779a99a080
-l	java:S106ì"+Replace this use of System.out by a logger.(°ÍçùÿÿÿÿJ$d0a40302-edfb-498b-85f3-102c070eff82
-^	java:S131À""Add a default case to this switch.(ÙˆÄJ$8a1f8034-9678-442a-b549-6b7f0802ccb8
-y
-java:S6353ù"<Use concise character class syntax '\\d' instead of '[0-9]'.(œµ¥ñJ$500b2240-aabd-4678-aaff-e90ea0c6d921
-y
-java:S6353ù"<Use concise character class syntax '\\d' instead of '[0-9]'.(œµ¥ñJ$10528baa-e077-4df5-8d5b-87194095ad0f
-}	java:S125‹"<This block of commented-out lines of code should be removed.(¡ÿí¥úÿÿÿÿJ$7ab2ee09-762b-47c2-b758-d7fa3c866012
-l
-java:S2093”"*Change this "try" to a try-with-resources.(¡»¢üùÿÿÿÿJ$766ae178-b662-48cd-b600-56e29ef577ec
-l	java:S106°"+Replace this use of System.out by a logger.(ñıê¹ıÿÿÿÿJ$65988de4-972f-4aa1-aa5e-89ca3a00bcdf
+java:S2095ö"LUse try-with-resources or close this "BufferedWriter" in a "finally" clause.(ûÔ³8ëûÛ»÷1J$8b9a6e44-5ef0-4ab1-9604-80958bf2d01a
+š	java:S116#"SRename this field "COL_SIZE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ˆ¸æğıÿÿÿÿ8íûÛ»÷1J$902ec9a4-6780-4589-8452-8aa107d84e6f
+i
+java:S1170#"!Make this final field static too.(ˆ¸æğıÿÿÿÿ8îûÛ»÷1J$b55a1f40-53ff-4662-a26e-58dc1156a7dd
+ƒ	java:S125,"<This block of commented-out lines of code should be removed.(¬äÇ‘ÿÿÿÿÿ8ôûÛ»÷1J$63288959-6e06-43b7-82ca-f0e3190394e8
+ƒ	java:S125/"<This block of commented-out lines of code should be removed.(±‡ìşÿÿÿÿ8ôûÛ»÷1J$727852b9-ac1a-419c-a4be-2ef18f1b3722
+~	java:S1252"<This block of commented-out lines of code should be removed.(ØŒçº8ôûÛ»÷1J$c3f8ff24-9126-4c67-b21e-e48cbc356237
+ƒ	java:S125I"<This block of commented-out lines of code should be removed.(Ş·Õâúÿÿÿÿ8÷ûÛ»÷1J$716bef97-3b20-4906-909f-3efe05ad0950
+}	java:S125M"<This block of commented-out lines of code should be removed.(Ñ¯ªX8÷ûÛ»÷1J$1a6a3210-8504-4e49-9ebf-51bc8e9a27e7
+ƒ	java:S125O"<This block of commented-out lines of code should be removed.(±‰«üøÿÿÿÿ8÷ûÛ»÷1J$fc69f6d1-cb2e-4914-98fc-9b6422f3d9dd
+z
+java:S1135Y"2Complete the task associated to this TODO comment.(«ºöõøÿÿÿÿ8üûÛ»÷1J$dd46975e-dc2a-4ddd-9075-ac75a8cf39e1
+u
+java:S1481l"-Remove this unused "rowIndex" local variable.(çÖÑ³üÿÿÿÿ8€üÛ»÷1J$98062115-cb2b-45cd-affc-cf4d35986beb
+n
+java:S1481v"&Remove this unused "a" local variable.(¼Ö”ªùÿÿÿÿ8üÛ»÷1J$bd768937-829f-4469-8513-75c31a197956
+u
+java:S1602œ",Remove useless curly braces around statement(–á£ÿÿÿÿÿ8…üÛ»÷1J$f3ed22f6-57b8-4737-8ff2-910d3f24f37a
+–
+java:S3776Ä"RRefactor this method to reduce its Cognitive Complexity from 24 to the 15 allowed.(©¦‡Û8‰üÛ»÷1J$c16bfb08-a80f-4af8-8f48-f43841edc036
+s
+java:S1905Ï"*Remove this unnecessary cast to "Lecture".(ş¬ÅÎûÿÿÿÿ8üÛ»÷1J$48030dd9-c760-4d36-a007-5691b2fed9d0
+s
+java:S1905å"*Remove this unnecessary cast to "Lecture".(ş¬ÅÎûÿÿÿÿ8‘üÛ»÷1J$932bc8e4-81a6-4d78-9239-6b6b9df721fa
+s
+java:S1905ú"*Remove this unnecessary cast to "Lecture".(ş¬ÅÎûÿÿÿÿ8”üÛ»÷1J$ece542a6-8040-4e69-b1ab-db12fa0eafd2
+s
+java:S1905"*Remove this unnecessary cast to "Lecture".(ş¬ÅÎûÿÿÿÿ8–üÛ»÷1J$fd3b3581-7e33-4a9d-b5a7-9cb3e613ab27
+s
+java:S1905¥"*Remove this unnecessary cast to "Lecture".(ş¬ÅÎûÿÿÿÿ8˜üÛ»÷1J$0af714af-2f11-4a61-9012-955e9b45530e
+s
+java:S1905È"*Remove this unnecessary cast to "Lecture".(ş¬ÅÎûÿÿÿÿ8œüÛ»÷1J$d6bce087-bc0a-427c-acfd-f41bae8519bb
+s
+java:S1905Ş"*Remove this unnecessary cast to "Lecture".(ş¬ÅÎûÿÿÿÿ8ŸüÛ»÷1J$e988ec95-4a40-4e24-85db-a9c32612761a
+s
+java:S1905õ"*Remove this unnecessary cast to "Lecture".(ş¬ÅÎûÿÿÿÿ8¢üÛ»÷1J$e5d5faac-18b0-4e23-9fcc-58bd0fd29b9b
+s
+java:S1905‹"*Remove this unnecessary cast to "Lecture".(ş¬ÅÎûÿÿÿÿ8¤üÛ»÷1J$c6b0fe08-e0ed-4374-8a87-8b60271b8545
+s
+java:S1905 "*Remove this unnecessary cast to "Lecture".(ş¬ÅÎûÿÿÿÿ8¦üÛ»÷1J$7236b56d-7220-4f6a-9f68-b171caf83f06
+s
+java:S1905¶"*Remove this unnecessary cast to "Lecture".(ş¬ÅÎûÿÿÿÿ8¨üÛ»÷1J$54ad854b-20e2-4457-a49c-08705b39b462
+œ
+java:S3776Ï"SRefactor this method to reduce its Cognitive Complexity from 116 to the 15 allowed.(¬¥›áùÿÿÿÿ8ªüÛ»÷1J$f314bd5a-779a-4b45-98f8-17f4331c9d0f
+l	java:S106ú"+Replace this use of System.out by a logger.(°ÍçùÿÿÿÿJ$0bca7a56-60d2-466c-a408-c4ac2da99225
+|
+java:S1117¸"8Rename "hBox" which hides the field declared at line 40.(“î³£8¶üÛ»÷1J$0fca357c-88cd-46ec-b275-14b8c55d7ec8
+a
+java:S2119½"Save and re-use this "Random".(¼İÅf8ºüÛ»÷1J$136aaed9-f639-4cc0-9733-98e634631bdf
+e	java:S131""Add a default case to this switch.(ÙˆÄ8ÉüÛ»÷1J$947c62a2-45bb-469a-99aa-aecc7b4c95e5
+€
+java:S6353Ô"<Use concise character class syntax '\\d' instead of '[0-9]'.(œµ¥ñ8ÎüÛ»÷1J$63508dda-7487-44dd-9ee9-4f35dbe94df9
+€
+java:S6353Ô"<Use concise character class syntax '\\d' instead of '[0-9]'.(œµ¥ñ8ÎüÛ»÷1J$3e820cc5-50bf-42c3-b118-2c455e66ec2a
+„	java:S125ë"<This block of commented-out lines of code should be removed.(¡ÿí¥úÿÿÿÿ8ĞüÛ»÷1J$dcdd16f5-565b-4f16-97df-12786a7b73a0
+s
+java:S2093ô"*Change this "try" to a try-with-resources.(¡»¢üùÿÿÿÿ8ÒüÛ»÷1J$1fc7d528-d084-4a1b-9b09-b9c57015300a
+s	java:S106›"+Replace this use of System.out by a logger.(ñıê¹ıÿÿÿÿ8ÔüÛ»÷1J$1735cee3-3239-47af-8a89-e89159fd4a25
 †
-java:S1128"ERemove this unused import 'javafx.scene.control.skin.TableHeaderRow'.(¹ñÏ×ùÿÿÿÿJ$eff45e92-024e-4d23-8c45-5a696ab247ff
+java:S1128"ERemove this unused import 'javafx.scene.control.skin.TableHeaderRow'.(¹ñÏ×ùÿÿÿÿJ$1fee955d-2a0c-4736-9a70-2fc911f858f9

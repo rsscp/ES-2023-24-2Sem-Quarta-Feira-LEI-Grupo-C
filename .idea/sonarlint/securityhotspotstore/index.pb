@@ -23,8 +23,6 @@ _
 .src/main/java/org/project/FilterOperation.java,7\f\7f67c2308d0504fa68b47f67e15f5943192c8cc0
 S
 #src/main/java/org/project/Room.java,c\0\c02ff787423dae7f1933cb7d14fef188441b4f1f
-X
-(src/main/java/org/project/TimeSlots.java,a\8\a8381a9f1a854e7a106221d74909c0b7a23a636d
 R
 "src/main/java/org/project/App.java,4\b\4bfdfaed85de21a3bc43882214ba74fcb49229b3
 X
@@ -73,7 +71,15 @@ W
 'src/test/java/org/project/MainTest.java,e\7\e7fc555a55dca0a0e10502fdebc44b133bda3a4a
 X
 (src/test/java/org/project/ISCTETest.java,0\6\06dd1a8de8a8427ed466b43584ee252ca1d8bf23
-m
-=src/test/java/org/project/ui/LecturesTableControllerTest.java,0\1\012e8bf58c0c7f17cf7631abc131818cee9b6cfe
 U
 %src/test/java/org/project/UITest.java,9\4\9440dc00f46250e10e2f9984262a3af1eb504c9a
+[
++src/main/java/org/project/GraphNetwork.java,f\4\f49c73f8f05e2daaca5c6570fe8dd46a280047ce
+_
+/src/test/java/org/project/GraphNetworkTest.java,1\8\18647d40dcef401cf1cc588e1f9b00184f540b0b
+W
+'src/main/java/org/project/TimeSlot.java,8\9\890704a38599ec2680de2dbac6443f5767f929ff
+Z
+*src/main/java/org/project/LectureSlot.java,1\b\1ba1816042cbe4e5c8780b29038fde0135d3405b
+[
++src/test/java/org/project/TimeSlotTest.java,6\e\6e3fe91b0c18eaadd1d464674add4bf7502876de
