@@ -37,11 +37,10 @@ public class RoomsTableController {
         for (RoomAttribute a : RoomAttribute.values()) {
             String filterText = filterTextFields.get(a.getValue()).getText();
             String filterOp = filterOpButtons.get(a.getValue()).getText();
-            if (filterText != "")
+            if (!filterText.equals("") && !filterOp.equals("-"))
                 filters.add(new Filter(a, filterText, filterOp));
         }
         roomTable.setItems(ISCTE.getInstance().getRooms(filters));
-        System.out.println("Filters working?");
     }
 
     private void setFilters() {

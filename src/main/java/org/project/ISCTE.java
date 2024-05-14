@@ -2,7 +2,6 @@ package org.project;
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.charset.Charset;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -21,6 +20,7 @@ public class ISCTE {
     }
 
     private final ObservableList<Room> rooms;
+
     private final ObservableList<Lecture> lectures;
     private LocalDate firstSemesterStart;
     private LocalDate secondSemesterStart;
@@ -94,6 +94,12 @@ public class ISCTE {
         }
     }
 
+    /**
+     * Tries to read data from file specified and consequently making objects
+     * of the class Room from this data.
+     * @param fileName Specifies the file location from where data is read
+     * @throws IOException Exception in case of reading file
+     */
     public void readRooms(String fileName) throws IOException {
         try (
                 FileInputStream fis = new FileInputStream(fileName);
@@ -108,6 +114,8 @@ public class ISCTE {
             }
         }
     }
+
+
     public ObservableList<Lecture> getLectures() {
         return lectures;
     }
@@ -121,14 +129,23 @@ public class ISCTE {
         return filteredLectures;
     }
 
+    /**
+     * Returns a list of Lectures that has been checked by the filter given
+     * @param filters Contains a list of filters to applt to the list
+     */
     public ObservableList<Lecture> getLectures(List<Filter> filters) {
-        ObservableList<Lecture> filteredLectures = FXCollections.observableArrayList();
+        ObservableList<Lecture> filteredLectures = FXCollections.observableArrayList(lectures);
         for (Lecture l: lectures) {
-            if (l.testFilters(filters))
-                filteredLectures.add(l);
+            if (!l.testFilters(filters))
+                filteredLectures.remove(l);
         }
         return filteredLectures;
     }
+
+    /**
+     * Returns a list of Rooms that has been checked by the filter given
+     * @param filters Contains a list of filters to applt to the list
+     */
     public ObservableList<Room> getRooms(List<Filter> filters) {
         ObservableList<Room> filteredRooms = FXCollections.observableArrayList();
         for (Room r: rooms) {
@@ -138,6 +155,41 @@ public class ISCTE {
         return filteredRooms;
     }
 
+    public ObservableList<Room> getAvailableRooms(LocalDate start, LocalDate end) {
+        ObservableList<Lecture> lecturesBetween = lectures.filtered(l -> {
+            return l.getDateOfClass().isAfter(start) && l.getDateOfClass().isBefore(end);
+        });
+        ObservableList<Room> availableRooms = rooms.filtered(r -> {
+            return lecturesBetween.filtered(l -> {
+                return l.getRoomCode() == r.getDesignation();
+            }).size() == 0;
+        });
+        return availableRooms;
+    }
+
+    public ObservableList<DaySlot> getAllSlots() {
+        HashMap<LocalDate, DaySlots> slots = new HashMap<>();
+        for (LocalDate d = firstSemesterStart; d.isBefore(firstSemesterStart.plusDays(17*7)); d=d.plusDays(1))
+            slots.put(d, new DaySlots(d, true));
+        for (LocalDate d = secondSemesterStart; d.isBefore(secondSemesterStart.plusDays(15*7)); d=d.plusDays(1))
+            slots.put(d, new DaySlots(d, true));
+        for (Lecture l: lectures) {
+            List<TimeSlot> slotsOccupied = TimeSlot.slotsOccupiedBy(
+                l.getStartOfClass(),
+                l.getEndOfClass()
+            );
+            DaySlots daySlots = slots.get(l.getDateOfClass());
+            if (daySlots != null)
+                for (TimeSlot slot: slotsOccupied)
+                    daySlots.removeSlot(slot);
+        }
+        ObservableList<DaySlot> individualSlots = FXCollections.observableArrayList();
+        for (DaySlots daySlots: slots.values()) {
+            for (TimeSlot slot: daySlots.getSlots())
+                individualSlots.add(new DaySlot(daySlots.getDate(), slot));
+        }
+        return individualSlots;
+    }
 
     public void writeCsv() throws Exception {
         Writer writer = null;
@@ -210,18 +262,6 @@ public class ISCTE {
             conflitos.add(conflitosDeI);
         }
         return conflitos;
-    }
-
-    public ObservableList<Room> getAvailableRooms(LocalDate start, LocalDate end) {
-        ObservableList<Lecture> lecturesBetween = lectures.filtered(l -> {
-            return l.getDateOfClass().isAfter(start) && l.getDateOfClass().isBefore(end);
-        });
-        ObservableList<Room> availableRooms = rooms.filtered(r -> {
-            return lecturesBetween.filtered(l -> {
-                return l.getRoomCode() == r.getDesignation();
-            }).size() == 0;
-        });
-        return availableRooms;
     }
 
     /**
@@ -361,8 +401,8 @@ public class ISCTE {
             ObservableList<Lecture> secondSemesterLectures = lecturesSorted.filtered(l -> {
                 return l.getDateOfClass().getYear() == lastDate.getYear();
             });
-            firstSemesterStart = firstDate;
-            secondSemesterStart = secondSemesterLectures.get(0).getDateOfClass();
+            firstSemesterStart = TimeUtils.determineStartOfWeek(firstDate);
+            secondSemesterStart = TimeUtils.determineStartOfWeek(secondSemesterLectures.get(0).getDateOfClass());
         }
     }
 
