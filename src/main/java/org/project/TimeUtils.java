@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class TimeUtils {
-    public static DayOfWeek determineDayOfWeek(String dayString) throws IllegalArgumentException {
+    public static DayOfWeek determineDayOfWeekFromFile(String dayString) throws IllegalArgumentException {
         switch(dayString) {
             case "Seg", "MONDAY":
                 return DayOfWeek.MONDAY;
@@ -23,6 +23,27 @@ public class TimeUtils {
                 return DayOfWeek.SUNDAY;
             default:
                 throw new IllegalArgumentException("Invalid day of the week: " + dayString);
+        }
+    }
+
+    public static DayOfWeek determineDayOfWeek(String dayString) throws IllegalArgumentException {
+        switch(dayString) {
+            case "MONDAY":
+                return DayOfWeek.MONDAY;
+            case "TUESDAY":
+                return DayOfWeek.TUESDAY;
+            case "THURSDAY":
+                return DayOfWeek.THURSDAY;
+            case "WEDNESDAY":
+                return DayOfWeek.WEDNESDAY;
+            case "FRIDAY":
+                return DayOfWeek.FRIDAY;
+            case "SATURDAY":
+                return DayOfWeek.SATURDAY;
+            case "SUNDAY":
+                return DayOfWeek.SUNDAY;
+            default:
+                return null;
         }
     }
 

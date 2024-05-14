@@ -61,7 +61,14 @@ public class LecturesTableController {
                 filters.add(new Filter(a, filterText, filterOp));
         }
         lectureTable.setItems(iscte.getLectures(filters));
-        System.out.println("Filters working?");
+
+        System.out.println("ola");
+
+        for (DaySlots slots: ISCTE.getInstance().getAllSlots()) {
+            for (TimeSlot slot: slots.getSlots()) {
+                System.out.println(slots.getDate() + " -> " + slot.getStart() + "---" + slot.getEnd());
+            }
+        }
     }
 
     private void setAddUC(){
@@ -230,7 +237,7 @@ public class LecturesTableController {
                     } else if (isThereConflict) {
                         JOptionPane.showMessageDialog(null, "There is a conflict with at least with one class, try different parameters!", "Warning", JOptionPane.WARNING_MESSAGE);
                     } else {
-                        lecture.setDayOfTheWeek(this.determineDayOfWeek(textFields.get(0).getText()));
+                        lecture.setDayOfTheWeek(TimeUtils.determineDayOfWeek(textFields.get(0).getText()));
                         lecture.setStartOfClass(textFields.get(1).getText());
                         lecture.setEndOfClass(textFields.get(2).getText());
                         lecture.setDateOfClass(textFields.get(3).getText(),"-");
@@ -269,27 +276,6 @@ public class LecturesTableController {
                 rowMenu.show(this.lectureTable, event.getScreenX(), event.getScreenY());
             }
         });
-    }
-
-    private DayOfWeek determineDayOfWeek(String dayString) throws IllegalArgumentException {
-        switch(dayString) {
-            case "MONDAY":
-                return DayOfWeek.MONDAY;
-            case "TUESDAY":
-                return DayOfWeek.TUESDAY;
-            case "THURSDAY":
-                return DayOfWeek.THURSDAY;
-            case "WEDNESDAY":
-                return DayOfWeek.WEDNESDAY;
-            case "FRIDAY":
-                return DayOfWeek.FRIDAY;
-            case "SATURDAY":
-                return DayOfWeek.SATURDAY;
-            case "SUNDAY":
-                return DayOfWeek.SUNDAY;
-            default:
-                return null;
-        }
     }
 
     private HBox createElmForEditTable(Lecture lecture, String data) {
