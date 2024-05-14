@@ -224,6 +224,13 @@ public class ISCTE {
         return availableRooms;
     }
 
+    /**
+     * According to parameters, fucntion is trieing to find specific type of atribute
+     * with specifig value at least in one lecture
+     * @param type of atribute
+     * @param value of atribute
+     * @return if the atribute with that value was founded
+     */
     public boolean findSpecificElmOfSpecificLecture(LectureAttribute attribute, String elm) {
         boolean founded = false;
 
@@ -293,6 +300,11 @@ public class ISCTE {
         return founded;
     }
 
+    /**
+     * Based on room specification will find a room code
+     * @param specificationOfRoom
+     * @return room code
+     */
     public String findRoomCode(String specificationOfRoom) {
         for (Lecture lecture : this.lectures) {
             if (lecture.getSpecificationOfRoom() != null && lecture.getSpecificationOfRoom().equals(specificationOfRoom)) {
@@ -302,12 +314,20 @@ public class ISCTE {
         return null;
     }
 
+    /**
+     * Function will delete specific lecture according to param
+     * @param Selected lecture
+     */
     public void deleteLecture(Lecture lecture) {
         if (lecture != null) {
             this.lectures.remove(lecture);
         }
     }
 
+    /**
+     * Method will return all of the distinct rooms possible
+     * @return ArrayList of these rooms.
+     */
     public ArrayList<String> getAllRooms() {
         ArrayList<String> rooms = new ArrayList<>();
         for (Lecture lecture : this.lectures) {

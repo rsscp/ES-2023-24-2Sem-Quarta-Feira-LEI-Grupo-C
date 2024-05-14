@@ -107,7 +107,10 @@ public class UI extends Application {
         filters.getColumnConstraints().addAll(new ColumnConstraints(20), new ColumnConstraints(80));
         int rowIndex = 0;
     }
-    
+
+    /**
+     * Making filtering bookmark
+     */
     private void makeFilters() {
         HBox hbox = new HBox();
         VBox vBox = new VBox();
@@ -143,6 +146,9 @@ public class UI extends Application {
         this.borderPane.setTop(this.hBox);
     }
 
+    /**
+     * Creating functionalities buttons
+     */
     private void creatButtons() {
         this.btnClear = new Button("Clear!");
         this.btnClear.setPrefWidth(100);
@@ -170,6 +176,9 @@ public class UI extends Application {
 
     }
 
+    /**
+     * Function will clear all of the textFields which contains some text
+     */
     private void clearAllTextFields() {
         VBox first = (VBox) this.hBox.getChildren().get(0);
         HBox wantedHbox = (HBox) first.getChildren().get(1);
@@ -448,6 +457,9 @@ public class UI extends Application {
         this.creatContextMenuForLecture();
     }
 
+    /**
+     * Context menu for each lecture
+     */
     private void creatContextMenuForLecture() {
         ContextMenu rowMenu = new ContextMenu();
         MenuItem makeChange = new MenuItem("Make Change");
@@ -627,6 +639,12 @@ public class UI extends Application {
         });
     }
 
+    /**
+     * Function will create specific text field with name to the table
+     * @param lecture
+     * @param type of the text
+     * @return
+     */
     private HBox createElmForEditTable(Lecture lecture, String data) {
         HBox hbox = new HBox();
         Label label = new Label(data);
@@ -645,6 +663,10 @@ public class UI extends Application {
         return hbox;
     }
 
+    /**
+     * Fuction will get all of the filters entered
+     * @return filters.
+     */
     private String[] getFilters() {
         VBox first = (VBox) this.hBox.getChildren().get(0);
         HBox wantedHbox = (HBox) first.getChildren().get(1);
@@ -682,12 +704,22 @@ public class UI extends Application {
         }
     }
 
+    /**
+     * Checks if the day is valid
+     * @param day
+     * @return result
+     */
     private boolean isDayValid(String day) {
         return day.equals("MONDAY") || day.equals("TUESDAY") || day.equals("WEDNESDAY") ||
                 day.equals("THURSDAY") || day.equals("FRIDAY") || day.equals("SATURDAY") ||
                 day.equals("SUNDAY");
     }
 
+    /**
+     * Checks if the time is valid
+     * @param time
+     * @return result
+     */
     private boolean isTimeValid(String time) {
         String timeRegex = "([01]?[0-9]|2[0-3]):[0-5][0-9]";
 
@@ -697,6 +729,11 @@ public class UI extends Application {
         return matcher.matches();
     }
 
+    /**
+     * Checks if the date is valid
+     * @param date
+     * @return result
+     */
     private boolean isDateValid(String date) {
         String dateRegex = "\\d{4}-\\d{2}-\\d{2}";
 
@@ -735,11 +772,22 @@ public class UI extends Application {
             writer.close();
         }
     }
-    
+
+    /**
+     * Function apply filters to the table
+     * @param filter promps
+     * @param OR or AND
+     */
     private void setVisibleFilteredItems(String[] items, boolean includeEverything) {
         this.table.setItems(this.filtersLectures(items, includeEverything));
     }
 
+    /**
+     * Function will find appropriate lectures according to filters
+     * @param filters
+     * @param AND or OR
+     * @return
+     */
     private ObservableList<Lecture> filtersLectures(String[] pFilters, boolean includeEveryFilter) {
         String[] filters = pFilters;
         List<Filter> f = new ArrayList<>();
