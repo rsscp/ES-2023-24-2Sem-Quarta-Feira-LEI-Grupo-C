@@ -61,14 +61,6 @@ public class LecturesTableController {
                 filters.add(new Filter(a, filterText, filterOp));
         }
         lectureTable.setItems(iscte.getLectures(filters));
-
-        System.out.println("ola");
-
-        for (DaySlots slots: ISCTE.getInstance().getAllSlots()) {
-            for (TimeSlot slot: slots.getSlots()) {
-                System.out.println(slots.getDate() + " -> " + slot.getStart() + "---" + slot.getEnd());
-            }
-        }
     }
 
     private void setAddUC(){
