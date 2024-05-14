@@ -121,10 +121,10 @@ public class ISCTE {
     }
 
     public ObservableList<Lecture> getLectures(List<Filter> filters) {
-        ObservableList<Lecture> filteredLectures = FXCollections.observableArrayList();
+        ObservableList<Lecture> filteredLectures = FXCollections.observableArrayList(lectures);
         for (Lecture l: lectures) {
-            if (l.testFilters(filters))
-                filteredLectures.add(l);
+            if (!l.testFilters(filters))
+                filteredLectures.remove(l);
         }
         return filteredLectures;
     }

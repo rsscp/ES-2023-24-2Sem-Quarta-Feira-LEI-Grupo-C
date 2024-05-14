@@ -57,9 +57,10 @@ public class LecturesTableController {
         for (LectureAttribute a : LectureAttribute.values()) {
             String filterText = filterTextFields.get(a.getValue()).getText();
             String filterOp = filterOpButtons.get(a.getValue()).getText();
-            if (filterText != "")
+            if (!filterText.equals("") && !filterText.equals("-"))
                 filters.add(new Filter(a, filterText, filterOp));
         }
+
         lectureTable.setItems(iscte.getLectures(filters));
     }
 
