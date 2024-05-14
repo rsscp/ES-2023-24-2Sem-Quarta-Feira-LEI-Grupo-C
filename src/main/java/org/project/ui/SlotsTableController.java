@@ -21,6 +21,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.Writer;
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -61,8 +62,6 @@ public class SlotsTableController {
     private ISCTE iscte = ISCTE.getInstance();
 
     private List<TableColumn> slotTableColumns = new ArrayList<>();
-    private List<Button> filterOpButtons = new ArrayList<>();
-    private List<TextField> filterTextFields = new ArrayList<>();
     static String Curso = null;
     static String UC = null;
     static String Turno = null;
@@ -78,16 +77,15 @@ public class SlotsTableController {
         slotTable.setEditable(true);
 
         TableColumn timeCol = new TableColumn("TimeSlot");
-        timeCol.setCellValueFactory(new PropertyValueFactory<Lecture,String>("TimeSlot"));
+        timeCol.setCellValueFactory(new PropertyValueFactory<DaySlot,TimeSlot>("TimeSlot"));
         slotTableColumns.add(timeCol);
 
-        TableColumn dayCol = new TableColumn("DaySlot");
-        timeCol.setCellValueFactory(new PropertyValueFactory<Lecture,String>("DaySlot"));
-        slotTableColumns.add(dayCol);
-
+        TableColumn dateCol = new TableColumn("Date");
+        dateCol.setCellValueFactory(new PropertyValueFactory<DaySlot, LocalDate>("Date"));
+        slotTableColumns.add(dateCol);
 
         slotTable.getColumns().addAll(slotTableColumns);
-        ObservableList<DaySlots> slots = iscte.getFirstSemesterSlots();
+        ObservableList<DaySlot> slots = iscte.getFirstSemesterSlots();
         slots.addAll(iscte.getSecondSemesterSlots());
         slotTable.setItems(slots);
     }
