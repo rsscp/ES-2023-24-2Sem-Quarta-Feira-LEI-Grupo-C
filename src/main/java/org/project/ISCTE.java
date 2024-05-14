@@ -152,9 +152,9 @@ public class ISCTE {
     public ObservableList<DaySlot> getAllSlots() {
         HashMap<LocalDate, DaySlots> slots = new HashMap<>();
         for (LocalDate d = firstSemesterStart; d.isBefore(firstSemesterStart.plusDays(17*7)); d=d.plusDays(1))
-            slots.put(d, new DaySlots(d));
+            slots.put(d, new DaySlots(d, true));
         for (LocalDate d = secondSemesterStart; d.isBefore(secondSemesterStart.plusDays(15*7)); d=d.plusDays(1))
-            slots.put(d, new DaySlots(d));
+            slots.put(d, new DaySlots(d, true));
         for (Lecture l: lectures) {
             List<TimeSlot> slotsOccupied = TimeSlot.slotsOccupiedBy(
                 l.getStartOfClass(),
@@ -167,11 +167,9 @@ public class ISCTE {
         }
         ObservableList<DaySlot> individualSlots = FXCollections.observableArrayList();
         for (DaySlots daySlots: slots.values()) {
-            daySlots.getSlots().forEach(s -> individualSlots.add(new DaySlot(daySlots.getDate(), s)));
-            System.out.println(daySlots.getDate());
-            System.out.println("coisa");
+            for (TimeSlot slot: daySlots.getSlots())
+                individualSlots.add(new DaySlot(daySlots.getDate(), slot));
         }
-
         return individualSlots;
     }
 

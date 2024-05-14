@@ -61,6 +61,9 @@ public class LecturesTableController {
                 filters.add(new Filter(a, filterText, filterOp));
         }
         lectureTable.setItems(iscte.getLectures(filters));
+
+        //TODO Delete
+        ISCTE.getInstance().getAllSlots();
     }
 
     private void setAddUC(){
