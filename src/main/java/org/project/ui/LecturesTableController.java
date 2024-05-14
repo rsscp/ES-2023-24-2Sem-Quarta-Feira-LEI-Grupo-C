@@ -84,7 +84,7 @@ public class LecturesTableController {
         TextField textRoomCode = new TextField();
 
 
-        Button addButton = new Button("Add");
+        Button addButton = new Button("AddUC");
         addButton.setOnAction(event -> {
             SlotsTableController.setCurso(textCurso.getText());
             SlotsTableController.setUC(textUC.getText());

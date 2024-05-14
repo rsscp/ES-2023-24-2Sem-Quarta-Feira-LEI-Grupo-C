@@ -115,6 +115,7 @@ public class SlotsTableController {
             ISCTE.getInstance().getLectures().add(lecture);
             try {
                 ISCTE.getInstance().writeCsv();
+                ((Stage) root.getScene().getWindow()).close();
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
