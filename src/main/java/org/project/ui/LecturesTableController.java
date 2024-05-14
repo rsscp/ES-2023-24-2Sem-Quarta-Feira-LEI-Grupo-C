@@ -82,6 +82,12 @@ public class LecturesTableController {
 
         TextField textInscritos = new TextField();
 
+        TextField textWeek = new TextField();
+
+        TextField textSpecRoom = new TextField();
+
+        TextField textRoomCode = new TextField();
+
 
         Button addButton = new Button("Add");
         addButton.setOnAction(event -> {
@@ -90,6 +96,9 @@ public class LecturesTableController {
             SlotsTableController.setTurno(textTurno.getText());
             SlotsTableController.setTurma(textTurma.getText());
             SlotsTableController.setInscritos(parseInt(textInscritos.getText()));
+            SlotsTableController.setDayOfTheWeek(TimeUtils.determineDayOfWeek(textWeek.getText()));
+            SlotsTableController.setRoomCode(textRoomCode.getText());
+            SlotsTableController.setSpecificationOfRoom(textSpecRoom.getText());
         });
         addButton.setPrefWidth(50);
         addButton.setPrefHeight(50);
@@ -99,7 +108,10 @@ public class LecturesTableController {
         grid2.addColumn(3, textTurno);
         grid2.addColumn(4, textTurma);
         grid2.addColumn(5, textInscritos);
-        grid2.addColumn(6, addButton);
+        grid2.addColumn(6, textWeek);
+        grid2.addColumn(7, textSpecRoom);
+        grid2.addColumn(8, textRoomCode);
+        grid2.addColumn(9, addButton);
 
     }
 

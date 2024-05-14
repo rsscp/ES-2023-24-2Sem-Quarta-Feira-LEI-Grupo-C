@@ -19,6 +19,7 @@ public class ISCTE {
     }
 
     private final ObservableList<Room> rooms;
+
     private final ObservableList<Lecture> lectures;
     private LocalDate firstSemesterStart;
     private LocalDate secondSemesterStart;
@@ -148,6 +149,7 @@ public class ISCTE {
         return availableRooms;
     }
 
+    /*
     public ObservableList<DaySlots> getAllSlots() {
         HashMap<LocalDate, DaySlots> slots = new HashMap<>();
         for (LocalDate d = firstSemesterStart; d.isBefore(firstSemesterStart.plusDays(17*7)); d=d.plusDays(1))
@@ -167,24 +169,50 @@ public class ISCTE {
         return FXCollections.observableArrayList(slots.values());
     }
 
-    public ObservableList<DaySlots> getFirstSemesterSlots() {
-        ObservableList<DaySlots> slots = FXCollections.observableArrayList();
+     */
+
+    public ObservableList<DaySlot> getFirstSemesterSlots() {
+        ObservableList<DaySlot> slots = FXCollections.observableArrayList();
         putFirstSemesterSlots(slots);
         return slots;
     }
 
-    public ObservableList<DaySlots> getSecondSemesterSlots() {
-        ObservableList<DaySlots> slots = FXCollections.observableArrayList();
+    public ObservableList<DaySlot> getSecondSemesterSlots() {
+        ObservableList<DaySlot> slots = FXCollections.observableArrayList();
         putSecondSemesterSlots(slots);
         return slots;
     }
 
-    private void putFirstSemesterSlots(ObservableList<DaySlots> slots) {
+    private void putFirstSemesterSlots(ObservableList<DaySlot> slots) {
+        for(TimeSlot t:TimeSlot.values()){
+            DaySlot d1 = new DaySlot(TimeUtils.determineLocalDate("01/01/2022"),t);
+            DaySlot d2 = new DaySlot(TimeUtils.determineLocalDate("02/01/2022"),t);
+            DaySlot d3 = new DaySlot(TimeUtils.determineLocalDate("03/01/2022"),t);
+            DaySlot d4 = new DaySlot(TimeUtils.determineLocalDate("04/01/2022"),t);
+            DaySlot d5 = new DaySlot(TimeUtils.determineLocalDate("05/01/2022"),t);
 
+            slots.add(d1);
+            slots.add(d2);
+            slots.add(d3);
+            slots.add(d4);
+            slots.add(d5);
+        }
     }
 
-    private void putSecondSemesterSlots(ObservableList<DaySlots> slots) {
+    private void putSecondSemesterSlots(ObservableList<DaySlot> slots) {
+        for(TimeSlot t:TimeSlot.values()){
+            DaySlot d1 = new DaySlot(TimeUtils.determineLocalDate("01/02/2022"),t);
+            DaySlot d2 = new DaySlot(TimeUtils.determineLocalDate("02/02/2022"),t);
+            DaySlot d3 = new DaySlot(TimeUtils.determineLocalDate("03/02/2022"),t);
+            DaySlot d4 = new DaySlot(TimeUtils.determineLocalDate("04/02/2022"),t);
+            DaySlot d5 = new DaySlot(TimeUtils.determineLocalDate("05/02/2022"),t);
 
+            slots.add(d1);
+            slots.add(d2);
+            slots.add(d3);
+            slots.add(d4);
+            slots.add(d5);
+        }
     }
 
     public void writeCsv() throws Exception {
