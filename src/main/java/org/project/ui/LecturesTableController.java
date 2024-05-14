@@ -8,7 +8,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -19,6 +18,8 @@ import javax.swing.*;
 import java.io.*;
 import java.net.MalformedURLException;
 import java.time.DayOfWeek;
+import javafx.stage.Stage;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -344,4 +345,11 @@ public class LecturesTableController {
 
         return matcher.matches();
     }
+
+    @FXML
+    private void showConflictGraph(){
+        Stage conflictStage = new Stage();
+        GraphNetwork.start2(conflictStage);
+    }
 }
+

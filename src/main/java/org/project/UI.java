@@ -27,6 +27,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -106,7 +107,10 @@ public class UI extends Application {
         filters.getColumnConstraints().addAll(new ColumnConstraints(20), new ColumnConstraints(80));
         int rowIndex = 0;
     }
-    
+
+    /**
+     * Making filtering bookmark
+     */
     private void makeFilters() {
         HBox hbox = new HBox();
         VBox vBox = new VBox();
@@ -142,6 +146,9 @@ public class UI extends Application {
         this.borderPane.setTop(this.hBox);
     }
 
+    /**
+     * Creating functionalities buttons
+     */
     private void creatButtons() {
         this.btnClear = new Button("Clear!");
         this.btnClear.setPrefWidth(100);
@@ -169,6 +176,9 @@ public class UI extends Application {
 
     }
 
+    /**
+     * Function will clear all of the textFields which contains some text
+     */
     private void clearAllTextFields() {
         VBox first = (VBox) this.hBox.getChildren().get(0);
         HBox wantedHbox = (HBox) first.getChildren().get(1);
@@ -447,6 +457,9 @@ public class UI extends Application {
         this.creatContextMenuForLecture();
     }
 
+    /**
+     * Context menu for each lecture
+     */
     private void creatContextMenuForLecture() {
         ContextMenu rowMenu = new ContextMenu();
         MenuItem makeChange = new MenuItem("Make Change");
@@ -467,6 +480,7 @@ public class UI extends Application {
                 elements.getChildren().add(this.createElmForEditTable(lecture, "Specification of room"));
 
                 Button suggestionButton = new Button("Provide suggestion");
+                suggestionButton.setStyle("-fx-background-color: blue; -fx-text-fill: white;");
                 Button submitButton = new Button("Submit");
                 Label info = new Label("All atributes you enter must be in right format, otherwise they whould not be accepted!");
                 info.setStyle("-fx-font-style: italic;");
@@ -544,6 +558,63 @@ public class UI extends Application {
                         editStage.close();
                     }
                 });
+
+                suggestionButton.setOnAction(e -> {
+                    ArrayList<TextField> textFields = new ArrayList<>();
+
+                    for (Node node : elements.getChildren()) {
+                        if (node instanceof HBox hBox) {
+                            textFields.add((TextField) hBox.getChildren().get(1));
+                        }
+                    }
+
+                    Random random = new Random();
+                    int day = 0;
+                    int startOfclass = 0;
+                    int date = 0;
+                    int room = 0;
+
+                    while (day == 0 && startOfclass == 0 && date == 0 && room == 0) {
+                        day = random.nextInt(2);
+                        startOfclass = random.nextInt(2);
+                        date = random.nextInt(2);
+                        room = random.nextInt(2);
+                    }
+
+                    if (startOfclass == 1) {
+                        int starTime = random.nextInt(12) + 8;
+                        int endTime = starTime + 2;
+                        String str = "" + starTime + ":00";
+                        String end = "" + endTime + ":00";
+                        textFields.get(1).setText(str);
+                        textFields.get(2).setText(end);
+                    }
+                    if (day == 1) {
+                        int dd = random.nextInt(5) + 1;
+                        String dayy = switch (dd) {
+                            case 1 -> "MONDAY";
+                            case 2 -> "TUESDAY";
+                            case 3 -> "WEDNESDAY";
+                            case 4 -> "THURSDAY";
+                            case 5 -> "FRIDAY";
+                            default -> "";
+                        };
+
+                        textFields.get(0).setText(dayy);
+                    }
+                    if (room == 1) {
+                        ArrayList<String> rms = this.iscte.getAllRooms();
+                        String rooom = rms.get(random.nextInt(rms.size() - 1));
+                        textFields.get(4).setText(rooom);
+                    }
+                    if (date == 1) {
+                        int month = random.nextInt(13) + 1;
+                        int d = random.nextInt(28) + 1;
+                        String sMonth = month < 10 ? "" + 0 + "" +  month : "" + month;
+                        String dDay = d < 10 ? "" + 0 + "" + d : ""  + d;
+                        textFields.get(3).setText("2022-" + sMonth + "-" + dDay);
+                    }
+                });
             }
         });
 
@@ -566,6 +637,12 @@ public class UI extends Application {
         });
     }
 
+    /**
+     * Function will create specific text field with name to the table
+     * @param lecture
+     * @param type of the text
+     * @return
+     */
     private HBox createElmForEditTable(Lecture lecture, String data) {
         HBox hbox = new HBox();
         Label label = new Label(data);
@@ -584,6 +661,10 @@ public class UI extends Application {
         return hbox;
     }
 
+    /**
+     * Fuction will get all of the filters entered
+     * @return filters.
+     */
     private String[] getFilters() {
         VBox first = (VBox) this.hBox.getChildren().get(0);
         HBox wantedHbox = (HBox) first.getChildren().get(1);
@@ -621,12 +702,22 @@ public class UI extends Application {
         }
     }
 
+    /**
+     * Checks if the day is valid
+     * @param day
+     * @return result
+     */
     private boolean isDayValid(String day) {
         return day.equals("MONDAY") || day.equals("TUESDAY") || day.equals("WEDNESDAY") ||
                 day.equals("THURSDAY") || day.equals("FRIDAY") || day.equals("SATURDAY") ||
                 day.equals("SUNDAY");
     }
 
+    /**
+     * Checks if the time is valid
+     * @param time
+     * @return result
+     */
     private boolean isTimeValid(String time) {
         String timeRegex = "([01]?[0-9]|2[0-3]):[0-5][0-9]";
 
@@ -636,6 +727,11 @@ public class UI extends Application {
         return matcher.matches();
     }
 
+    /**
+     * Checks if the date is valid
+     * @param date
+     * @return result
+     */
     private boolean isDateValid(String date) {
         String dateRegex = "\\d{4}-\\d{2}-\\d{2}";
 
@@ -674,11 +770,22 @@ public class UI extends Application {
             writer.close();
         }
     }
-    
+
+    /**
+     * Function apply filters to the table
+     * @param filter promps
+     * @param OR or AND
+     */
     private void setVisibleFilteredItems(String[] items, boolean includeEverything) {
         this.table.setItems(this.filtersLectures(items, includeEverything));
     }
 
+    /**
+     * Function will find appropriate lectures according to filters
+     * @param filters
+     * @param AND or OR
+     * @return
+     */
     private ObservableList<Lecture> filtersLectures(String[] pFilters, boolean includeEveryFilter) {
         String[] filters = pFilters;
         List<Filter> f = new ArrayList<>();

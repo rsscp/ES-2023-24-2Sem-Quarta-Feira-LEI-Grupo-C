@@ -22,5 +22,6 @@
             <Insets bottom="20.0"/>
         </padding>
     </GridPane>
+    <Button onAction="#showConflictGraph" GridPane.columnIndex="3" minWidth="100" minHeight="30">Conflict Graph</Button>
     <TableView fx:id="lectureTable" prefHeight="10000"></TableView>
 </VBox>
