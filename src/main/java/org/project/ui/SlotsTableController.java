@@ -85,19 +85,11 @@ public class SlotsTableController {
         timeCol.setCellValueFactory(new PropertyValueFactory<Lecture,String>("DaySlot"));
         slotTableColumns.add(dayCol);
 
-        TableColumn specRoomCol = new TableColumn("specificationOfRoom");
-        specRoomCol.setCellValueFactory(new PropertyValueFactory<Lecture,String>("specificationOfRoom"));
-        slotTableColumns.add(specRoomCol);
-
-        TableColumn roomCodeCol = new TableColumn("roomCode");
-        roomCodeCol.setCellValueFactory(new PropertyValueFactory<Lecture,String>("roomCode"));
-        slotTableColumns.add(roomCodeCol);
-
-
-
 
         slotTable.getColumns().addAll(slotTableColumns);
-        slotTable.setItems(iscte.getLectures());
+        ObservableList<DaySlots> slots = iscte.getFirstSemesterSlots();
+        slots.addAll(iscte.getSecondSemesterSlots());
+        slotTable.setItems(slots);
     }
 
 }

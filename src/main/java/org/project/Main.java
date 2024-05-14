@@ -10,8 +10,9 @@ public class Main {
 
 
         //UI.main(args);
-        //App.main(args);
+        App.main(args);
 
+        /*
         HashMap<LocalDate, DaySlots> slots = new HashMap<>();
 
         List<TimeSlot> slots1 = new ArrayList<>();
@@ -35,5 +36,7 @@ public class Main {
 
         //System.out.println(slots.get(LocalDate.of(2024, 10, 10)));
         //Testar se um LectureSlot novo com os mesmos valores que uma key anterior vão dar à mesma entrada do hashmap
+
+         */
     }
 }

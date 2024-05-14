@@ -19,6 +19,7 @@ public class ISCTE {
     }
 
     private final ObservableList<Room> rooms;
+
     private final ObservableList<Lecture> lectures;
     private LocalDate firstSemesterStart;
     private LocalDate secondSemesterStart;
@@ -148,9 +149,12 @@ public class ISCTE {
         return availableRooms;
     }
 
+    /*
     public ObservableList<DaySlots> getAllSlots() {
         HashMap<LocalDate, DaySlots> slots = new HashMap<>();
     }
+
+     */
 
     public ObservableList<DaySlots> getFirstSemesterSlots() {
         ObservableList<DaySlots> slots = FXCollections.observableArrayList();
