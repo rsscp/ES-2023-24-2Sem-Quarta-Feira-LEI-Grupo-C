@@ -2,6 +2,7 @@ package org.project.ui;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -15,10 +16,8 @@ import javafx.stage.Stage;
 import org.project.*;
 
 import javax.swing.*;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.Writer;
+import java.io.*;
+import java.net.MalformedURLException;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.List;
@@ -170,20 +169,16 @@ public class LecturesTableController {
                 editStage.setTitle("Edit");
                 VBox elements = new VBox(10);
 
-                elements.getChildren().add(this.createElmForEditTable(lecture, "Day of the week"));
                 elements.getChildren().add(this.createElmForEditTable(lecture, "Start of class"));
                 elements.getChildren().add(this.createElmForEditTable(lecture, "End of class"));
                 elements.getChildren().add(this.createElmForEditTable(lecture, "Date"));
-                elements.getChildren().add(this.createElmForEditTable(lecture, "Specification of room"));
 
-                Button suggestionButton = new Button("Provide suggestion");
-                suggestionButton.setStyle("-fx-background-color: blue; -fx-text-fill: white;");
+
                 Button submitButton = new Button("Submit");
                 Label info = new Label("All atributes you enter must be in right format, otherwise they whould not be accepted!");
                 info.setStyle("-fx-font-style: italic;");
                 info.setAlignment(Pos.TOP_CENTER);
 
-                elements.getChildren().add(suggestionButton);
                 elements.getChildren().add(submitButton);
                 elements.getChildren().add(info);
                 elements.setAlignment(Pos.TOP_CENTER);
@@ -207,27 +202,15 @@ public class LecturesTableController {
                         }
                     }
 
-
-
                     for (int i = 0; i < textFields.size(); i++) {
-                        if (i == 0) {
-                            if (!this.isDayValid(textFields.get(i).getText())) {
-                                sb.append("Invalid day, ");
-                            }
-                        }
-                        if (i == 1 || i == 2) {
+                        if (i == 0 || i == 1) {
                             if(!this.isTimeValid(textFields.get(i).getText())) {
                                 sb.append("Invalid time, ");
                             }
                         }
-                        if (i == 3) {
+                        if (i == 2) {
                             if(!this.isDateValid(textFields.get(i).getText())) {
                                 sb.append("Invalid date, ");
-                            }
-                        }
-                        if (i == 4) {
-                            if(!this.iscte.findSpecificElmOfSpecificLecture(LectureAttribute.specificationOfRoom, textFields.get(i).getText())) {
-                                sb.append("Invalid room");
                             }
                         }
                     }
@@ -242,25 +225,29 @@ public class LecturesTableController {
                     } else if (isThereConflict) {
                         JOptionPane.showMessageDialog(null, "There is a conflict with at least with one class, try different parameters!", "Warning", JOptionPane.WARNING_MESSAGE);
                     } else {
-                        lecture.setDayOfTheWeek(this.determineDayOfWeek(textFields.get(0).getText()));
-                        lecture.setStartOfClass(textFields.get(1).getText());
-                        lecture.setEndOfClass(textFields.get(2).getText());
-                        lecture.setDateOfClass(textFields.get(3).getText(),"-");
-                        lecture.setSpecificationOfRoom(textFields.get(4).getText());
-                        lecture.setRoomCode(this.iscte.findRoomCode(textFields.get(4).getText()));
-
+                        SlotsTableController.setCurso(lecture.getCourse());
+                        SlotsTableController.setUC(lecture.getCurricuralUnit());
+                        SlotsTableController.setTurno(lecture.getShift());
+                        SlotsTableController.setTurma(lecture.getClassN());
+                        SlotsTableController.setInscritos(lecture.getNumberOfStudentsAssigned());
+                        SlotsTableController.setDayOfTheWeek(lecture.getDayOfTheWeek());
+                        SlotsTableController.setRoomCode(lecture.getRoomCode());
+                        SlotsTableController.setSpecificationOfRoom(lecture.getSpecificationOfRoom());
+                        if (lecture != null) {
+                            this.iscte.deleteLecture(lecture);
+                        }
                         try {
                             iscte.writeCsv();
                         } catch (Exception e) {
                             throw new RuntimeException(e);
                         }
                         editStage.close();
+                        System.out.println("1");
+                        loadSlotsTablePage();
+                        System.out.println("2");
                     }
                 });
 
-                suggestionButton.setOnAction(e -> {
-
-                });
             }
         });
 
@@ -281,6 +268,18 @@ public class LecturesTableController {
                 rowMenu.show(this.lectureTable, event.getScreenX(), event.getScreenY());
             }
         });
+    }
+
+    private void loadSlotsTablePage() {
+        try {
+            Parent sceneRoot = FXMLLoader.load(ClassLoader.getSystemResource("SlotsTable.fxml"));
+            ((Stage) root.getScene().getWindow()).setTitle("Slots Table");
+            ((Stage) root.getScene().getWindow()).setResizable(true);
+            ((Stage) root.getScene().getWindow()).setScene(new Scene(sceneRoot));
+            ((Stage) sceneRoot.getScene().getWindow()).setMaximized(true);
+        } catch (IOException e2) {
+            e2.printStackTrace();
+        }
     }
 
     private DayOfWeek determineDayOfWeek(String dayString) throws IllegalArgumentException {

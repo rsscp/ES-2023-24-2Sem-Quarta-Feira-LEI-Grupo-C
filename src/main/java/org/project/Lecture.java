@@ -9,6 +9,20 @@ import java.util.List;
  * Representation of specific lecure in the school.
  */
 public class Lecture {
+    public Lecture(String course, String curricuralUnit, String shift, String classN, int numberOfStudentsAssigned, DayOfWeek dayOfTheWeek, LocalTime startOfClass, LocalTime endOfClass, LocalDate dateOfClass, String specificationOfRoom, String roomCode) {
+        this.course = course;
+        this.curricuralUnit = curricuralUnit;
+        this.shift = shift;
+        this.classN = classN;
+        this.numberOfStudentsAssigned = numberOfStudentsAssigned;
+        this.dayOfTheWeek = dayOfTheWeek;
+        this.startOfClass = startOfClass;
+        this.endOfClass = endOfClass;
+        this.dateOfClass = dateOfClass;
+        this.specificationOfRoom = specificationOfRoom;
+        this.roomCode = roomCode;
+    }
+
     public void setCourse(String course) {
         this.course = course;
     }

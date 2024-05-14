@@ -87,13 +87,14 @@ public class SlotsTableController {
     @FXML
     private void initialize() {
         setTable();
+        saveLecture();
     }
 
     private void setTable() {
         slotTable.setEditable(true);
 
         TableColumn timeCol = new TableColumn("TimeSlot");
-        timeCol.setCellValueFactory(new PropertyValueFactory<DaySlot,TimeSlot>("TimeSlot"));
+        timeCol.setCellValueFactory(new PropertyValueFactory<DaySlot, TimeSlot>("TimeSlot"));
         slotTableColumns.add(timeCol);
 
         TableColumn dateCol = new TableColumn("Date");
@@ -106,4 +107,26 @@ public class SlotsTableController {
         slotTable.setItems(slots);
     }
 
+    private void saveLecture() {
+        ContextMenu rowMenu = new ContextMenu();
+        MenuItem Save = new MenuItem("Save");
+
+        Save.setOnAction(event -> {
+            DaySlot slot = (DaySlot) slotTable.getSelectionModel().getSelectedItem();
+            Lecture lecture = new Lecture(Curso, UC, Turno, Turma, Inscritos, DayOfTheWeek, slot.getTimeSlot().getStart(), slot.getTimeSlot().getEnd(), slot.getDate(), SpecificationOfRoom, RoomCode);
+            ISCTE.getInstance().getLectures().add(lecture);
+            System.out.println("saved");
+        });
+
+        rowMenu.getItems().add(Save);
+
+        this.slotTable.setContextMenu(rowMenu);
+
+        this.slotTable.setOnContextMenuRequested(event -> {
+            DaySlot selectedSlot =  (DaySlot) slotTable.getSelectionModel().getSelectedItem();
+            if (selectedSlot != null) {
+                rowMenu.show(this.slotTable, event.getScreenX(), event.getScreenY());
+            }
+        });
+    }
 }
