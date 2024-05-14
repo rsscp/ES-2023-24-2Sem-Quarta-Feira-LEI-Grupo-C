@@ -9,9 +9,11 @@ public class DaySlots {
     private Set<TimeSlot> timeSlots;
     private LocalDate date;
 
-    public DaySlots(LocalDate date) {
+    public DaySlots(LocalDate date, boolean full) {
         this.timeSlots = HashSet.newHashSet(TimeSlot.values().length);
         this.date = date;
+        if (full)
+            timeSlots = new HashSet(TimeSlot.TIME_SLOTS_LIST);
     }
 
     public LocalDate getDate() {
