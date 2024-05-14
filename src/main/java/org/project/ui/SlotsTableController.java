@@ -68,6 +68,22 @@ public class SlotsTableController {
     static String Turma = null;
     static int Inscritos = 0;
 
+    public static void setDayOfTheWeek(DayOfWeek dayOfTheWeek) {
+        DayOfTheWeek = dayOfTheWeek;
+    }
+
+    public static void setSpecificationOfRoom(String specificationOfRoom) {
+        SpecificationOfRoom = specificationOfRoom;
+    }
+
+    public static void setRoomCode(String roomCode) {
+        RoomCode = roomCode;
+    }
+
+    static DayOfWeek DayOfTheWeek = null;
+    static String SpecificationOfRoom = null;
+    static String RoomCode = null;
+
     @FXML
     private void initialize() {
         setTable();
