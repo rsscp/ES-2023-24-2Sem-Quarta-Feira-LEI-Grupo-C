@@ -279,7 +279,7 @@ public class Room {
     }
 
     public void setReunionRoom(boolean reunionRoom) {
-        reunionRoom = reunionRoom;
+        this.reunionRoom = reunionRoom;
     }
 
     public boolean isArchitectureRoom() {

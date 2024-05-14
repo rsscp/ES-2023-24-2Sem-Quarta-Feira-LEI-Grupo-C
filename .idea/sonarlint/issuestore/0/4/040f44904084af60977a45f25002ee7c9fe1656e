@@ -1,0 +1,21 @@
+
+C
+java:S1905%"(Remove this unnecessary cast to "Stage".(‹­¦Áýÿÿÿÿ
+C
+java:S19056"(Remove this unnecessary cast to "Stage".(‹­¦Áýÿÿÿÿ
+_
+java:S2147K"DCombine this catch with the one at line 73, which has the same body.(‹¦ˆ”ùÿÿÿÿ
+H
+java:S1135J"2Complete the task associated to this TODO comment.(…ïœ†
+H
+java:S1135L"2Complete the task associated to this TODO comment.(…ïœ†
+_
+java:S2147Y"DCombine this catch with the one at line 87, which has the same body.(‹¦ˆ”ùÿÿÿÿ
+H
+java:S1135X"2Complete the task associated to this TODO comment.(…ïœ†
+H
+java:S1135Z"2Complete the task associated to this TODO comment.(…ïœ†
+P
+java:S1128";Remove this unused import 'javafx.application.Application'.(í™þj
+Q
+java:S1128";Remove this unused import 'javafx.scene.control.TextField'.(¨¢¤¶

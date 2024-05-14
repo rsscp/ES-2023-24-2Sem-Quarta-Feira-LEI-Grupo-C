@@ -15,7 +15,7 @@ import java.time.LocalTime;
 
 public enum LectureAttribute implements Attribute{
     course(0, "Course"),
-    curricuralUnit(1, "Curricular Unit"),
+    curricularUnit(1, "Curricular Unit"),
     shift(2, "Shift"),
     classN(3, "Class N"),
     numberOfStudentsAssigned(4, "Students Assigned"),
@@ -46,7 +46,7 @@ public enum LectureAttribute implements Attribute{
     public TableColumn getTableColumn() {
         return switch (value) {
             case 0 -> getTableColumnCourse();
-            case 1 -> getTableColumnCurricuralUnit();
+            case 1 -> getTableColumnCurricularUnit();
             case 2 -> getTableColumnShift();
             case 3 -> getTableColumnClassN();
             case 4 -> getTableColumnNumberOfStudentsAssigned();
@@ -83,9 +83,9 @@ public enum LectureAttribute implements Attribute{
         );
         return courseCol;
     }
-    public static TableColumn getTableColumnCurricuralUnit() {
-        TableColumn cUnitCol = new TableColumn("curricuralUnit");
-        cUnitCol.setCellValueFactory(new PropertyValueFactory<Lecture,String>("curricuralUnit"));
+    public static TableColumn getTableColumnCurricularUnit() {
+        TableColumn cUnitCol = new TableColumn("curricularUnit");
+        cUnitCol.setCellValueFactory(new PropertyValueFactory<Lecture,String>("curricularUnit"));
         cUnitCol.setCellFactory(TextFieldTableCell.forTableColumn());
         cUnitCol.setOnEditCommit(
             new EventHandler<TableColumn.CellEditEvent<Lecture, String>>() {

@@ -87,8 +87,8 @@ public class Lecture {
 
     private String roomCode;
 
-    public void setSemesterWeek(int semeterWeek) {
-        this.semesterWeek = semeterWeek;
+    public void setSemesterWeek(int semesterWeek) {
+        this.semesterWeek = semesterWeek;
     }
     public void setSemesterWeek(LocalDate firstSemesterStart, LocalDate secondSemesterStart) {
         long firstDay = 0;
@@ -152,7 +152,7 @@ public class Lecture {
 
         /*
         filterMethods.add(filter -> filterString(course, filter));
-        filterMethods.add(filter -> filterString(curricuralUnit, filter));
+        filterMethods.add(filter -> filterString(curricularUnit, filter));
         filterMethods.add(filter -> filterString(shift, filter));
         filterMethods.add(filter -> filterString(classN, filter));
         filterMethods.add(filter -> filterString(Integer.toString(numberOfStudentsAssigned), filter));
@@ -292,19 +292,26 @@ public class Lecture {
 
     public static DayOfWeek determineDayOfWeek(String dayString) throws IllegalArgumentException {
         switch(dayString) {
-            case "Seg", "MONDAY":
+            case "Seg":
+            case "MONDAY":
                 return DayOfWeek.MONDAY;
-            case "Ter", "TUESDAY":
+            case "Ter":
+            case "TUESDAY":
                 return DayOfWeek.TUESDAY;
-            case "Qua", "THURSDAY":
-                return DayOfWeek.THURSDAY;
-            case "Qui", "WEDNESDAY":
+            case "Qua":
+            case "WEDNESDAY":
                 return DayOfWeek.WEDNESDAY;
-            case "Sex", "FRIDAY":
+            case "Qui":
+            case "THURSDAY":
+                return DayOfWeek.THURSDAY;
+            case "Sex":
+            case "FRIDAY":
                 return DayOfWeek.FRIDAY;
-            case "Sáb", "SATURDAY":
+            case "Sáb":
+            case "SATURDAY":
                 return DayOfWeek.SATURDAY;
-            case "Dom", "SUNDAY":
+            case "Dom":
+            case "SUNDAY":
                 return DayOfWeek.SUNDAY;
             default:
                 throw new IllegalArgumentException("Invalid day of the week: " + dayString);

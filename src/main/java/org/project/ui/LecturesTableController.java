@@ -20,9 +20,9 @@ public class LecturesTableController {
     private Parent root;
 
     @FXML
-    private GridPane grid;
+    public GridPane grid;
     @FXML
-    private TableView lectureTable;
+    public TableView lectureTable;
 
     private List<TableColumn> lectureTableColumns = new ArrayList<>();
     private List<Button> filterOpButtons = new ArrayList<>();
