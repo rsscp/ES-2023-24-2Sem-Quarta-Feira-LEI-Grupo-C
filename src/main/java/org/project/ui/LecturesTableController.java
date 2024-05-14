@@ -3,14 +3,10 @@ package org.project.ui;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 import org.project.*;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -94,4 +90,11 @@ public class LecturesTableController {
         lectureTable.getColumns().addAll(lectureTableColumns);
         lectureTable.setItems(ISCTE.getInstance().getLectures());
     }
+
+    @FXML
+    private void showConflictGraph(){
+        Stage conflictStage = new Stage();
+        GraphNetwork.start2(conflictStage);
+    }
 }
+

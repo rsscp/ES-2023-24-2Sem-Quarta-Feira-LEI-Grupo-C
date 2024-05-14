@@ -2,9 +2,11 @@ package org.project;
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.time.LocalDate;
 import java.util.*;
 
+import com.sun.javafx.scene.shape.ArcHelper;
 import javafx.collections.*;
 
 /**
@@ -168,18 +170,34 @@ public class ISCTE {
         if (l1.equals(l2)) {
             return -1;
         }
-        if(l1.getDateOfClass()==null || l2.getDateOfClass()==null || l1.getRoomCode() == null || l2.getRoomCode() == null){
+        if((l1.getClassN()==null || l2.getClassN()==null) && sameTime(l1,l2)){
+            if(l1.getCourse().equals(l2.getCourse())  && !l1.getCurricuralUnit().equals(l2.getCurricuralUnit())){
+                return 1;
+            }
             return 0;
         }
-        if (l1.getDateOfClass().equals(l2.getDateOfClass()) && l1.getRoomCode().equals(l2.getRoomCode()) && !(l1.getStartOfClass().plusSeconds(1).isAfter(l2.getEndOfClass()) || l2.getStartOfClass().plusSeconds(1).isAfter(l1.getEndOfClass()))) {
+        if (sameTime(l1, l2) && l1.getClassN().equals(l2.getClassN()) && l1.getCourse().equals(l2.getCourse()) && l1.getShift().equals(l2.getShift())) {
             return 1;
         }
-        if (l1.getCourse().equals(l2.getCourse()) && l1.getDateOfClass().equals(l2.getDateOfClass()) && l1.getShift().equals(l2.getShift()) && !l1.getRoomCode().equals(l2.getRoomCode()) && !(l1.getStartOfClass().plusSeconds(1).isAfter(l2.getEndOfClass()) || l2.getStartOfClass().plusSeconds(1).isAfter(l1.getEndOfClass()))) {
-            return 1;
+        if((l1.getRoomCode()!=null && l2.getRoomCode()!=null)) {
+            if (l1.getRoomCode().equals(l2.getRoomCode()) && sameTime(l1, l2) && !l1.getCurricuralUnit().equals(l2.getCurricuralUnit())) {
+                return 1;
+            }
         }
+
         return 0;
     }
 
+    public static boolean sameTime(Lecture l1, Lecture l2){
+        if(l1.getDateOfClass()!=null && l2.getDateOfClass()!=null) {
+            if (!(l1.getStartOfClass().plusSeconds(1).isAfter(l2.getEndOfClass()) || l2.getStartOfClass().plusSeconds(1).isAfter(l1.getEndOfClass())) && l1.getDateOfClass().equals(l2.getDateOfClass())) {
+                return true;
+            }
+            return false;
+        }
+        return false;
+    }
+    
     public static ArrayList<ArrayList<Integer>> measureConflicts(List<Lecture> lectures) {
         ArrayList<ArrayList<Integer>> conflitos = new ArrayList<ArrayList<Integer>>();
         for (int i = 0; i < lectures.size(); i++) {
@@ -206,6 +224,13 @@ public class ISCTE {
         return availableRooms;
     }
 
+    /**
+     * According to parameters, fucntion is trieing to find specific type of atribute
+     * with specifig value at least in one lecture
+     * @param type of atribute
+     * @param value of atribute
+     * @return if the atribute with that value was founded
+     */
     public boolean findSpecificElmOfSpecificLecture(LectureAttribute attribute, String elm) {
         boolean founded = false;
 
@@ -275,6 +300,11 @@ public class ISCTE {
         return founded;
     }
 
+    /**
+     * Based on room specification will find a room code
+     * @param specificationOfRoom
+     * @return room code
+     */
     public String findRoomCode(String specificationOfRoom) {
         for (Lecture lecture : this.lectures) {
             if (lecture.getSpecificationOfRoom() != null && lecture.getSpecificationOfRoom().equals(specificationOfRoom)) {
@@ -284,10 +314,28 @@ public class ISCTE {
         return null;
     }
 
+    /**
+     * Function will delete specific lecture according to param
+     * @param Selected lecture
+     */
     public void deleteLecture(Lecture lecture) {
         if (lecture != null) {
             this.lectures.remove(lecture);
         }
+    }
+
+    /**
+     * Method will return all of the distinct rooms possible
+     * @return ArrayList of these rooms.
+     */
+    public ArrayList<String> getAllRooms() {
+        ArrayList<String> rooms = new ArrayList<>();
+        for (Lecture lecture : this.lectures) {
+            if (lecture.getSpecificationOfRoom() != null && !rooms.contains(lecture.getSpecificationOfRoom())) {
+                rooms.add(lecture.getSpecificationOfRoom());
+            }
+        }
+        return rooms;
     }
 
     public void setSemesterDates() {

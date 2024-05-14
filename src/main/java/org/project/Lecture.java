@@ -42,6 +42,11 @@ public class Lecture {
     public void setDayOfTheWeek(DayOfWeek dayOfTheWeek) {
         this.dayOfTheWeek = dayOfTheWeek;
     }
+
+    /**
+     * Setter for atribute dayOfWeek
+     * @param newValue
+     */
     public void setDayOfTheWeek(String dayOfTheWeek) {
         this.dayOfTheWeek = this.determineDayOfWeek(dayOfTheWeek);
     }
@@ -51,6 +56,11 @@ public class Lecture {
     public void setStartOfClass(LocalTime startOfClass) {
         this.startOfClass = startOfClass;
     }
+
+    /**
+     * Setter for atrivute startOfClass
+     * @param newValue
+     */
     public void setStartOfClass(String startOfClass) {
         this.startOfClass = this.determineLocalTime(startOfClass);
     }
@@ -441,6 +451,23 @@ public class Lecture {
         return filterString(roomCode, filterString);
     }
 
+    /**
+     * Lecture is represented by a string containing all it's information seperated by ";"
+     *
+     * @return It will return this information in a single String.
+     */
+    
+    public String toString2() {
+        return "{" + curricuralUnit +
+                "," + shift +
+                "," + startOfClass +
+                "," + endOfClass +
+                "," + dateOfClass +
+                "," + specificationOfRoom +
+                "," + roomCode +
+                '}';
+    }
+
     public boolean testFilters(List<Filter> filters) {
         boolean result = true;
         boolean firstFilterCleared = false;
@@ -465,6 +492,12 @@ public class Lecture {
         setYearWeek(firstSemesterStart);
     }
 
+    /**
+     * Function is testing lecture if passes the filters witch iption OR or AND
+     * @param provided filters
+     * @param OR or AND
+     * @return result
+     */
     public boolean testFilters(List<Filter> filters, boolean includeEveryFilter) {
         boolean result = true;
         for (Filter filter: filters) {
@@ -542,6 +575,12 @@ public class Lecture {
         return includeEveryFilter;
     }
 
+    /**
+     * Check if two strings are equal
+     * @param string 1
+     * @param string 2
+     * @return result
+     */
     private boolean filterString(String toBeFiltered, String filter) {
         return toBeFiltered.equals(filter);
         /*Pattern pattern = Pattern.compile(filter, Pattern.CASE_INSENSITIVE);
@@ -549,11 +588,4 @@ public class Lecture {
         return matcher.find();*/
     }
 
-    public void setSelected(boolean selected) {
-        this.isSelected = selected;
-    }
-
-    public boolean isSelected() {
-        return this.isSelected;
-    }
 }

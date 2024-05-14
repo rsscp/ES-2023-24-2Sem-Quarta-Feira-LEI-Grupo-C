@@ -56,6 +56,4 @@ public enum RoomAttribute implements Attribute{
     public String getLabel() {
         return label;
     }
-
-
 }
