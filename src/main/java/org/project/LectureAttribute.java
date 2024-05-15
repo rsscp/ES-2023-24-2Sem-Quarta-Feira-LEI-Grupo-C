@@ -91,8 +91,8 @@ public enum LectureAttribute implements Attribute{
     /**
      * Creates the CurricularUnit Column for the LectureTable
      */
-    public static TableColumn getTableColumnCurricuralUnit() {
-        TableColumn cUnitCol = new TableColumn("curricuralUnit");
+    public static TableColumn getTableColumnCurricularUnit() {
+        TableColumn cUnitCol = new TableColumn("curricularUnit");
         cUnitCol.setCellValueFactory(new PropertyValueFactory<Lecture,String>("curricuralUnit"));
         cUnitCol.setCellFactory(TextFieldTableCell.forTableColumn());
         cUnitCol.setOnEditCommit(
