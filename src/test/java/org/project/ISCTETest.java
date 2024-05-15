@@ -63,7 +63,7 @@ public class ISCTETest {
         lecture2.setDateOfClass(LocalDate.of(2023, 12, 15));
         iscte.getLectures().addAll(lecture1, lecture2);
         iscte.setSemesterDates();
-        assertEquals(LocalDate.of(2022, 9, 02), iscte.getFirstSemesterStart());
+        assertEquals(LocalDate.of(2022, 8, 29), iscte.getFirstSemesterStart());
         assertEquals(LocalDate.of(2023, 1, 02), iscte.getSecondSemesterStart());
     }
 
@@ -174,7 +174,7 @@ public class ISCTETest {
         filters.add(new Filter(LectureAttribute.dayOfTheWeek, DayOfWeek.WEDNESDAY.toString(),"AND"));
         filters.add(new Filter(LectureAttribute.startOfClass,LocalTime.of(13, 0).toString(),"AND"));
         filters.add(new Filter(LectureAttribute.endOfClass,LocalTime.of(14, 30).toString(),"AND"));
-        filters.add(new Filter(LectureAttribute.dateOfClass,LocalDate.of(2022, 11, 23).toString(),"AND"));
+        filters.add(new Filter(LectureAttribute.dateOfClass, "2022-11-23","AND"));
         filters.add(new Filter(LectureAttribute.specificationOfRoom,"Sala Aulas Mestrado","AND"));
         filters.add(new Filter(LectureAttribute.roomCode,"AA2.25","AND"));
 
@@ -192,7 +192,7 @@ public class ISCTETest {
         assertEquals(91, resultOR.size());
 
         // Verify the result
-        assertEquals(1, result.size());
+            assertEquals(1, result.size());
 
         assertTrue(iscte.findSpecificElmOfSpecificLecture(LectureAttribute.course,"ME"));
         assertTrue(iscte.findSpecificElmOfSpecificLecture(LectureAttribute.curricularUnit,"Teoria dos Jogos e dos Contratos"));
@@ -202,7 +202,7 @@ public class ISCTETest {
         assertTrue(iscte.findSpecificElmOfSpecificLecture(LectureAttribute.dayOfTheWeek,DayOfWeek.SATURDAY.toString()));
         assertTrue(iscte.findSpecificElmOfSpecificLecture(LectureAttribute.startOfClass,LocalTime.of(13, 0).toString()));
         assertTrue(iscte.findSpecificElmOfSpecificLecture(LectureAttribute.endOfClass,LocalTime.of(14, 30).toString()));
-        assertTrue(iscte.findSpecificElmOfSpecificLecture(LectureAttribute.dateOfClass,LocalDate.of(2022, 11, 23).toString()));
+        assertTrue(iscte.findSpecificElmOfSpecificLecture(LectureAttribute.dateOfClass,"2022-11-23"));
         assertTrue(iscte.findSpecificElmOfSpecificLecture(LectureAttribute.roomCode,"AA2.25"));
         assertTrue(iscte.findSpecificElmOfSpecificLecture(LectureAttribute.specificationOfRoom,"Sala Aulas Mestrado"));
 

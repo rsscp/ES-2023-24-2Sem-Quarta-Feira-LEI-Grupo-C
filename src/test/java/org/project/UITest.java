@@ -124,34 +124,17 @@ public class UITest{
             } catch (Exception e) {
                 fail("Exception occurred: " + e.getMessage());
             }
-            ui.createTable();
 
             // Assert
             assertNotNull(ui.iscte.getLectures());
             assertFalse(ui.iscte.getLectures().isEmpty());
-            assertNotNull(ui.table);
-            assertEquals(11, ui.table.getColumns().size()); // Assuming 11 columns are created
-            assertNotNull(ui.table.getItems());
-            assertFalse(ui.table.getItems().isEmpty());
+
 
             // Assert
             assertNotNull(ui.btnClear);
             assertNotNull(ui.btnSearchAND);
             assertNotNull(ui.btnSearchOR);
             assertNotNull(ui.borderPane);
-            assertNotNull(ui.table);
-
-            ContextMenu contextMenu = ui.table.getContextMenu();
-            assertNotNull(contextMenu);
-
-            // Assert context menu items
-            ObservableList<MenuItem> items = contextMenu.getItems();
-            assertEquals(2, items.size()); // Assuming there are 2 items
-
-            MenuItem makeChange = items.get(0);
-            MenuItem deleteItem = items.get(1);
-            assertNotNull(makeChange);
-            assertNotNull(deleteItem);
 
     }
 

@@ -11,10 +11,10 @@ public class TimeUtils {
                 return DayOfWeek.MONDAY;
             case "Ter", "TUESDAY":
                 return DayOfWeek.TUESDAY;
-            case "Qua", "THURSDAY":
-                return DayOfWeek.THURSDAY;
-            case "Qui", "WEDNESDAY":
+            case "Qua", "WEDNESDAY":
                 return DayOfWeek.WEDNESDAY;
+            case "Qui", "THURSDAY":
+                return DayOfWeek.THURSDAY;
             case "Sex", "FRIDAY":
                 return DayOfWeek.FRIDAY;
             case "Sáb", "SATURDAY":
